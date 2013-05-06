@@ -7,60 +7,58 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD0238C417385AD100BC466F /* JGDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238B617385AD100BC466F /* JGDownload.m */; };
+		DD0238C617385AD100BC466F /* JGDownloadDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238B817385AD100BC466F /* JGDownloadDefines.m */; };
+		DD0238C817385AD100BC466F /* JGDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238BA17385AD100BC466F /* JGDownloadOperation.m */; };
+		DD0238CA17385AD100BC466F /* JGDownloadResumeMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238BC17385AD100BC466F /* JGDownloadResumeMetadata.m */; };
+		DD0238CC17385AD100BC466F /* JGHEADRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238BE17385AD100BC466F /* JGHEADRequest.m */; };
+		DD0238CE17385AD100BC466F /* JGOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238C017385AD100BC466F /* JGOperationQueue.m */; };
+		DD0238D017385AD100BC466F /* JGResumeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238C217385AD100BC466F /* JGResumeObject.m */; };
+		DD0238D617385B4900BC466F /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD0238D217385B4900BC466F /* ViewController_iPad.xib */; };
+		DD0238D717385B4900BC466F /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD0238D417385B4900BC466F /* ViewController_iPhone.xib */; };
 		DD097D7F17230250009B52FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD097D7E17230250009B52FA /* UIKit.framework */; };
 		DD097D8117230250009B52FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD097D8017230250009B52FA /* Foundation.framework */; };
-		DD097D8917230250009B52FA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD097D8717230250009B52FA /* InfoPlist.strings */; };
-		DD097D8B17230250009B52FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DD097D8A17230250009B52FA /* main.m */; };
-		DD097D8F17230250009B52FA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD097D8E17230250009B52FA /* AppDelegate.m */; };
-		DD097D9117230250009B52FA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DD097D9017230250009B52FA /* Default.png */; };
-		DD097D9317230250009B52FA /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD097D9217230250009B52FA /* Default@2x.png */; };
-		DD097D9517230250009B52FA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD097D9417230250009B52FA /* Default-568h@2x.png */; };
-		DD097D9817230250009B52FA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD097D9717230250009B52FA /* ViewController.m */; };
-		DD097D9B17230250009B52FA /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD097D9917230250009B52FA /* ViewController_iPhone.xib */; };
-		DD097D9E17230250009B52FA /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD097D9C17230250009B52FA /* ViewController_iPad.xib */; };
-		DDA5657E17370ECD00758C58 /* JGDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5657117370ECD00758C58 /* JGDownload.m */; };
-		DDA5657F17370ECD00758C58 /* JGDownloadDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5657317370ECD00758C58 /* JGDownloadDefines.m */; };
-		DDA5658017370ECD00758C58 /* JGDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5657517370ECD00758C58 /* JGDownloadOperation.m */; };
-		DDA5658117370ECD00758C58 /* JGDownloadResumeMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5657717370ECD00758C58 /* JGDownloadResumeMetadata.m */; };
-		DDA5658217370ECD00758C58 /* JGHEADRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5657917370ECD00758C58 /* JGHEADRequest.m */; };
-		DDA5658317370ECD00758C58 /* JGOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5657B17370ECD00758C58 /* JGOperationQueue.m */; };
-		DDA5658417370ECD00758C58 /* JGResumeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5657D17370ECD00758C58 /* JGResumeObject.m */; };
-		DDC27F7A1725CD48005A5966 /* LBYouTubeExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC27F791725CD43005A5966 /* LBYouTubeExtractor.m */; };
+		DDADA58C1738592400781080 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DDADA5861738592400781080 /* AppDelegate.m */; };
+		DDADA58D1738592400781080 /* LBYouTubeExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = DDADA5881738592400781080 /* LBYouTubeExtractor.m */; };
+		DDADA58E1738592400781080 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDADA5891738592400781080 /* main.m */; };
+		DDADA58F1738592400781080 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDADA58B1738592400781080 /* ViewController.m */; };
+		DDADA5951738594200781080 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDADA5901738594200781080 /* Default-568h@2x.png */; };
+		DDADA5961738594200781080 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DDADA5911738594200781080 /* Default.png */; };
+		DDADA5971738594200781080 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DDADA5921738594200781080 /* Default@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD0238B517385AD100BC466F /* JGDownload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGDownload.h; path = ../JGDownloadAcceleration/JGDownload.h; sourceTree = "<group>"; };
+		DD0238B617385AD100BC466F /* JGDownload.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGDownload.m; path = ../JGDownloadAcceleration/JGDownload.m; sourceTree = "<group>"; };
+		DD0238B717385AD100BC466F /* JGDownloadDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGDownloadDefines.h; path = ../JGDownloadAcceleration/JGDownloadDefines.h; sourceTree = "<group>"; };
+		DD0238B817385AD100BC466F /* JGDownloadDefines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGDownloadDefines.m; path = ../JGDownloadAcceleration/JGDownloadDefines.m; sourceTree = "<group>"; };
+		DD0238B917385AD100BC466F /* JGDownloadOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGDownloadOperation.h; path = ../JGDownloadAcceleration/JGDownloadOperation.h; sourceTree = "<group>"; };
+		DD0238BA17385AD100BC466F /* JGDownloadOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGDownloadOperation.m; path = ../JGDownloadAcceleration/JGDownloadOperation.m; sourceTree = "<group>"; };
+		DD0238BB17385AD100BC466F /* JGDownloadResumeMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGDownloadResumeMetadata.h; path = ../JGDownloadAcceleration/JGDownloadResumeMetadata.h; sourceTree = "<group>"; };
+		DD0238BC17385AD100BC466F /* JGDownloadResumeMetadata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGDownloadResumeMetadata.m; path = ../JGDownloadAcceleration/JGDownloadResumeMetadata.m; sourceTree = "<group>"; };
+		DD0238BD17385AD100BC466F /* JGHEADRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGHEADRequest.h; path = ../JGDownloadAcceleration/JGHEADRequest.h; sourceTree = "<group>"; };
+		DD0238BE17385AD100BC466F /* JGHEADRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGHEADRequest.m; path = ../JGDownloadAcceleration/JGHEADRequest.m; sourceTree = "<group>"; };
+		DD0238BF17385AD100BC466F /* JGOperationQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGOperationQueue.h; path = ../JGDownloadAcceleration/JGOperationQueue.h; sourceTree = "<group>"; };
+		DD0238C017385AD100BC466F /* JGOperationQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGOperationQueue.m; path = ../JGDownloadAcceleration/JGOperationQueue.m; sourceTree = "<group>"; };
+		DD0238C117385AD100BC466F /* JGResumeObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGResumeObject.h; path = ../JGDownloadAcceleration/JGResumeObject.h; sourceTree = "<group>"; };
+		DD0238C217385AD100BC466F /* JGResumeObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGResumeObject.m; path = ../JGDownloadAcceleration/JGResumeObject.m; sourceTree = "<group>"; };
+		DD0238D317385B4900BC466F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "JGDownloadAcceleration Tester/en.lproj/ViewController_iPad.xib"; sourceTree = SOURCE_ROOT; };
+		DD0238D517385B4900BC466F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "JGDownloadAcceleration Tester/en.lproj/ViewController_iPhone.xib"; sourceTree = SOURCE_ROOT; };
 		DD097D7B17230250009B52FA /* JGDownloadAcceleration Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JGDownloadAcceleration Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD097D7E17230250009B52FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DD097D8017230250009B52FA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		DD097D8617230250009B52FA /* JGDownloadAcceleration Tester-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JGDownloadAcceleration Tester-Info.plist"; sourceTree = "<group>"; };
-		DD097D8817230250009B52FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DD097D8A17230250009B52FA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DD097D8C17230250009B52FA /* JGDownloadAcceleration Tester-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JGDownloadAcceleration Tester-Prefix.pch"; sourceTree = "<group>"; };
-		DD097D8D17230250009B52FA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		DD097D8E17230250009B52FA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		DD097D9017230250009B52FA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		DD097D9217230250009B52FA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		DD097D9417230250009B52FA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		DD097D9617230250009B52FA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		DD097D9717230250009B52FA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		DD097D9A17230250009B52FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
-		DD097D9D17230250009B52FA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
-		DDA5657017370ECD00758C58 /* JGDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGDownload.h; path = ../../JGDownloadOperation/JGDownload.h; sourceTree = "<group>"; };
-		DDA5657117370ECD00758C58 /* JGDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGDownload.m; path = ../../JGDownloadOperation/JGDownload.m; sourceTree = "<group>"; };
-		DDA5657217370ECD00758C58 /* JGDownloadDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGDownloadDefines.h; path = ../../JGDownloadOperation/JGDownloadDefines.h; sourceTree = "<group>"; };
-		DDA5657317370ECD00758C58 /* JGDownloadDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGDownloadDefines.m; path = ../../JGDownloadOperation/JGDownloadDefines.m; sourceTree = "<group>"; };
-		DDA5657417370ECD00758C58 /* JGDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGDownloadOperation.h; path = ../../JGDownloadOperation/JGDownloadOperation.h; sourceTree = "<group>"; };
-		DDA5657517370ECD00758C58 /* JGDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGDownloadOperation.m; path = ../../JGDownloadOperation/JGDownloadOperation.m; sourceTree = "<group>"; };
-		DDA5657617370ECD00758C58 /* JGDownloadResumeMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGDownloadResumeMetadata.h; path = ../../JGDownloadOperation/JGDownloadResumeMetadata.h; sourceTree = "<group>"; };
-		DDA5657717370ECD00758C58 /* JGDownloadResumeMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGDownloadResumeMetadata.m; path = ../../JGDownloadOperation/JGDownloadResumeMetadata.m; sourceTree = "<group>"; };
-		DDA5657817370ECD00758C58 /* JGHEADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGHEADRequest.h; path = ../../JGDownloadOperation/JGHEADRequest.h; sourceTree = "<group>"; };
-		DDA5657917370ECD00758C58 /* JGHEADRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGHEADRequest.m; path = ../../JGDownloadOperation/JGHEADRequest.m; sourceTree = "<group>"; };
-		DDA5657A17370ECD00758C58 /* JGOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGOperationQueue.h; path = ../../JGDownloadOperation/JGOperationQueue.h; sourceTree = "<group>"; };
-		DDA5657B17370ECD00758C58 /* JGOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGOperationQueue.m; path = ../../JGDownloadOperation/JGOperationQueue.m; sourceTree = "<group>"; };
-		DDA5657C17370ECD00758C58 /* JGResumeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGResumeObject.h; path = ../../JGDownloadOperation/JGResumeObject.h; sourceTree = "<group>"; };
-		DDA5657D17370ECD00758C58 /* JGResumeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGResumeObject.m; path = ../../JGDownloadOperation/JGResumeObject.m; sourceTree = "<group>"; };
-		DDC27F781725CD43005A5966 /* LBYouTubeExtractor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBYouTubeExtractor.h; sourceTree = "<group>"; };
-		DDC27F791725CD43005A5966 /* LBYouTubeExtractor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBYouTubeExtractor.m; sourceTree = "<group>"; };
+		DDADA5851738592400781080 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "JGDownloadAcceleration Tester/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
+		DDADA5861738592400781080 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "JGDownloadAcceleration Tester/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
+		DDADA5871738592400781080 /* LBYouTubeExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBYouTubeExtractor.h; path = "JGDownloadAcceleration Tester/LBYouTubeExtractor.h"; sourceTree = SOURCE_ROOT; };
+		DDADA5881738592400781080 /* LBYouTubeExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBYouTubeExtractor.m; path = "JGDownloadAcceleration Tester/LBYouTubeExtractor.m"; sourceTree = SOURCE_ROOT; };
+		DDADA5891738592400781080 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "JGDownloadAcceleration Tester/main.m"; sourceTree = SOURCE_ROOT; };
+		DDADA58A1738592400781080 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = "JGDownloadAcceleration Tester/ViewController.h"; sourceTree = SOURCE_ROOT; };
+		DDADA58B1738592400781080 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = "JGDownloadAcceleration Tester/ViewController.m"; sourceTree = SOURCE_ROOT; };
+		DDADA5901738594200781080 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "JGDownloadAcceleration Tester/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		DDADA5911738594200781080 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = "JGDownloadAcceleration Tester/Default.png"; sourceTree = SOURCE_ROOT; };
+		DDADA5921738594200781080 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "JGDownloadAcceleration Tester/Default@2x.png"; sourceTree = SOURCE_ROOT; };
+		DDADA5931738594200781080 /* JGDownloadAcceleration Tester-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "JGDownloadAcceleration Tester-Info.plist"; path = "JGDownloadAcceleration Tester/JGDownloadAcceleration Tester-Info.plist"; sourceTree = SOURCE_ROOT; };
+		DDADA5941738594200781080 /* JGDownloadAcceleration Tester-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JGDownloadAcceleration Tester-Prefix.pch"; path = "JGDownloadAcceleration Tester/JGDownloadAcceleration Tester-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +74,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD0238D117385AF700BC466F /* JGDownloadAcceleration */ = {
+			isa = PBXGroup;
+			children = (
+				DD0238B517385AD100BC466F /* JGDownload.h */,
+				DD0238B617385AD100BC466F /* JGDownload.m */,
+				DD0238B717385AD100BC466F /* JGDownloadDefines.h */,
+				DD0238B817385AD100BC466F /* JGDownloadDefines.m */,
+				DD0238B917385AD100BC466F /* JGDownloadOperation.h */,
+				DD0238BA17385AD100BC466F /* JGDownloadOperation.m */,
+				DD0238BB17385AD100BC466F /* JGDownloadResumeMetadata.h */,
+				DD0238BC17385AD100BC466F /* JGDownloadResumeMetadata.m */,
+				DD0238BD17385AD100BC466F /* JGHEADRequest.h */,
+				DD0238BE17385AD100BC466F /* JGHEADRequest.m */,
+				DD0238BF17385AD100BC466F /* JGOperationQueue.h */,
+				DD0238C017385AD100BC466F /* JGOperationQueue.m */,
+				DD0238C117385AD100BC466F /* JGResumeObject.h */,
+				DD0238C217385AD100BC466F /* JGResumeObject.m */,
+			);
+			name = JGDownloadAcceleration;
+			sourceTree = "<group>";
+		};
 		DD097D7217230250009B52FA = {
 			isa = PBXGroup;
 			children = (
+				DD0238D117385AF700BC466F /* JGDownloadAcceleration */,
 				DD097D8417230250009B52FA /* JGDownloadAcceleration Tester */,
 				DD097D7D17230250009B52FA /* Frameworks */,
 				DD097D7C17230250009B52FA /* Products */,
@@ -105,13 +125,10 @@
 		DD097D8417230250009B52FA /* JGDownloadAcceleration Tester */ = {
 			isa = PBXGroup;
 			children = (
-				DD097D8D17230250009B52FA /* AppDelegate.h */,
-				DD097D8E17230250009B52FA /* AppDelegate.m */,
-				DD097D9617230250009B52FA /* ViewController.h */,
-				DD097D9717230250009B52FA /* ViewController.m */,
-				DDC21ADD1733F2F400641D9C /* JGDownloadAcceleration */,
-				DD097D9917230250009B52FA /* ViewController_iPhone.xib */,
-				DD097D9C17230250009B52FA /* ViewController_iPad.xib */,
+				DDADA5851738592400781080 /* AppDelegate.h */,
+				DDADA5861738592400781080 /* AppDelegate.m */,
+				DDADA58A1738592400781080 /* ViewController.h */,
+				DDADA58B1738592400781080 /* ViewController.m */,
 				DDADA5661738468200781080 /* YouTube Extractor */,
 				DD097D8517230250009B52FA /* Supporting Files */,
 			);
@@ -122,13 +139,14 @@
 		DD097D8517230250009B52FA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DD097D8617230250009B52FA /* JGDownloadAcceleration Tester-Info.plist */,
-				DD097D8717230250009B52FA /* InfoPlist.strings */,
-				DD097D8A17230250009B52FA /* main.m */,
-				DD097D8C17230250009B52FA /* JGDownloadAcceleration Tester-Prefix.pch */,
-				DD097D9017230250009B52FA /* Default.png */,
-				DD097D9217230250009B52FA /* Default@2x.png */,
-				DD097D9417230250009B52FA /* Default-568h@2x.png */,
+				DDADA5891738592400781080 /* main.m */,
+				DDADA5901738594200781080 /* Default-568h@2x.png */,
+				DDADA5911738594200781080 /* Default.png */,
+				DDADA5921738594200781080 /* Default@2x.png */,
+				DDADA5931738594200781080 /* JGDownloadAcceleration Tester-Info.plist */,
+				DDADA5941738594200781080 /* JGDownloadAcceleration Tester-Prefix.pch */,
+				DD0238D217385B4900BC466F /* ViewController_iPad.xib */,
+				DD0238D417385B4900BC466F /* ViewController_iPhone.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -136,31 +154,10 @@
 		DDADA5661738468200781080 /* YouTube Extractor */ = {
 			isa = PBXGroup;
 			children = (
-				DDC27F781725CD43005A5966 /* LBYouTubeExtractor.h */,
-				DDC27F791725CD43005A5966 /* LBYouTubeExtractor.m */,
+				DDADA5871738592400781080 /* LBYouTubeExtractor.h */,
+				DDADA5881738592400781080 /* LBYouTubeExtractor.m */,
 			);
 			name = "YouTube Extractor";
-			sourceTree = "<group>";
-		};
-		DDC21ADD1733F2F400641D9C /* JGDownloadAcceleration */ = {
-			isa = PBXGroup;
-			children = (
-				DDA5657217370ECD00758C58 /* JGDownloadDefines.h */,
-				DDA5657317370ECD00758C58 /* JGDownloadDefines.m */,
-				DDA5657017370ECD00758C58 /* JGDownload.h */,
-				DDA5657117370ECD00758C58 /* JGDownload.m */,
-				DDA5657417370ECD00758C58 /* JGDownloadOperation.h */,
-				DDA5657517370ECD00758C58 /* JGDownloadOperation.m */,
-				DDA5657617370ECD00758C58 /* JGDownloadResumeMetadata.h */,
-				DDA5657717370ECD00758C58 /* JGDownloadResumeMetadata.m */,
-				DDA5657817370ECD00758C58 /* JGHEADRequest.h */,
-				DDA5657917370ECD00758C58 /* JGHEADRequest.m */,
-				DDA5657A17370ECD00758C58 /* JGOperationQueue.h */,
-				DDA5657B17370ECD00758C58 /* JGOperationQueue.m */,
-				DDA5657C17370ECD00758C58 /* JGResumeObject.h */,
-				DDA5657D17370ECD00758C58 /* JGResumeObject.m */,
-			);
-			name = JGDownloadAcceleration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,12 +212,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD097D8917230250009B52FA /* InfoPlist.strings in Resources */,
-				DD097D9117230250009B52FA /* Default.png in Resources */,
-				DD097D9317230250009B52FA /* Default@2x.png in Resources */,
-				DD097D9517230250009B52FA /* Default-568h@2x.png in Resources */,
-				DD097D9B17230250009B52FA /* ViewController_iPhone.xib in Resources */,
-				DD097D9E17230250009B52FA /* ViewController_iPad.xib in Resources */,
+				DDADA5951738594200781080 /* Default-568h@2x.png in Resources */,
+				DDADA5961738594200781080 /* Default.png in Resources */,
+				DDADA5971738594200781080 /* Default@2x.png in Resources */,
+				DD0238D617385B4900BC466F /* ViewController_iPad.xib in Resources */,
+				DD0238D717385B4900BC466F /* ViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,45 +227,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD097D8B17230250009B52FA /* main.m in Sources */,
-				DD097D8F17230250009B52FA /* AppDelegate.m in Sources */,
-				DD097D9817230250009B52FA /* ViewController.m in Sources */,
-				DDC27F7A1725CD48005A5966 /* LBYouTubeExtractor.m in Sources */,
-				DDA5657E17370ECD00758C58 /* JGDownload.m in Sources */,
-				DDA5657F17370ECD00758C58 /* JGDownloadDefines.m in Sources */,
-				DDA5658017370ECD00758C58 /* JGDownloadOperation.m in Sources */,
-				DDA5658117370ECD00758C58 /* JGDownloadResumeMetadata.m in Sources */,
-				DDA5658217370ECD00758C58 /* JGHEADRequest.m in Sources */,
-				DDA5658317370ECD00758C58 /* JGOperationQueue.m in Sources */,
-				DDA5658417370ECD00758C58 /* JGResumeObject.m in Sources */,
+				DD0238C417385AD100BC466F /* JGDownload.m in Sources */,
+				DD0238C617385AD100BC466F /* JGDownloadDefines.m in Sources */,
+				DD0238C817385AD100BC466F /* JGDownloadOperation.m in Sources */,
+				DD0238CA17385AD100BC466F /* JGDownloadResumeMetadata.m in Sources */,
+				DD0238CC17385AD100BC466F /* JGHEADRequest.m in Sources */,
+				DD0238CE17385AD100BC466F /* JGOperationQueue.m in Sources */,
+				DD0238D017385AD100BC466F /* JGResumeObject.m in Sources */,
+				DDADA58C1738592400781080 /* AppDelegate.m in Sources */,
+				DDADA58D1738592400781080 /* LBYouTubeExtractor.m in Sources */,
+				DDADA58E1738592400781080 /* main.m in Sources */,
+				DDADA58F1738592400781080 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DD097D8717230250009B52FA /* InfoPlist.strings */ = {
+		DD0238D217385B4900BC466F /* ViewController_iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DD097D8817230250009B52FA /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DD097D9917230250009B52FA /* ViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DD097D9A17230250009B52FA /* en */,
-			);
-			name = ViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		DD097D9C17230250009B52FA /* ViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DD097D9D17230250009B52FA /* en */,
+				DD0238D317385B4900BC466F /* en */,
 			);
 			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		DD0238D417385B4900BC466F /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD0238D517385B4900BC466F /* en */,
+			);
+			name = ViewController_iPhone.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -337,8 +325,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JGDownloadAccelerator Tester/JGDownloadAcceleration Tester-Prefix.pch";
-				INFOPLIST_FILE = "JGDownloadAccelerator Tester/JGDownloadAcceleration Tester-Info.plist";
+				GCC_PREFIX_HEADER = "JGDownloadAcceleration Tester/JGDownloadAcceleration Tester-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/JGDownloadAcceleration Tester/JGDownloadAcceleration Tester-Info.plist";
 				PRODUCT_NAME = "JGDownloadAcceleration Tester";
 				WRAPPER_EXTENSION = app;
 			};
@@ -348,8 +336,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JGDownloadAccelerator Tester/JGDownloadAcceleration Tester-Prefix.pch";
-				INFOPLIST_FILE = "JGDownloadAccelerator Tester/JGDownloadAcceleration Tester-Info.plist";
+				GCC_PREFIX_HEADER = "JGDownloadAcceleration Tester/JGDownloadAcceleration Tester-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/JGDownloadAcceleration Tester/JGDownloadAcceleration Tester-Info.plist";
 				PRODUCT_NAME = "JGDownloadAcceleration Tester";
 				WRAPPER_EXTENSION = app;
 			};

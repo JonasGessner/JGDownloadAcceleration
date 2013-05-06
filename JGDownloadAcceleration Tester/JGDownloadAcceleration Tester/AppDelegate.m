@@ -50,18 +50,20 @@
         
         [operation setMaxConnections:6];
         
+        __block CFTimeInterval started;
+        
         [operation setCompletionBlockWithSuccess:
          ^(JGDownloadOperation *operation) {
-             NSLog(@"Success!");
+             double kbLength = (double)operation.contentLength/1024.0f;
+             CFTimeInterval delta = CFAbsoluteTimeGetCurrent()-started;
+             NSLog(@"Success! Downloading %.2f MB took %.1f seconds, average Speed: %.2f kb/s", kbLength/1024.0f, delta, kbLength/delta);
          } failure:^(JGDownloadOperation *operation, NSError *error) {
              NSLog(@"Operation Failed: %@", error.localizedDescription);
          }];
         
-        __block CFTimeInterval started;
-        
         [operation setDownloadProgressBlock:^(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesWritten, unsigned long long totalBytesExpectedToRead, NSUInteger tag) {
             CFTimeInterval delta = CFAbsoluteTimeGetCurrent()-started;
-            NSLog(@"Progress: %.2f%% Current Speed %.2f kB/s", ((double)totalBytesWritten/(double)totalBytesExpectedToRead)*100.0f, totalBytesReadThisSession/1024.0f/delta);
+            NSLog(@"Progress: %.2f%% Average Speed: %.2f kB/s", ((double)totalBytesWritten/(double)totalBytesExpectedToRead)*100.0f, totalBytesReadThisSession/1024.0f/delta);
         }];
         
         [operation setOperationStartedBlock:^(NSUInteger tag, unsigned long long totalBytesExpectedToRead) {
