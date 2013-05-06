@@ -1,15 +1,16 @@
-JGDownloadOperation
+JGDownloadAcceleration
 ===================
 
-An easy to use multipart download (Download Accelerator) NSURLConnection wrapper. Download Acceleration at its finest!
+JGDownloadAcceleration provides both a NSOperation and a NSOperationQueue subclass for easy to use multipart download (aka. download acceleration).
+Multipart download uses multiple network connections to download a file from a server in chunks (each connection downloads one part of the entire content). This allows to bypass bandwidth limitations set by the server. More info: http://en.wikipedia.org/wiki/Download_manager#Download_acceleration
 
 ##Getting started
 ##Overview
 ##Example
 ##Requirements
 ##Credits
-JGDownloadOperation was created by  <a href="http://twitter.com/JonasGessner" target="_blank">Jonas Gessner</a>.
-It was developed for the iOS Jailbreak tweak "ProTube Extension for YouTube" and Jailbreak App "ProTube" by Jonas Gessner.
+JGDownloadAcceleration was created by <a href="http://twitter.com/JonasGessner" target="_blank">Jonas Gessner</a>.
+It was created for the iOS Jailbreak tweak "ProTube Extension for YouTube" and the Jailbreak App "ProTube".
 
 ##License
 
