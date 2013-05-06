@@ -19,4 +19,4 @@ It was created for the iOS Jailbreak tweak "ProTube Extension for YouTube" and t
 
 ##License
 
-JGDownloadOperation is available under the <a href="http://www.tldrlegal.com/l/PYTHON2">Python 2.0 license</a>
+JGDownloadOperation is available under the <a href="http://opensource.org/licenses/Python-2.0">Python 2.0 license</a>
