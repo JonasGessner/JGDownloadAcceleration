@@ -29,13 +29,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DD097D7B17230250009B52FA /* JGDownloadAccelerator Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JGDownloadAccelerator Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD097D7B17230250009B52FA /* JGDownloadAcceleration Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JGDownloadAcceleration Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD097D7E17230250009B52FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DD097D8017230250009B52FA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		DD097D8617230250009B52FA /* JGDownloadAccelerator Tester-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JGDownloadAccelerator Tester-Info.plist"; sourceTree = "<group>"; };
+		DD097D8617230250009B52FA /* JGDownloadAcceleration Tester-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JGDownloadAcceleration Tester-Info.plist"; sourceTree = "<group>"; };
 		DD097D8817230250009B52FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DD097D8A17230250009B52FA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DD097D8C17230250009B52FA /* JGDownloadAccelerator Tester-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JGDownloadAccelerator Tester-Prefix.pch"; sourceTree = "<group>"; };
+		DD097D8C17230250009B52FA /* JGDownloadAcceleration Tester-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JGDownloadAcceleration Tester-Prefix.pch"; sourceTree = "<group>"; };
 		DD097D8D17230250009B52FA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DD097D8E17230250009B52FA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		DD097D9017230250009B52FA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 		DD097D7217230250009B52FA = {
 			isa = PBXGroup;
 			children = (
-				DD097D8417230250009B52FA /* JGDownloadAccelerator Tester */,
+				DD097D8417230250009B52FA /* JGDownloadAcceleration Tester */,
 				DD097D7D17230250009B52FA /* Frameworks */,
 				DD097D7C17230250009B52FA /* Products */,
 			);
@@ -88,7 +88,7 @@
 		DD097D7C17230250009B52FA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DD097D7B17230250009B52FA /* JGDownloadAccelerator Tester.app */,
+				DD097D7B17230250009B52FA /* JGDownloadAcceleration Tester.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,29 +102,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DD097D8417230250009B52FA /* JGDownloadAccelerator Tester */ = {
+		DD097D8417230250009B52FA /* JGDownloadAcceleration Tester */ = {
 			isa = PBXGroup;
 			children = (
 				DD097D8D17230250009B52FA /* AppDelegate.h */,
 				DD097D8E17230250009B52FA /* AppDelegate.m */,
 				DD097D9617230250009B52FA /* ViewController.h */,
 				DD097D9717230250009B52FA /* ViewController.m */,
-				DDC21ADD1733F2F400641D9C /* JGDownloadAccelerator */,
+				DDC21ADD1733F2F400641D9C /* JGDownloadAcceleration */,
 				DD097D9917230250009B52FA /* ViewController_iPhone.xib */,
 				DD097D9C17230250009B52FA /* ViewController_iPad.xib */,
 				DDADA5661738468200781080 /* YouTube Extractor */,
 				DD097D8517230250009B52FA /* Supporting Files */,
 			);
+			name = "JGDownloadAcceleration Tester";
 			path = "JGDownloadAccelerator Tester";
 			sourceTree = "<group>";
 		};
 		DD097D8517230250009B52FA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DD097D8617230250009B52FA /* JGDownloadAccelerator Tester-Info.plist */,
+				DD097D8617230250009B52FA /* JGDownloadAcceleration Tester-Info.plist */,
 				DD097D8717230250009B52FA /* InfoPlist.strings */,
 				DD097D8A17230250009B52FA /* main.m */,
-				DD097D8C17230250009B52FA /* JGDownloadAccelerator Tester-Prefix.pch */,
+				DD097D8C17230250009B52FA /* JGDownloadAcceleration Tester-Prefix.pch */,
 				DD097D9017230250009B52FA /* Default.png */,
 				DD097D9217230250009B52FA /* Default@2x.png */,
 				DD097D9417230250009B52FA /* Default-568h@2x.png */,
@@ -141,7 +142,7 @@
 			name = "YouTube Extractor";
 			sourceTree = "<group>";
 		};
-		DDC21ADD1733F2F400641D9C /* JGDownloadAccelerator */ = {
+		DDC21ADD1733F2F400641D9C /* JGDownloadAcceleration */ = {
 			isa = PBXGroup;
 			children = (
 				DDA5657217370ECD00758C58 /* JGDownloadDefines.h */,
@@ -159,15 +160,15 @@
 				DDA5657C17370ECD00758C58 /* JGResumeObject.h */,
 				DDA5657D17370ECD00758C58 /* JGResumeObject.m */,
 			);
-			name = JGDownloadAccelerator;
+			name = JGDownloadAcceleration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DD097D7A17230250009B52FA /* JGDownloadAccelerator Tester */ = {
+		DD097D7A17230250009B52FA /* JGDownloadAcceleration Tester */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DD097DA117230250009B52FA /* Build configuration list for PBXNativeTarget "JGDownloadAccelerator Tester" */;
+			buildConfigurationList = DD097DA117230250009B52FA /* Build configuration list for PBXNativeTarget "JGDownloadAcceleration Tester" */;
 			buildPhases = (
 				DD097D7717230250009B52FA /* Sources */,
 				DD097D7817230250009B52FA /* Frameworks */,
@@ -177,9 +178,9 @@
 			);
 			dependencies = (
 			);
-			name = "JGDownloadAccelerator Tester";
+			name = "JGDownloadAcceleration Tester";
 			productName = "JGDownloadAccelerator Tester";
-			productReference = DD097D7B17230250009B52FA /* JGDownloadAccelerator Tester.app */;
+			productReference = DD097D7B17230250009B52FA /* JGDownloadAcceleration Tester.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -191,7 +192,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Jonas Gessner";
 			};
-			buildConfigurationList = DD097D7617230250009B52FA /* Build configuration list for PBXProject "JGDownloadAccelerator Tester" */;
+			buildConfigurationList = DD097D7617230250009B52FA /* Build configuration list for PBXProject "JGDownloadAcceleration Tester" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -204,7 +205,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DD097D7A17230250009B52FA /* JGDownloadAccelerator Tester */,
+				DD097D7A17230250009B52FA /* JGDownloadAcceleration Tester */,
 			);
 		};
 /* End PBXProject section */
@@ -336,9 +337,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JGDownloadAccelerator Tester/JGDownloadAccelerator Tester-Prefix.pch";
-				INFOPLIST_FILE = "JGDownloadAccelerator Tester/JGDownloadAccelerator Tester-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "JGDownloadAccelerator Tester/JGDownloadAcceleration Tester-Prefix.pch";
+				INFOPLIST_FILE = "JGDownloadAccelerator Tester/JGDownloadAcceleration Tester-Info.plist";
+				PRODUCT_NAME = "JGDownloadAcceleration Tester";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -347,9 +348,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "JGDownloadAccelerator Tester/JGDownloadAccelerator Tester-Prefix.pch";
-				INFOPLIST_FILE = "JGDownloadAccelerator Tester/JGDownloadAccelerator Tester-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "JGDownloadAccelerator Tester/JGDownloadAcceleration Tester-Prefix.pch";
+				INFOPLIST_FILE = "JGDownloadAccelerator Tester/JGDownloadAcceleration Tester-Info.plist";
+				PRODUCT_NAME = "JGDownloadAcceleration Tester";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -357,7 +358,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DD097D7617230250009B52FA /* Build configuration list for PBXProject "JGDownloadAccelerator Tester" */ = {
+		DD097D7617230250009B52FA /* Build configuration list for PBXProject "JGDownloadAcceleration Tester" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD097D9F17230250009B52FA /* Debug */,
@@ -366,7 +367,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DD097DA117230250009B52FA /* Build configuration list for PBXNativeTarget "JGDownloadAccelerator Tester" */ = {
+		DD097DA117230250009B52FA /* Build configuration list for PBXNativeTarget "JGDownloadAcceleration Tester" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD097DA217230250009B52FA /* Debug */,

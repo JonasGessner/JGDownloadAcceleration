@@ -34,7 +34,6 @@
         [ex startExtracting]; //Don't put LBYouTubeExtractor on the main thread..
         CFRunLoopRun(); //give the LBYouTubeExtractor a run loop (or better, the NSURLConnection used inside LBYouTubeExtractor
     });
-
     
     return YES;
 }
