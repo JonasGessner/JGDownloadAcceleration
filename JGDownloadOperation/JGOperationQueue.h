@@ -11,6 +11,4 @@
 
 @interface JGOperationQueue : NSOperationQueue
 
-+ (NSThread *)operationThreadIfAvailable;
-
 @end

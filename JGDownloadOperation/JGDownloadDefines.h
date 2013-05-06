@@ -33,7 +33,7 @@ typedef struct {
 } JGRange;
 
 
-JGExtern NSUInteger getMaxConnections();
+JGExtern NSUInteger defaultMaxConnections();
 
 JGExtern JGRange JGRangeMake(unsigned long long loc, unsigned long long len, BOOL final);
 

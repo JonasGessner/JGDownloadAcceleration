@@ -42,6 +42,8 @@
     //start downloading the YouTube video to the temporary directory
     JGDownloadOperation *operation = [[JGDownloadOperation alloc] initWithURL:videoURL destinationPath:file resume:resume];
     
+    [operation setMaxConnections:6];
+    
     [operation setCompletionBlockWithSuccess:
      ^(JGDownloadOperation *operation) {
         NSLog(@"SUCCESS");

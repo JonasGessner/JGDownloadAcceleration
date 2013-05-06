@@ -136,10 +136,10 @@
 		DDC21ADD1733F2F400641D9C /* JGDownloadAccelerator */ = {
 			isa = PBXGroup;
 			children = (
-				DDA5657017370ECD00758C58 /* JGDownload.h */,
-				DDA5657117370ECD00758C58 /* JGDownload.m */,
 				DDA5657217370ECD00758C58 /* JGDownloadDefines.h */,
 				DDA5657317370ECD00758C58 /* JGDownloadDefines.m */,
+				DDA5657017370ECD00758C58 /* JGDownload.h */,
+				DDA5657117370ECD00758C58 /* JGDownload.m */,
 				DDA5657417370ECD00758C58 /* JGDownloadOperation.h */,
 				DDA5657517370ECD00758C58 /* JGDownloadOperation.m */,
 				DDA5657617370ECD00758C58 /* JGDownloadResumeMetadata.h */,

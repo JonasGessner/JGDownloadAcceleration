@@ -11,16 +11,17 @@
 
 @interface JGResumeObject : NSObject
 
-@property (nonatomic, assign) JGRange range;
-@property (nonatomic, assign) unsigned long long offset;
+@property (nonatomic, assign) JGRange range; //Range to download
+@property (nonatomic, assign) unsigned long long offset; //Current offset in the range
 
+
+//New object
 - (id)initWithRange:(JGRange)ran offset:(unsigned long long)of;
+
+//Read from file
 - (id)initWithString:(NSString *)string;
 
+//Writing
 - (NSString *)stringRepresentation;
 
 @end
-
-//NS_INLINE NSString *NSStringFromResumeObject(JGResumeObject *resume) {
-//    return NSStringFromJGRangeWithOffset(resume.range, resume.offset);
-//}

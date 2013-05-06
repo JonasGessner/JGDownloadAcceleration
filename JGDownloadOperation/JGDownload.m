@@ -62,7 +62,7 @@
 }
 
 - (void)retry {
-    NSLog(@"Request failed, restarting");
+    NSLog(@"Error: Request failed, restarting");
     connection = nil;
     [self startLoading];
 }

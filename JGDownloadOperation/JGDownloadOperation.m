@@ -11,6 +11,16 @@
 #import "JGDownloadDefines.h"
 #import "JGOperationQueue.h"
 
+@interface JGDownloadOperation () //Private
+
+//Network Thread Handling
++ (NSThread *)networkRequestThread;
++ (BOOL)networkRequestThreadIsAvailable;
++ (void)endNetworkThread;
+
+@end
+
+
 @interface JGDownloadOperation () {
     NSUInteger finished;
     BOOL append;
@@ -35,6 +45,8 @@
 @property (nonatomic, copy) JGConnectionOperationProgressBlock downloadProgress;
 @property (nonatomic, copy) JGConnectionOperationStartedBlock started;
 
+@property (nonatomic, assign) NSUInteger numberOfConnections; //actual number of connections, not maxmum number
+
 @property (nonatomic, strong, readonly) NSArray *connections;
 
 - (void)getHTTPHeadersAndProceed;
@@ -46,7 +58,7 @@
 
 @implementation JGDownloadOperation
 
-@synthesize maxConnections, url, destinationPath, contentLength, connections, tag, error, downloadProgress, started;
+@synthesize maxConnections, url, destinationPath, contentLength, connections, tag, error, downloadProgress, started, numberOfConnections;
 
 
 #pragma mark - Network Thread
@@ -112,12 +124,12 @@ static NSThread *_networkRequestThread = nil;
         [self performSelector:@selector(main) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO];
     }
     else {
-        NSLog(@"Operation is not ready to start");
+        NSLog(@"Error: Cannot start Operation: Operation is not ready to start");
     }
 }
 
 - (void)main {
-    self.error = nil;
+    error = nil;
     completed = NO;
     cancelled = NO;
     splittingUnavailable = NO;
@@ -163,7 +175,7 @@ static NSThread *_networkRequestThread = nil;
 }
 
 
-#pragma mark - Start & Start Notifications
+#pragma mark - Starting Operations
 
 - (void)startLoadingAllConnectionsAndOpenOutput {
     output = [NSFileHandle fileHandleForWritingAtPath:self.destinationPath];
@@ -195,12 +207,12 @@ static NSThread *_networkRequestThread = nil;
         }
     }
     
-    self.maxConnections = preConnections.count;
+    self.numberOfConnections = preConnections.count; //ignores maximum number, as its resuming the previous state of the operation
     
-    NSLog(@"Resume at %llu with %i connections",resume.currentSize, self.maxConnections);
+    NSLog(@"Resume at %llu with %i connections",resume.currentSize, self.numberOfConnections);
     
-    if (!self.maxConnections) {
-        NSLog(@"RESUMEM BUT NO CONNECTIONNNN");
+    if (!self.numberOfConnections) {
+        NSLog(@"Error: Cannot Resume Operation: Tried to Resume Operation but there are no connections to resume");
         [self completeOperation];
         return;
     }
@@ -213,23 +225,23 @@ static NSThread *_networkRequestThread = nil;
 #pragma mark - New Connection
 
 - (void)startSplittedConnections {
-    self.maxConnections = (splittingUnavailable ? 1 : getMaxConnections());
+    self.numberOfConnections = (splittingUnavailable ? 1 : self.maxConnections); //is the Range header supported? If yes use max number of connections, if not use 1 connection
     
     NSString *metaPath = [self downloadMetadataPathForFilePath:destinationPath];
-    resume = [[JGDownloadResumeMetadata alloc] initWithNumberOfConnections:self.maxConnections filePath:metaPath];
+    resume = [[JGDownloadResumeMetadata alloc] initWithNumberOfConnections:self.numberOfConnections filePath:metaPath];
     [resume setTotalSize:self.contentLength];
     
-    unsigned long splittedRest = (self.contentLength % self.maxConnections);
+    unsigned long splittedRest = (self.contentLength % self.numberOfConnections);
     unsigned long long evenSplitter = self.contentLength-splittedRest;
-    unsigned long long singleLength = evenSplitter/self.maxConnections;
+    unsigned long long singleLength = evenSplitter/self.numberOfConnections;
     
     unsigned long long currentOffset = 0;
     
     NSMutableArray *preConnections = [NSMutableArray array];
     
-    for (unsigned int i = 0; i < self.maxConnections; i++) {
+    for (unsigned int i = 0; i < self.numberOfConnections; i++) {
         unsigned long rangeLength = (i == 0 ? singleLength+splittedRest : singleLength);
-        BOOL final = (i == self.maxConnections-1);
+        BOOL final = (i == self.numberOfConnections-1);
         if (final) {
             rangeLength -= i;
         }
@@ -253,7 +265,7 @@ static NSThread *_networkRequestThread = nil;
 - (void)didReceiveHTTPHeaders:(NSHTTPURLResponse *)response error:(NSError *)_error {
     
     if (_error) {
-        self.error = _error;
+        error = _error;
         [self completeOperation];
     }
     else {
@@ -269,31 +281,35 @@ static NSThread *_networkRequestThread = nil;
         unsigned long long free = getFreeSpace(self.destinationPath.stringByDeletingLastPathComponent, &__error);
         
         if (free <= contentLength) {
-            self.error = [NSError errorWithDomain:@"de.j-gessner.jgdownloadaccelerator" code:79 userInfo:@{NSLocalizedDescriptionKey : @"There's not enough free space on the disk to download this file"}];
+            error = [NSError errorWithDomain:@"de.j-gessner.jgdownloadaccelerator" code:409 userInfo:@{NSLocalizedDescriptionKey : @"There's not enough free space on the disk to download this file"}]; //409 = Conflict ?
             [self completeOperation];
             return;
         }
-        
-//        NSLog(@"RESUME %i UNAVAILABLE %i CONTENT LENGTH %llu RESUME AT %llu resume is smaller < %i", resume != nil, splittingUnavailable, contentLength, resumedAtSize, (resumedAtSize < contentLength));
         
         if (resume && splittingUnavailable) {
             NSDictionary *fileAttribs = [[NSFileManager defaultManager] attributesOfItemAtPath:self.destinationPath error:nil];
             unsigned long long size = [fileAttribs fileSize];
             if (size >= self.contentLength) {
-                NSLog(@"SIZE ERROIROR");
+                if (size == self.contentLength) {
+                    NSLog(@"Error: Cannot Resume Operation: Downloaded bytes are equal to the available bytes");
+                }
+                else {
+                    NSLog(@"Error: Cannot Resume Operation: Downloaded bytes exceed available bytes");
+                }
                 [self completeOperation];
             }
             else {
                 JGRange range = JGRangeMake(0, contentLength, YES);
+                
                 JGResumeObject *object = [[JGResumeObject alloc] initWithRange:range offset:size];
                 
                 JGDownload *download = [[JGDownload alloc] initWithURL:self.url object:object owner:self];
                 
-                self.maxConnections = 1;
+                self.numberOfConnections = 1;
                 
                 connections = @[download];
                 
-                [download startLoading];
+                [self startLoadingAllConnectionsAndOpenOutput];
             }
         }
         else {
@@ -369,6 +385,8 @@ static NSThread *_networkRequestThread = nil;
     
     NSUInteger realLength = data.length;
     
+    NSLog(@"DATA %i", realLength);
+    
     unsigned long long length = (unsigned long long)realLength;
     
     resume.currentSize += length;
@@ -393,9 +411,9 @@ static NSThread *_networkRequestThread = nil;
 
 - (void)downloadDidFinish:(JGDownload *)download withError:(NSError *)_error {
     if (_error) {
-        if (errorRetryAttempts >= self.maxConnections/2) {
-            NSLog(@"COPLETING WITH TOO MANX ERRORS");
-            self.error = _error;
+        if (errorRetryAttempts >= self.numberOfConnections/2) {
+            NSLog(@"Error: Cannot finish Operation: Too many errors occured, canceling");
+            error = _error;
             [self completeOperation];
         }
         else {
@@ -440,7 +458,7 @@ static NSThread *_networkRequestThread = nil;
     resume = nil;
 }
 
-- (void)cancelAndClearFiles {
+- (void)cancelAndClearFiles { //probably called from main thread
     clear = YES; //will clear
     
     [self cancel];
@@ -449,7 +467,7 @@ static NSThread *_networkRequestThread = nil;
 
 - (void)cancel {
     if (!self.isExecuting) {
-        NSLog(@"Cannot Cancel: Operation is not executing");
+        NSLog(@"Error: Cannot Cancel Operation: Operation is not executing");
         return;
     }
     
@@ -476,7 +494,7 @@ static NSThread *_networkRequestThread = nil;
 
 - (void)completeOperation {
     if (!self.isExecuting) {
-        NSLog(@"Cannot Complete: Operation is not executing");
+        NSLog(@"Error: Cannot Complete Operation: Operation is not executing");
         return;
     }
     
@@ -504,6 +522,17 @@ static NSThread *_networkRequestThread = nil;
 
 - (BOOL)isFinished {
     return completed;
+}
+
+#pragma mark - Custom Property Getters & Setters
+
+- (NSUInteger)numberOfConnections {
+    if (!numberOfConnections) {
+        return defaultMaxConnections();
+    }
+    else {
+        return numberOfConnections;
+    }
 }
 
 @end

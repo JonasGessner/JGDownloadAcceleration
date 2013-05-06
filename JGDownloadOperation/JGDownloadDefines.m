@@ -9,8 +9,8 @@
 #import "JGDownloadDefines.h"
 
 
-NSUInteger getMaxConnections() {
-    return 6;
+NSUInteger defaultMaxConnections() {
+    return 6; //Seems to be a good number from my testing
 }
 
 JGRange JGRangeMake(unsigned long long loc, unsigned long long len, BOOL final) {
@@ -21,11 +21,11 @@ JGRange JGRangeMake(unsigned long long loc, unsigned long long len, BOOL final) 
     return r;
 }
 
-NSString *NSStringForFileFromJGRange(JGRange range) {
+NSString *NSStringForFileFromJGRange(JGRange range) { //NSRange style
     return (range.final ? [NSString stringWithFormat:@"%llu",range.location] : [NSString stringWithFormat:@"%llu-%llu",range.location, range.length]);
 }
 
-NSString *NSStringFromJGRangeWithOffset(JGRange range, unsigned long long offset) {
+NSString *NSStringFromJGRangeWithOffset(JGRange range, unsigned long long offset) { //HTTP Request ready string
     return (range.final ? [NSString stringWithFormat:@"bytes=%llu-", range.location+offset] : [NSString stringWithFormat:@"bytes=%llu-%llu", range.location+offset, range.location+range.length]);
 }
 

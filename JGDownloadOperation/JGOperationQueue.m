@@ -8,10 +8,22 @@
 
 #import "JGOperationQueue.h"
 
+@interface JGDownloadOperation () //Private
+
+//Network Thread Handling
++ (NSThread *)networkRequestThread;
++ (BOOL)networkRequestThreadIsAvailable;
++ (void)endNetworkThread;
+
+@end
+
+
 @interface JGOperationQueue () {
     UIBackgroundTaskIdentifier bgTask;
     BOOL running;
 }
+
++ (NSThread *)operationThreadIfAvailable;
 
 @end
 
