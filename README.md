@@ -1,9 +1,9 @@
 JGDownloadAcceleration
 ===================
 
-JGDownloadAcceleration provides both a NSOperation and a NSOperationQueue subclass for easy to use multipart download (aka. download acceleration).
+JGDownloadAcceleration provides both a NSOperation and a NSOperationQueue subclass for easy to use multipart download (aka download acceleration).
 
-Multipart download uses multiple network connections to download a file from a server in chunks (each connection downloads one part of the entire content). This allows to bypass bandwidth limitations set by the server.
+Multipart download uses multiple network connections to download a file from a server in chunks (each connection downloads one part of the entire content). This allows to bypass bandwidth limitations set by the server and download speeds can be increased by numerous times.
 
 More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_acceleration">Wikipedia</a>
 
