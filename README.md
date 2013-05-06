@@ -11,4 +11,4 @@ It was developed for the iOS Jailbreak tweak "ProTube Extension for YouTube" and
 
 ##License
 
-JGDownloadOperation is available under the <a href="http://www.tldrlegal.com/l/MSRL">Phyton license</a>
+JGDownloadOperation is available under the <a href="http://www.tldrlegal.com/l/PYTHON2">Python 2.0 license</a>
