@@ -209,8 +209,6 @@ static NSThread *_networkRequestThread = nil;
     
     self.numberOfConnections = preConnections.count; //ignores maximum number, as its resuming the previous state of the operation
     
-    NSLog(@"Resume at %llu with %i connections",resume.currentSize, self.numberOfConnections);
-    
     if (!self.numberOfConnections) {
         NSLog(@"Error: Cannot Resume Operation: Tried to Resume Operation but there are no connections to resume");
         [self completeOperation];

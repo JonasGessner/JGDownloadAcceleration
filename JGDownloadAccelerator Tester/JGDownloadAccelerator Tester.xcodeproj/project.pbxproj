@@ -105,8 +105,6 @@
 		DD097D8417230250009B52FA /* JGDownloadAccelerator Tester */ = {
 			isa = PBXGroup;
 			children = (
-				DDC27F781725CD43005A5966 /* LBYouTubeExtractor.h */,
-				DDC27F791725CD43005A5966 /* LBYouTubeExtractor.m */,
 				DD097D8D17230250009B52FA /* AppDelegate.h */,
 				DD097D8E17230250009B52FA /* AppDelegate.m */,
 				DD097D9617230250009B52FA /* ViewController.h */,
@@ -114,6 +112,7 @@
 				DDC21ADD1733F2F400641D9C /* JGDownloadAccelerator */,
 				DD097D9917230250009B52FA /* ViewController_iPhone.xib */,
 				DD097D9C17230250009B52FA /* ViewController_iPad.xib */,
+				DDADA5661738468200781080 /* YouTube Extractor */,
 				DD097D8517230250009B52FA /* Supporting Files */,
 			);
 			path = "JGDownloadAccelerator Tester";
@@ -131,6 +130,15 @@
 				DD097D9417230250009B52FA /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DDADA5661738468200781080 /* YouTube Extractor */ = {
+			isa = PBXGroup;
+			children = (
+				DDC27F781725CD43005A5966 /* LBYouTubeExtractor.h */,
+				DDC27F791725CD43005A5966 /* LBYouTubeExtractor.m */,
+			);
+			name = "YouTube Extractor";
 			sourceTree = "<group>";
 		};
 		DDC21ADD1733F2F400641D9C /* JGDownloadAccelerator */ = {
