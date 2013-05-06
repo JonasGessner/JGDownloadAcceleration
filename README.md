@@ -7,7 +7,7 @@ Multipart download uses multiple network connections to download a file from a s
 
 More info: http://en.wikipedia.org/wiki/Download_manager#Download_acceleration
 
-The server needs to support the `Range` header in order to use multipart download. More in the Requirements section.
+The server needs to support the `Range` header in order to use multipart download. See <a href="https://github.com/Maxner/JGDownloadOperation/blob/master/README.md#requirements">Requirements</a> for more Info.
 
 ##Getting started
 ##Overview
