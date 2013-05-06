@@ -12,12 +12,16 @@
 #error "JGDownloadOperation requires ARC!"
 #endif
 
+#if defined(__cplusplus)
+#define JGExtern extern "C"
+#else
+#define JGExtern extern
+#endif
+
 #define OBJECT_BREAK @"#"
 #define DOWNLOAD_BREAK @"*"
 
 #define USER_AGENT @"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7"
-
-@class JGDownload, JGResumeObject;
 
 typedef void (^JGConnectionOperationProgressBlock)(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesWritten, unsigned long long totalBytesExpectedToRead, NSUInteger tag);
 typedef void (^JGConnectionOperationStartedBlock)(NSUInteger tag, unsigned long long totalBytesExpectedToRead);
@@ -28,7 +32,6 @@ typedef struct {
     BOOL final;
 } JGRange;
 
-#define JGExtern FOUNDATION_EXTERN
 
 JGExtern NSUInteger getMaxConnections();
 
@@ -39,6 +42,10 @@ JGExtern NSString *NSStringForFileFromJGRange(JGRange range);
 JGExtern NSString *NSStringFromJGRangeWithOffset(JGRange range, unsigned long long offset);
 
 JGExtern unsigned long long getFreeSpace(NSString *folder, NSError **error);
+
+
+
+@class JGDownload, JGResumeObject;
 
 @protocol JGDownloadManager <NSObject>
 
