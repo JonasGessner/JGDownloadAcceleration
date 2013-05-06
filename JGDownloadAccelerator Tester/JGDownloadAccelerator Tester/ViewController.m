@@ -28,6 +28,12 @@
     return UIInterfaceOrientationMaskAll;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    UIScrollView *scroll = self.view.subviews.lastObject;
+    scroll.contentSize = CGSizeMake(scroll.contentSize.width, [UIScreen mainScreen].bounds.size.height*1.5f);
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

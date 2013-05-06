@@ -385,8 +385,6 @@ static NSThread *_networkRequestThread = nil;
     
     NSUInteger realLength = data.length;
     
-    NSLog(@"DATA %i", realLength);
-    
     unsigned long long length = (unsigned long long)realLength;
     
     resume.currentSize += length;

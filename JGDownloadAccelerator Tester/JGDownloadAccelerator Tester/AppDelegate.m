@@ -29,49 +29,58 @@
     //get a valid URL for a video file from YouTube
     LBYouTubeExtractor *ex = [[LBYouTubeExtractor alloc] initWithID:@"1aqwk5Ip6cM" quality:LBYouTubeVideoQualitySmall];
     ex.delegate = self;
-    [ex startExtracting];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [ex startExtracting]; //Don't put LBYouTubeExtractor on the main thread..
+        CFRunLoopRun(); //give the LBYouTubeExtractor a run loop (or better, the NSURLConnection used inside LBYouTubeExtractor
+    });
+
     
     return YES;
 }
 
 - (void)youTubeExtractor:(LBYouTubeExtractor *)extractor didSuccessfullyExtractYouTubeURL:(NSURL *)videoURL {
-    NSString *file = [NSTemporaryDirectory() stringByAppendingPathComponent:@"DL.mp4"];
-    
-    BOOL resume = YES;
-    
-    //start downloading the YouTube video to the temporary directory
-    JGDownloadOperation *operation = [[JGDownloadOperation alloc] initWithURL:videoURL destinationPath:file resume:resume];
-    
-    [operation setMaxConnections:6];
-    
-    [operation setCompletionBlockWithSuccess:
-     ^(JGDownloadOperation *operation) {
-        NSLog(@"SUCCESS");
-    } failure:^(JGDownloadOperation *operation, NSError *error) {
-        NSLog(@"FIAILED %@", error.localizedDescription);
-    }];
-    
-    __block NSTimeInterval started;
-    
-    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesWritten, unsigned long long totalBytesExpectedToRead, NSUInteger tag) {
-        NSTimeInterval delta = [NSDate timeIntervalSinceReferenceDate]-started;
-        NSLog(@"PROGRESS %llu/%llu : %.2f%% SPEED %.2f kB/s", totalBytesWritten, totalBytesExpectedToRead, ((double)totalBytesWritten/(double)totalBytesExpectedToRead)*100.0f, totalBytesReadThisSession/1024.0f/delta);
-    }];
-    
-    [operation setOperationStartedBlock:^(NSUInteger tag, unsigned long long totalBytesExpectedToRead) {
-        started = [NSDate timeIntervalSinceReferenceDate];
-        NSLog(@"STARTED");
-    }];
-    
-    if (!q) {
-        q = [[JGOperationQueue alloc] init];
-    }
-    
-    [q addOperation:operation];
+    CFRunLoopStop(CFRunLoopGetCurrent()); //stop the background run loop we started in -application:didFinishLaunchingWithOptions:
+    dispatch_async(dispatch_get_main_queue(), ^{ //go back to the main thread
+        NSString *file = [NSTemporaryDirectory() stringByAppendingPathComponent:@"DL.mp4"];
+        
+        BOOL resume = YES;
+        
+        //start downloading the YouTube video to the temporary directory
+        JGDownloadOperation *operation = [[JGDownloadOperation alloc] initWithURL:videoURL destinationPath:file resume:resume];
+        
+        [operation setMaxConnections:6];
+        
+        [operation setCompletionBlockWithSuccess:
+         ^(JGDownloadOperation *operation) {
+             NSLog(@"Success!");
+         } failure:^(JGDownloadOperation *operation, NSError *error) {
+             NSLog(@"Operation Failed: %@", error.localizedDescription);
+         }];
+        
+        __block CFTimeInterval started;
+        
+        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesWritten, unsigned long long totalBytesExpectedToRead, NSUInteger tag) {
+            CFTimeInterval delta = CFAbsoluteTimeGetCurrent()-started;
+            NSLog(@"Progress: %.2f%% Current Speed %.2f kB/s", ((double)totalBytesWritten/(double)totalBytesExpectedToRead)*100.0f, totalBytesReadThisSession/1024.0f/delta);
+        }];
+        
+        [operation setOperationStartedBlock:^(NSUInteger tag, unsigned long long totalBytesExpectedToRead) {
+            started = CFAbsoluteTimeGetCurrent();
+            NSLog(@"Operation Started");
+        }];
+        
+        if (!q) {
+            q = [[JGOperationQueue alloc] init];
+        }
+        
+        [q addOperation:operation];
+    });
 }
 
 - (void)youTubeExtractor:(LBYouTubeExtractor *)extractor failedExtractingYouTubeURLWithError:(NSError *)error {
-    NSLog(@"YT EXTRCATOR DID FAIL %@", error.localizedDescription);
+    CFRunLoopStop(CFRunLoopGetCurrent()); //stop the background run loop we started in -application:didFinishLaunchingWithOptions:
+    NSLog(@"YouTube Extractor Failed With Error: %@", error.localizedDescription);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
