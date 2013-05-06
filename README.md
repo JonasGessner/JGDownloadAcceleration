@@ -3,8 +3,10 @@ JGDownloadOperation
 
 An easy to use multipart download (Download Accelerator) NSURLConnection wrapper. Download Acceleration at its finest!
 
-License
-============
+##License
+
+JGDownloadOperation is Licensed under the EPL License:
+
 Eclipse Public License, Version 1.0 (EPL-1.0) (plain text) THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC LICENSE ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
 1. DEFINITIONS
 "Contribution" means:
