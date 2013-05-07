@@ -264,7 +264,6 @@ static NSThread *_networkRequestThread = nil;
 #pragma mark - HTTP Headers
 
 - (void)didReceiveHTTPHeaders:(NSHTTPURLResponse *)response error:(NSError *)_error {
-    
     if (_error) {
         error = _error;
         [self completeOperation];
@@ -284,7 +283,7 @@ static NSThread *_networkRequestThread = nil;
         NSLog(@"GOT SPACE");
         
         if (free <= contentLength) {
-            error = [NSError errorWithDomain:@"de.j-gessner.jgdownloadaccelerator" code:409 userInfo:@{NSLocalizedDescriptionKey : @"There's not enough free space on the disk to download this file"}]; //409 = Conflict ?
+            error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : @"There's not enough free space on the disk to download this file"}]; //409 = Conflict ?
             [self completeOperation];
             return;
         }
@@ -362,9 +361,11 @@ static NSThread *_networkRequestThread = nil;
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
     self.completionBlock = ^{
         if (self.isCancelled) {
-            return; //no completion call when cancelled
+            if (!clear) {
+                failure(self, [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:NSURLErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"The Download was Cancelled"}]);
+            }
         }
-        if (!!self.error) {
+        else if (!!self.error) {
             if (failure && !!self.error) {
                 failure(self, self.error);
             }
@@ -394,7 +395,7 @@ static NSThread *_networkRequestThread = nil;
     [output seekToFileOffset:finalLocation];
     [output writeData:data];
     
-    if (self.downloadProgress) {
+    if (self.downloadProgress && !completed) {
         self.downloadProgress(realLength, resume.currentSize-resumedAtSize, resume.currentSize, self.contentLength, self.tag);
     }
     [output synchronizeFile];
@@ -445,7 +446,7 @@ static NSThread *_networkRequestThread = nil;
     
     output = nil;
     
-    if (self.error || !clear || self.isCancelled) { //write when error, cancelled, or not told to remove file
+    if (self.error || !clear || (self.isCancelled && !clear)) { //write when error, cancelled, or not told to remove file
         [resume write];
     }
     else {
@@ -476,14 +477,14 @@ static NSThread *_networkRequestThread = nil;
         [self operationFinishedCleanup];
     }
     else {
-        [self performSelector:@selector(operationFinishedCleanup) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:YES];
+        [self performSelector:@selector(operationFinishedCleanup) onThread:[[self class] networkRequestThread] withObject:nil waitUntilDone:NO];
     }
     
     [self willChangeValueForKey:@"isExecuting"];
     [self willChangeValueForKey:@"isFinished"];
     executing = NO;
-    cancelled = YES;
     completed = YES;
+    cancelled = YES;
     [super cancel];
     [self didChangeValueForKey:@"isFinished"];
     [self didChangeValueForKey:@"isExecuting"];

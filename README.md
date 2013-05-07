@@ -22,7 +22,8 @@ The server from which downloading a content needs to support the `Range` header 
 
 1. Download JGDownloadAcceleration
 2. Add the whole "JGDownloadAcceleration Classes" folder to your Project
-3. Start using JGDownloadAcceleration!
+3. Have a read through the Overview section
+4. Start using JGDownloadAcceleration!
 
 ##Overview
 
@@ -71,7 +72,7 @@ Internally this class uses a bunch of helper classes. These should not be touche
 <br>
 
 #####Cancellation:
-`cancel` will stop the download,  synchronize the metadata file to allow resuming the download later and leave the partially downloaded file on the disk. Neither the success completion block or the failure completion block will be called.<p>
+`cancel` will stop the download,  synchronize the metadata file to allow resuming the download later and leave the partially downloaded file on the disk. The failure completion block will be called with an `NSURLErrorCancelled` error.<p>
 `cancelAndClearFiles` will stop the download and remove the partially downloaded file as well as the metadata file from the disk. Neither the success completion block or the failure completion block will be called.
 
 
