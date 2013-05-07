@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD0238C417385AD100BC466F /* JGDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238B617385AD100BC466F /* JGDownload.m */; };
-		DD0238C617385AD100BC466F /* JGDownloadDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238B817385AD100BC466F /* JGDownloadDefines.m */; };
-		DD0238C817385AD100BC466F /* JGDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238BA17385AD100BC466F /* JGDownloadOperation.m */; };
-		DD0238CA17385AD100BC466F /* JGDownloadResumeMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238BC17385AD100BC466F /* JGDownloadResumeMetadata.m */; };
-		DD0238CC17385AD100BC466F /* JGHEADRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238BE17385AD100BC466F /* JGHEADRequest.m */; };
-		DD0238CE17385AD100BC466F /* JGOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238C017385AD100BC466F /* JGOperationQueue.m */; };
-		DD0238D017385AD100BC466F /* JGResumeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0238C217385AD100BC466F /* JGResumeObject.m */; };
 		DD0238D617385B4900BC466F /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD0238D217385B4900BC466F /* ViewController_iPad.xib */; };
 		DD0238D717385B4900BC466F /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD0238D417385B4900BC466F /* ViewController_iPhone.xib */; };
 		DD097D7F17230250009B52FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD097D7E17230250009B52FA /* UIKit.framework */; };
 		DD097D8117230250009B52FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD097D8017230250009B52FA /* Foundation.framework */; };
+		DD42E73D17396D44006A3744 /* JGDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = DD42E73017396D44006A3744 /* JGDownload.m */; };
+		DD42E73E17396D44006A3744 /* JGDownloadDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = DD42E73217396D44006A3744 /* JGDownloadDefines.m */; };
+		DD42E73F17396D44006A3744 /* JGDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DD42E73417396D44006A3744 /* JGDownloadOperation.m */; };
+		DD42E74017396D44006A3744 /* JGDownloadResumeMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = DD42E73617396D44006A3744 /* JGDownloadResumeMetadata.m */; };
+		DD42E74117396D44006A3744 /* JGHEADRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DD42E73817396D44006A3744 /* JGHEADRequest.m */; };
+		DD42E74217396D44006A3744 /* JGOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DD42E73A17396D44006A3744 /* JGOperationQueue.m */; };
+		DD42E74317396D44006A3744 /* JGResumeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DD42E73C17396D44006A3744 /* JGResumeObject.m */; };
 		DDADA58C1738592400781080 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DDADA5861738592400781080 /* AppDelegate.m */; };
 		DDADA58D1738592400781080 /* LBYouTubeExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = DDADA5881738592400781080 /* LBYouTubeExtractor.m */; };
 		DDADA58E1738592400781080 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDADA5891738592400781080 /* main.m */; };
@@ -28,25 +28,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DD0238B517385AD100BC466F /* JGDownload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGDownload.h; path = ../JGDownloadAcceleration/JGDownload.h; sourceTree = "<group>"; };
-		DD0238B617385AD100BC466F /* JGDownload.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGDownload.m; path = ../JGDownloadAcceleration/JGDownload.m; sourceTree = "<group>"; };
-		DD0238B717385AD100BC466F /* JGDownloadDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGDownloadDefines.h; path = ../JGDownloadAcceleration/JGDownloadDefines.h; sourceTree = "<group>"; };
-		DD0238B817385AD100BC466F /* JGDownloadDefines.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGDownloadDefines.m; path = ../JGDownloadAcceleration/JGDownloadDefines.m; sourceTree = "<group>"; };
-		DD0238B917385AD100BC466F /* JGDownloadOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGDownloadOperation.h; path = ../JGDownloadAcceleration/JGDownloadOperation.h; sourceTree = "<group>"; };
-		DD0238BA17385AD100BC466F /* JGDownloadOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGDownloadOperation.m; path = ../JGDownloadAcceleration/JGDownloadOperation.m; sourceTree = "<group>"; };
-		DD0238BB17385AD100BC466F /* JGDownloadResumeMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGDownloadResumeMetadata.h; path = ../JGDownloadAcceleration/JGDownloadResumeMetadata.h; sourceTree = "<group>"; };
-		DD0238BC17385AD100BC466F /* JGDownloadResumeMetadata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGDownloadResumeMetadata.m; path = ../JGDownloadAcceleration/JGDownloadResumeMetadata.m; sourceTree = "<group>"; };
-		DD0238BD17385AD100BC466F /* JGHEADRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGHEADRequest.h; path = ../JGDownloadAcceleration/JGHEADRequest.h; sourceTree = "<group>"; };
-		DD0238BE17385AD100BC466F /* JGHEADRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGHEADRequest.m; path = ../JGDownloadAcceleration/JGHEADRequest.m; sourceTree = "<group>"; };
-		DD0238BF17385AD100BC466F /* JGOperationQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGOperationQueue.h; path = ../JGDownloadAcceleration/JGOperationQueue.h; sourceTree = "<group>"; };
-		DD0238C017385AD100BC466F /* JGOperationQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGOperationQueue.m; path = ../JGDownloadAcceleration/JGOperationQueue.m; sourceTree = "<group>"; };
-		DD0238C117385AD100BC466F /* JGResumeObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JGResumeObject.h; path = ../JGDownloadAcceleration/JGResumeObject.h; sourceTree = "<group>"; };
-		DD0238C217385AD100BC466F /* JGResumeObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JGResumeObject.m; path = ../JGDownloadAcceleration/JGResumeObject.m; sourceTree = "<group>"; };
 		DD0238D317385B4900BC466F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "JGDownloadAcceleration Tester/en.lproj/ViewController_iPad.xib"; sourceTree = SOURCE_ROOT; };
 		DD0238D517385B4900BC466F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "JGDownloadAcceleration Tester/en.lproj/ViewController_iPhone.xib"; sourceTree = SOURCE_ROOT; };
 		DD097D7B17230250009B52FA /* JGDownloadAcceleration Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JGDownloadAcceleration Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD097D7E17230250009B52FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DD097D8017230250009B52FA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DD42E72F17396D44006A3744 /* JGDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGDownload.h; path = "../JGDownloadAcceleration Classes/JGDownload.h"; sourceTree = "<group>"; };
+		DD42E73017396D44006A3744 /* JGDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGDownload.m; path = "../JGDownloadAcceleration Classes/JGDownload.m"; sourceTree = "<group>"; };
+		DD42E73117396D44006A3744 /* JGDownloadDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGDownloadDefines.h; path = "../JGDownloadAcceleration Classes/JGDownloadDefines.h"; sourceTree = "<group>"; };
+		DD42E73217396D44006A3744 /* JGDownloadDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGDownloadDefines.m; path = "../JGDownloadAcceleration Classes/JGDownloadDefines.m"; sourceTree = "<group>"; };
+		DD42E73317396D44006A3744 /* JGDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGDownloadOperation.h; path = "../JGDownloadAcceleration Classes/JGDownloadOperation.h"; sourceTree = "<group>"; };
+		DD42E73417396D44006A3744 /* JGDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGDownloadOperation.m; path = "../JGDownloadAcceleration Classes/JGDownloadOperation.m"; sourceTree = "<group>"; };
+		DD42E73517396D44006A3744 /* JGDownloadResumeMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGDownloadResumeMetadata.h; path = "../JGDownloadAcceleration Classes/JGDownloadResumeMetadata.h"; sourceTree = "<group>"; };
+		DD42E73617396D44006A3744 /* JGDownloadResumeMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGDownloadResumeMetadata.m; path = "../JGDownloadAcceleration Classes/JGDownloadResumeMetadata.m"; sourceTree = "<group>"; };
+		DD42E73717396D44006A3744 /* JGHEADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGHEADRequest.h; path = "../JGDownloadAcceleration Classes/JGHEADRequest.h"; sourceTree = "<group>"; };
+		DD42E73817396D44006A3744 /* JGHEADRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGHEADRequest.m; path = "../JGDownloadAcceleration Classes/JGHEADRequest.m"; sourceTree = "<group>"; };
+		DD42E73917396D44006A3744 /* JGOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGOperationQueue.h; path = "../JGDownloadAcceleration Classes/JGOperationQueue.h"; sourceTree = "<group>"; };
+		DD42E73A17396D44006A3744 /* JGOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGOperationQueue.m; path = "../JGDownloadAcceleration Classes/JGOperationQueue.m"; sourceTree = "<group>"; };
+		DD42E73B17396D44006A3744 /* JGResumeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGResumeObject.h; path = "../JGDownloadAcceleration Classes/JGResumeObject.h"; sourceTree = "<group>"; };
+		DD42E73C17396D44006A3744 /* JGResumeObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JGResumeObject.m; path = "../JGDownloadAcceleration Classes/JGResumeObject.m"; sourceTree = "<group>"; };
 		DDADA5851738592400781080 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "JGDownloadAcceleration Tester/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
 		DDADA5861738592400781080 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "JGDownloadAcceleration Tester/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
 		DDADA5871738592400781080 /* LBYouTubeExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBYouTubeExtractor.h; path = "JGDownloadAcceleration Tester/LBYouTubeExtractor.h"; sourceTree = SOURCE_ROOT; };
@@ -77,20 +77,20 @@
 		DD0238D117385AF700BC466F /* JGDownloadAcceleration */ = {
 			isa = PBXGroup;
 			children = (
-				DD0238B517385AD100BC466F /* JGDownload.h */,
-				DD0238B617385AD100BC466F /* JGDownload.m */,
-				DD0238B717385AD100BC466F /* JGDownloadDefines.h */,
-				DD0238B817385AD100BC466F /* JGDownloadDefines.m */,
-				DD0238B917385AD100BC466F /* JGDownloadOperation.h */,
-				DD0238BA17385AD100BC466F /* JGDownloadOperation.m */,
-				DD0238BB17385AD100BC466F /* JGDownloadResumeMetadata.h */,
-				DD0238BC17385AD100BC466F /* JGDownloadResumeMetadata.m */,
-				DD0238BD17385AD100BC466F /* JGHEADRequest.h */,
-				DD0238BE17385AD100BC466F /* JGHEADRequest.m */,
-				DD0238BF17385AD100BC466F /* JGOperationQueue.h */,
-				DD0238C017385AD100BC466F /* JGOperationQueue.m */,
-				DD0238C117385AD100BC466F /* JGResumeObject.h */,
-				DD0238C217385AD100BC466F /* JGResumeObject.m */,
+				DD42E72F17396D44006A3744 /* JGDownload.h */,
+				DD42E73017396D44006A3744 /* JGDownload.m */,
+				DD42E73117396D44006A3744 /* JGDownloadDefines.h */,
+				DD42E73217396D44006A3744 /* JGDownloadDefines.m */,
+				DD42E73317396D44006A3744 /* JGDownloadOperation.h */,
+				DD42E73417396D44006A3744 /* JGDownloadOperation.m */,
+				DD42E73517396D44006A3744 /* JGDownloadResumeMetadata.h */,
+				DD42E73617396D44006A3744 /* JGDownloadResumeMetadata.m */,
+				DD42E73717396D44006A3744 /* JGHEADRequest.h */,
+				DD42E73817396D44006A3744 /* JGHEADRequest.m */,
+				DD42E73917396D44006A3744 /* JGOperationQueue.h */,
+				DD42E73A17396D44006A3744 /* JGOperationQueue.m */,
+				DD42E73B17396D44006A3744 /* JGResumeObject.h */,
+				DD42E73C17396D44006A3744 /* JGResumeObject.m */,
 			);
 			name = JGDownloadAcceleration;
 			sourceTree = "<group>";
@@ -227,17 +227,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD0238C417385AD100BC466F /* JGDownload.m in Sources */,
-				DD0238C617385AD100BC466F /* JGDownloadDefines.m in Sources */,
-				DD0238C817385AD100BC466F /* JGDownloadOperation.m in Sources */,
-				DD0238CA17385AD100BC466F /* JGDownloadResumeMetadata.m in Sources */,
-				DD0238CC17385AD100BC466F /* JGHEADRequest.m in Sources */,
-				DD0238CE17385AD100BC466F /* JGOperationQueue.m in Sources */,
-				DD0238D017385AD100BC466F /* JGResumeObject.m in Sources */,
 				DDADA58C1738592400781080 /* AppDelegate.m in Sources */,
 				DDADA58D1738592400781080 /* LBYouTubeExtractor.m in Sources */,
 				DDADA58E1738592400781080 /* main.m in Sources */,
 				DDADA58F1738592400781080 /* ViewController.m in Sources */,
+				DD42E73D17396D44006A3744 /* JGDownload.m in Sources */,
+				DD42E73E17396D44006A3744 /* JGDownloadDefines.m in Sources */,
+				DD42E73F17396D44006A3744 /* JGDownloadOperation.m in Sources */,
+				DD42E74017396D44006A3744 /* JGDownloadResumeMetadata.m in Sources */,
+				DD42E74117396D44006A3744 /* JGHEADRequest.m in Sources */,
+				DD42E74217396D44006A3744 /* JGOperationQueue.m in Sources */,
+				DD42E74317396D44006A3744 /* JGResumeObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
