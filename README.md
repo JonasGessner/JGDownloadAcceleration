@@ -6,7 +6,7 @@ JGDownloadAcceleration is a Networking library for iOS targeted at downloading l
 
 JGDownloadAcceleration's main part is a concurrent NSOperation subclass (JGDownloadOperation) which handles the multipart download.
 
-For managing and queing multiple operations, JGDownloadAcceleration provides a NSOoperationQueue subclass (JGDownloadOperationQueue) which handles the networking thread, activity indicator and application background task.
+For managing and queing multiple operations, JGDownloadAcceleration provides a NSOoperationQueue subclass (JGOperationQueue) which handles the networking thread, activity indicator and application background task.
 
 
 Q. How does the download acceleration even work?
@@ -21,11 +21,33 @@ The server from which downloading a content needs to support the `Range` header 
 ##Getting started
 
 1. Download JGDownloadAcceleration
-2. Add the whole JGDownloadAcceleration folder to your Project
+2. Add the whole "JGDownloadAcceleration Classes" folder to your Project
+3. Start using JGDownloadAcceleration!
 
 ##Overview
+
+JGDownloadAcceleration consists of 2 different classes that are available to use for networking.
+
+####JGDownloadOperation
+
+####JGOperationQueue
+A NSOperationQueue subclass which is targeted at enqueing only `JGDownloadOperation` objects.
+
+`JGOperationQueue` handles the shared background thread used by all `JGDownloadOperation` instances. Once all operations are finished the queue exits the networking thread.
+
+Optionally, `JGOperationQueue` handles the status bar NetworkActivityIndicator, according to the number of enqued operations and the background task used for networking requests when the app runs in the background.
+
+  BOOL handleNetworkActivityIndicator
+  BOOL handleBackgroundTask
+  
+Note that when setting `handleBackgroundTask` to `YES`, the App's Info.plist file needs to have "Application uses Wi-Fi" set to `YES`.
+
 ##Example
+
+
 ##Requirements
+
+
 ##Credits
 JGDownloadAcceleration was created by <a href="http://twitter.com/JonasGessner" target="_blank">Jonas Gessner</a>.
 It was created for the iOS Jailbreak tweak "ProTube Extension for YouTube" and the Jailbreak App "ProTube".
