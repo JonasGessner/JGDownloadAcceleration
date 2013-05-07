@@ -50,12 +50,12 @@ Optionally, the number of connections to use to download the resource and a tag 
     
 
 <h4>`setOperationStartedBlock:`</h4> Used to be notified when the operation starts.
-The block passes a reference to the operation. The blocks is called on the main thread.
+The block passes a reference to the operation. The blocks is called from the network thread.
 
 <h4>`setCompletionBlockWithSuccess:failure:`</h4> Used to be notified when the operation finishes and to be informed about the completion state (failed with an error or not?).
-The completion block passes a reference to the operation, the failure block passes a reference to the operation and the error. Both blocks are called on the main thread
+The completion block passes a reference to the operation, the failure block passes a reference to the operation and the error. Both blocks are called from a background thread (not the network thread).
 
-<h4>`setDownloadProgressBlock:`</h4> Used to determine, calculate, and observe various details of the current download. This block is called on the (secondary) networking Thread! It is called every time a connection inside the operation receives a chunk of data (which is automatically written to the disk). The current progress, current download speed, average download speed (and using that an estimation for the remaining time) can be calculated. For average and current speed a variable in needed to store the time intervals from the last call of the block (for the current speed) and from when the operation started. See the Example project for an implementation of this<p>
+<h4>`setDownloadProgressBlock:`</h4> Used to determine, calculate, and observe various details of the current download. This block is called on the (secondary) networking thread! It is called every time a connection inside the operation receives a chunk of data (which is automatically written to the disk). The current progress, current download speed, average download speed (and using that an estimation for the remaining time) can be calculated. For average and current speed a variable in needed to store the time intervals from the last call of the block (for the current speed) and from when the operation started. See the Example project for an implementation of this<p>
 `NSUInteger bytesRead` indicates the size of the bytes read (NOT since the last call of the block, its pretty complicated because this block is called for each connection, passing the number of bytes the specific connection loaded since this specific connection last loaded a chunk of bytes).<p>
 `unsigned long long totalBytesReadThisSession` the total number of bytes read in this current session. If a download is paused at 50% and then resumed, this parameter will start from 0.<p>
 `unsigned long long totalBytesWritten` the total bytes read in total.<p>
@@ -77,11 +77,11 @@ Internally this class uses a bunch of helper classes. These should not be touche
 
 
 ###JGOperationQueue
-A NSOperationQueue subclass which is targeted at enqueing only `JGDownloadOperation` objects.
+A NSOperationQueue subclass which is targeted at enqueuing only `JGDownloadOperation` objects.
 
-`JGOperationQueue` handles the shared background thread used by all `JGDownloadOperation` instances. Once all operations are finished the queue exits the networking thread.
-
-Optionally, `JGOperationQueue` handles the status bar NetworkActivityIndicator, according to the number of enqued operations and the background task used for networking requests when the app runs in the background.
+`JGOperationQueue` handles the shared network thread used by all `JGDownloadOperation` instances. Once all operations are finished the queue exits the networking thread.
+queue
+Optionally, `JGOperationQueue` handles the status bar NetworkActivityIndicator, according to the number of enqueued operations and the background task used for networking requests when the app runs in the background.
 
   BOOL handleNetworkActivityIndicator
   BOOL handleBackgroundTask

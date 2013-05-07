@@ -29,10 +29,12 @@ NSString *NSStringFromJGRangeWithOffset(JGRange range, unsigned long long offset
     return (range.final ? [NSString stringWithFormat:@"bytes=%llu-", range.location+offset] : [NSString stringWithFormat:@"bytes=%llu-%llu", range.location+offset, range.location+range.length]);
 }
 
-unsigned long long getFreeSpace(NSString *folder, NSError **error) {
+unsigned long long getFreeSpace(NSString *folder, NSError *error) {
     unsigned long long freeSpace = 0;
     
-    NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:folder error:error];
+    NSLog(@"GET");
+    NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:folder error:&error];
+    NSLog(@"GOT");
     
     if (dictionary) {
         NSNumber *fileSystemFreeSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];

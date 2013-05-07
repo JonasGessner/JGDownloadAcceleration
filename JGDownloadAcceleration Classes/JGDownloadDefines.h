@@ -41,7 +41,7 @@ JGExtern NSString *NSStringForFileFromJGRange(JGRange range);
 
 JGExtern NSString *NSStringFromJGRangeWithOffset(JGRange range, unsigned long long offset);
 
-JGExtern unsigned long long getFreeSpace(NSString *folder, NSError **error);
+JGExtern unsigned long long getFreeSpace(NSString *folder, NSError *error);
 
 
 

@@ -190,10 +190,8 @@ static NSThread *_networkRequestThread = nil;
 
 - (void)downloadStarted:(JGDownload *)download {
     if (started) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            started(self.tag, self.contentLength);
-            started = nil;
-        });
+        started(self.tag, self.contentLength);
+        started = nil;
     }
 }
 
@@ -281,7 +279,9 @@ static NSThread *_networkRequestThread = nil;
         contentLength = (unsigned long long)[response expectedContentLength];
         
         NSError *__error = nil;
-        unsigned long long free = getFreeSpace(self.destinationPath.stringByDeletingLastPathComponent, &__error);
+        NSLog(@"GET SPACE");
+        unsigned long long free = getFreeSpace(self.destinationPath.stringByDeletingLastPathComponent, __error);
+        NSLog(@"GOT SPACE");
         
         if (free <= contentLength) {
             error = [NSError errorWithDomain:@"de.j-gessner.jgdownloadaccelerator" code:409 userInfo:@{NSLocalizedDescriptionKey : @"There's not enough free space on the disk to download this file"}]; //409 = Conflict ?
@@ -366,15 +366,11 @@ static NSThread *_networkRequestThread = nil;
         }
         if (!!self.error) {
             if (failure && !!self.error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    failure(self, self.error);
-                });
+                failure(self, self.error);
             }
         } else {
             if (success) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    success(self);
-                });
+                success(self);
             }
         }
     };
