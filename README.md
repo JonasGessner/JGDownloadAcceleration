@@ -61,7 +61,6 @@ The completion block passes a reference to the operation, the failure block pass
 `unsigned long long totalBytesWritten` the total bytes read in total.<p>
 `unsigned long long totalBytesExpectedToRead` the expected content size of the resource.<p>
 `NSUInteger tag` the tag of the operation, very handy for managing multiple operations in a queue.
-<p>
 <br>
 <br>
 Internally this class uses a bunch of helper classes. These should not be touched by anything but the `JGDownloadOperation`.
@@ -90,7 +89,7 @@ Optionally, `JGOperationQueue` handles the status bar NetworkActivityIndicator, 
 Note that when setting `handleBackgroundTask` to `YES`, the App's Info.plist file needs to have "Application uses Wi-Fi" set to `YES`.
 
 ##Example
-
+An example usage can be found in the Sample Project.
 
 ##Requirements
 `JGDownloadAcceleration` is built for use with ARC and weak references. This means that iOS 5 or higher is required for using `JGDownloadAcceleration`
