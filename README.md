@@ -28,9 +28,19 @@ The server from which downloading a content needs to support the `Range` header 
 
 JGDownloadAcceleration consists of 2 different classes that are available to use for networking.
 
-####JGDownloadOperation
+###JGDownloadOperation
+A NSOperation subclass which does the download acceleration magic.
 
-####JGOperationQueue
+`JGDownloadOperation` is restricted to GET HTTP Requests and to writing downloaded content directly to the hard disk.
+
+Parameters to pass:
+A `JGDownloadOperation` instance required to have the `url` parameter, and the `destinationPath` parameter set. If not the Application will terminate with an Assertion Failure.
+
+Optionally, the number of connections to use to download the resource and a tag can be set.
+
+
+
+###JGOperationQueue
 A NSOperationQueue subclass which is targeted at enqueing only `JGDownloadOperation` objects.
 
 `JGOperationQueue` handles the shared background thread used by all `JGDownloadOperation` instances. Once all operations are finished the queue exits the networking thread.
