@@ -71,6 +71,7 @@
             NSLog(@"Operation Started");
         }];
         
+        
         if (!q) {
             q = [[JGOperationQueue alloc] init];
             q.handleNetworkActivityIndicator = YES;

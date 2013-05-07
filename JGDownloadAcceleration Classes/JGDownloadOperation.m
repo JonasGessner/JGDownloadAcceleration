@@ -192,8 +192,8 @@ static NSThread *_networkRequestThread = nil;
     if (started) {
         dispatch_async(dispatch_get_main_queue(), ^{
             started(self.tag, self.contentLength);
+            started = nil;
         });
-        started = nil;
     }
 }
 
