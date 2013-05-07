@@ -29,6 +29,8 @@
 
 @implementation JGOperationQueue
 
+@synthesize handleBackgroundTask, handleNetworkActivityIndicator;
+
 + (NSThread *)operationThreadIfAvailable {
     return ([JGDownloadOperation networkRequestThreadIsAvailable] ? [JGDownloadOperation networkRequestThread] : nil);
 }
@@ -43,6 +45,9 @@
 }
 
 - (void)startBackgroundTask {
+    if (!self.handleBackgroundTask) {
+        return;
+    }
     running = YES;
     bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         if (self.operationCount > 0) {
@@ -62,7 +67,9 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == self && [keyPath isEqualToString:@"operations"]) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(self.operationCount > 0)];
+        if (self.handleNetworkActivityIndicator) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(self.operationCount > 0)];
+        }
         if (self.operationCount > 0 && !running) {
             [self startBackgroundTask];
         }
@@ -73,6 +80,13 @@
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
+}
+
+- (void)addOperation:(JGDownloadOperation *)op {
+    if (![op isKindOfClass:[JGDownloadOperation class]]) {
+        NSLog(@"Error: JGOperationQueue should only be used for enqueing JGDownloadOperation objects. Continuing");
+    }
+    [super addOperation:op];
 }
 
 @end

@@ -50,6 +50,10 @@
         owner = _owner;
         url = _url;
         object = _object;
+        
+        NSParameterAssert(url != nil);
+        NSParameterAssert(owner != nil);
+        NSParameterAssert(object != nil);
     }
     return self;
 }

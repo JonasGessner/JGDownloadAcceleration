@@ -28,6 +28,8 @@
 - (id)initWithURL:(NSURL *)url {
     self = [super init];
     if (self) {
+        NSParameterAssert(url != nil);
+        
         NSMutableURLRequest *newRequest = [NSMutableURLRequest requestWithURL:url];
         [newRequest setValue:USER_AGENT forHTTPHeaderField:@"User-Agent"];
         

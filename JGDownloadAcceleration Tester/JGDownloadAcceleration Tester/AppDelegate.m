@@ -73,6 +73,8 @@
         
         if (!q) {
             q = [[JGOperationQueue alloc] init];
+            q.handleNetworkActivityIndicator = YES;
+            q.handleBackgroundTask = YES;
         }
         
         [q addOperation:operation];

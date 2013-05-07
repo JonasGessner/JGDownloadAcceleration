@@ -11,4 +11,9 @@
 
 @interface JGOperationQueue : NSOperationQueue
 
+@property (nonatomic, assign) BOOL handleNetworkActivityIndicator;
+@property (nonatomic, assign) BOOL handleBackgroundTask;
+
+- (void)addOperation:(JGDownloadOperation *)op;
+
 @end

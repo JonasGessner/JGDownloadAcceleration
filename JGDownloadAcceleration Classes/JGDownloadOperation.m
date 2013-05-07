@@ -65,7 +65,7 @@
 
 + (void)networkRequestThreadEntryPoint:(id)__unused object {
     @autoreleasepool {
-        [[NSThread currentThread] setName:@"JGDownloadAccelerator"];
+        [[NSThread currentThread] setName:@"JGDownloadAcceleration"];
         do {
             [[NSRunLoop currentRunLoop] run];
         }
@@ -111,6 +111,9 @@ static NSThread *_networkRequestThread = nil;
         destinationPath = _path;
         url = _url;
         append = _resume;
+        
+        NSParameterAssert(url != nil);
+        NSParameterAssert(destinationPath != nil);
     }
     return self;
 }
