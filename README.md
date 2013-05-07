@@ -60,9 +60,8 @@ The completion block passes a reference to the operation, the failure block pass
 `unsigned long long totalBytesReadThisSession` the total number of bytes read in this current session. If a download is paused at 50% and then resumed, this parameter will start from 0.<p>
 `unsigned long long totalBytesWritten` the total bytes read in total.<p>
 `unsigned long long totalBytesExpectedToRead` the expected content size of the resource.<p>
-`NSUInteger tag` the tag of the operation, very handy for managing multiple operations in a queue.<p>
-<br>
-<br>
+`NSUInteger tag` the tag of the operation, very handy for managing multiple operations in a queue.
+<p>
 <br>
 <br>
 Internally this class uses a bunch of helper classes. These should not be touched by anything but the `JGDownloadOperation`.
@@ -70,7 +69,7 @@ Internally this class uses a bunch of helper classes. These should not be touche
 <br>
 <br>
 `JGDownloadOperation` uses a metadata file to store the progress of each connection, to allow the operation to resume when failed or cancelled. The metadata file is stored at the destination path with the file extension `jgd`. The metadata file will automatically be removed when the operation finishes with success. Passing `YES` for "resume" in `initWithURL:destinationPath:resume:` will result in a attempt to read the metadata file and resume from the last known state. If reading the metadata file is not possible (if the file does not exist) the download will start from the beginning, overwriting any existing progress.
-
+<br>
 
 #####Cancellation:
 `cancel` will stop the download,  synchronize the metadata file to allow resuming the download later and leave the partially downloaded file on the disk. Neither the success completion block or the failure completion block will be called.<p>
@@ -94,7 +93,9 @@ Note that when setting `handleBackgroundTask` to `YES`, the App's Info.plist fil
 
 
 ##Requirements
+`JGDownloadAcceleration` is built for use with ARC and weak references. This means that iOS 5 or higher is required for using `JGDownloadAcceleration`
 
+__*If your project doesn't use ARC*: you must add the `-fobjc-arc` compiler flag to all JGDownloadAcceleration files in Target Settings > Build Phases > Compile Sources.__
 
 ##Credits
 JGDownloadAcceleration was created by <a href="http://twitter.com/JonasGessner" target="_blank">Jonas Gessner</a>.
