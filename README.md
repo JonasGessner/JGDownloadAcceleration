@@ -1,11 +1,12 @@
-JGDownloadAcceleration
-===================
+<h1>JGDownloadAcceleration<h1> <h5>© Jonas Gessner 2013</h5>
+
+------------------
 
 JGDownloadAcceleration is a Networking library for iOS targeted at downloading large files on to the device's hard disk.
 
 JGDownloadAcceleration's main part is a concurrent NSOperation subclass (JGDownloadOperation) which handles the multipart download.
 
-For managing and queing multiple operations, JGDownloadAccelerator provides a NSOoperationQueue subclass (JGDownloadOperationQueue) which handles the networking thread, activity indicator and application background task.
+For managing and queing multiple operations, JGDownloadAcceleration provides a NSOoperationQueue subclass (JGDownloadOperationQueue) which handles the networking thread, activity indicator and application background task.
 
 
 Q. How does the download acceleration even work?
@@ -19,6 +20,8 @@ The server from which downloading a content needs to support the `Range` header 
 
 ##Getting started
 
+1. Download JGDownloadAcceleration
+2. Add the whole JGDownloadAcceleration folder to your Project
 
 ##Overview
 ##Example
