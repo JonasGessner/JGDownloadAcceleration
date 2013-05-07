@@ -43,10 +43,22 @@ Optionally, the number of connections to use to download the resource and a tag 
 
 `JGDownloadOperation` uses blocks to communicate with a delegate.
 
-  - (void)setCompletionBlockWithSuccess:(void (^)(JGDownloadOperation *operation))success failure:(void (^)(JGDownloadOperation *operation, NSError *error))failure;
-  - (void)setDownloadProgressBlock:(void (^)(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesWritten, unsigned long long totalBytesExpectedToRead, NSUInteger tag))block;
-  - (void)setOperationStartedBlock:(void (^)(NSUInteger tag, unsigned long long totalBytesExpectedToRead))block;
+    - (void)setCompletionBlockWithSuccess:(void (^)(JGDownloadOperation *operation))success failure:(void (^)(JGDownloadOperation *operation, NSError *error))failure;
+    - (void)setOperationStartedBlock:(void (^)(NSUInteger tag, unsigned long long totalBytesExpectedToRead))block;
+    
+    - (void)setDownloadProgressBlock:(void (^)(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesWritten, unsigned long long totalBytesExpectedToRead, NSUInteger tag))block;
+    
 
+
+`setCompletionBlockWithSuccess:failure:` is used to be notified when the operation finishes and to be informed about the completion state (failed with an error or not?).
+The completion block passes a reference to the operation, the failure block passes a reference to the operation and the error. Both blocks are called on the main thread
+
+`setDownloadProgressBlock:` is used to determine, calculate, and observe various details of the current download. This block is called on the (secondary) networking Thread! It is called every time a connection inside the operation receives a chunk of data (which is automatically written to the disk).
+`NSUInteger bytesRead` indicates the size of the bytes read (NOT since the last call of the block, its pretty complicated because this block is called for each connection, passing the number of bytes the specific connection loaded since this spefific connection last loaded a chunk of bytes).
+`unsigned long long totalBytesReadThisSession` the total number of bytes read in this current session. If a download is paused at 50% and then resumed, this parameter will start from 0.
+`unsigned long long totalBytesWritten` the total bytes read in total.
+`unsigned long long totalBytesExpectedToRead` the expected content size of the resource.
+`NSUInteger tag` the tag of the operation, very handy for managing multiple operations in a queue.
 
 
 ###JGOperationQueue
