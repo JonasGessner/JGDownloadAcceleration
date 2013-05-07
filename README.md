@@ -49,13 +49,13 @@ Optionally, the number of connections to use to download the resource and a tag 
     - (void)setDownloadProgressBlock:(void (^)(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesWritten, unsigned long long totalBytesExpectedToRead, NSUInteger tag))block;
     
 
-<h5>`setOperationStartedBlock:`</h5> is used to be notified when the operation starts.
+<h4>`setOperationStartedBlock:`</h4> Used to be notified when the operation starts.
 The block passes a reference to the operation. The blocks is called on the main thread.
 
-<h5>`setCompletionBlockWithSuccess:failure:`</h5> is used to be notified when the operation finishes and to be informed about the completion state (failed with an error or not?).
+<h4>`setCompletionBlockWithSuccess:failure:`</h4> Used to be notified when the operation finishes and to be informed about the completion state (failed with an error or not?).
 The completion block passes a reference to the operation, the failure block passes a reference to the operation and the error. Both blocks are called on the main thread
 
-<h5>`setDownloadProgressBlock:`</h5> is used to determine, calculate, and observe various details of the current download. This block is called on the (secondary) networking Thread! It is called every time a connection inside the operation receives a chunk of data (which is automatically written to the disk).<p>
+<h4>`setDownloadProgressBlock:`</h4> Used to determine, calculate, and observe various details of the current download. This block is called on the (secondary) networking Thread! It is called every time a connection inside the operation receives a chunk of data (which is automatically written to the disk).<p>
 `NSUInteger bytesRead` indicates the size of the bytes read (NOT since the last call of the block, its pretty complicated because this block is called for each connection, passing the number of bytes the specific connection loaded since this specific connection last loaded a chunk of bytes).<p>
 `unsigned long long totalBytesReadThisSession` the total number of bytes read in this current session. If a download is paused at 50% and then resumed, this parameter will start from 0.<p>
 `unsigned long long totalBytesWritten` the total bytes read in total.<p>
