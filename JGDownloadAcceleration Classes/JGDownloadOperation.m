@@ -190,7 +190,9 @@ static NSThread *_networkRequestThread = nil;
 
 - (void)downloadStarted:(JGDownload *)download {
     if (started) {
-        started(self.tag, self.contentLength);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            started(self.tag, self.contentLength);
+        });
         started = nil;
     }
 }
