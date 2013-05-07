@@ -28,7 +28,7 @@ The server from which downloading a content needs to support the `Range` header 
 
 JGDownloadAcceleration consists of 2 different classes that are available to use for networking.
 
-###JGDownloadOperation
+####JGDownloadOperation
 A NSOperation subclass which does the download acceleration magic.
 
 `JGDownloadOperation` is restricted to HTTP GET Requests and to writing downloaded content directly to the hard disk.
@@ -61,17 +61,12 @@ The completion block passes a reference to the operation, the failure block pass
 `unsigned long long totalBytesWritten` the total bytes read in total.<p>
 `unsigned long long totalBytesExpectedToRead` the expected content size of the resource.<p>
 `NSUInteger tag` the tag of the operation, very handy for managing multiple operations in a queue.<p>
-
-
-
-
-
+<p>
+<p>
+<p>
 Internally this class uses a bunch of helper classes. These should not be touched by anything but the `JGDownloadOperation`.
-
-
-
-
-
+<p>
+<p>
 `JGDownloadOperation` uses a metadata file to store the progress of each connection, to allow the operation to resume when failed or cancelled. The metadata file is stored at the destination path with the file extension `jgd`. The metadata file will automatically be removed when the operation finishes with success. Passing `YES` for "resume" in `initWithURL:destinationPath:resume:` will result in a attempt to read the metadata file and resume from the last known state. If reading the metadata file is not possible (if the file does not exist) the download will start from the beginning, overwriting any existing progress.
 
 
@@ -81,7 +76,7 @@ Internally this class uses a bunch of helper classes. These should not be touche
 
 
 
-###JGOperationQueue
+####JGOperationQueue
 A NSOperationQueue subclass which is targeted at enqueing only `JGDownloadOperation` objects.
 
 `JGOperationQueue` handles the shared background thread used by all `JGDownloadOperation` instances. Once all operations are finished the queue exits the networking thread.
