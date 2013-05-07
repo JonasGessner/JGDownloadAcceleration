@@ -10,7 +10,7 @@ For managing and queing multiple operations, JGDownloadAccelerator provides a NS
 
 Q. How does the download acceleration even work?
 
-A. A Download accelerator (multipart download) uses multiple network connections to download a file from a server in chunks (each connection downloads one part of the entire content). This allows to bypass bandwidth limitations set by the server and download speeds can be drastically increased.
+A. Download accelerators (multipart download) use multiple network connections to download a file from a server in chunks (each connection downloads one part of the entire content). This allows to bypass bandwidth limitations set by the server and download speeds can be drastically increased.
 
 More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_acceleration">Wikipedia</a>
 
