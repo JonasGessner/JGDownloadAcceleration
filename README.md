@@ -31,12 +31,12 @@ JGDownloadAcceleration consists of 2 different classes that are available to use
 ###JGDownloadOperation
 A NSOperation subclass which does the download acceleration magic.
 
-`JGDownloadOperation` is restricted to GET HTTP Requests and to writing downloaded content directly to the hard disk.
+`JGDownloadOperation` is restricted to HTTP GET Requests and to writing downloaded content directly to the hard disk.
 
 Parameters to pass:
 A `JGDownloadOperation` instance required to have the `url` parameter, and the `destinationPath` parameter set. If not the Application will terminate with an Assertion Failure.
 
-All `JGDownloadOperation` instances should be initialized with the `initWithURL:destinationPath:resume:` method, where the URL, the local destination path and a `BOOL` to indicate whether the operation should resume (if possible) where it left of is passed.
+All `JGDownloadOperation` instances should be initialized with the `initWithURL:destinationPath:resume:` method, where the URL, the local destination path and a `BOOL` to indicate whether the operation should resume (if possible) where it left of is passed. Any files located at the destination path will be removed when starting the download.
 
 Optionally, the number of connections to use to download the resource and a tag can be set.
 
@@ -61,6 +61,19 @@ The completion block passes a reference to the operation, the failure block pass
 `unsigned long long totalBytesWritten` the total bytes read in total.<p>
 `unsigned long long totalBytesExpectedToRead` the expected content size of the resource.<p>
 `NSUInteger tag` the tag of the operation, very handy for managing multiple operations in a queue.<p>
+
+
+Internally this class uses a bunch of helper classes. These should not be touched by anything but the `JGDownloadOperation`.
+
+
+
+`JGDownloadOperation` uses a metadata file to store the progress of each connection, to allow the operation to resume when failed or cancelled. The metadata file is stored at the destination path with the file extension `jgd`. The metadata file will automatically be removed when the operation finishes with success. Passing `YES` for "resume" in `initWithURL:destinationPath:resume:` will result in a attempt to read the metadata file and resume from the last known state. If reading the metadata file is not possible (if the file does not exist) the download will start from the beginning, overwriting any existing progress.
+
+
+####Cancellation:
+`cancel` will stop the download,  synchronize the metadata file to allow resuming the download later and leave the partially downloaded file on the disk. Neither the success completion block or the failure completion block will be called.<p>
+`cancelAndClearFiles` will stop the download and remove the partially downloaded file as well as the metadata file from the disk. Neither the success completion block or the failure completion block will be called.
+
 
 
 ###JGOperationQueue
