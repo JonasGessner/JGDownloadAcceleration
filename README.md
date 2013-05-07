@@ -6,7 +6,7 @@ JGDownloadAcceleration is a Networking library for iOS targeted at downloading l
 
 JGDownloadAcceleration's main part is a concurrent NSOperation subclass (JGDownloadOperation) which handles the multipart download.
 
-For managing and queing multiple operations, JGDownloadAcceleration provides a NSOoperationQueue subclass (JGOperationQueue) which handles the networking thread, activity indicator and application background task.
+For managing and queuing multiple operations, JGDownloadAcceleration provides a NSOperationQueue subclass (JGOperationQueue) which handles the networking thread, activity indicator and application background task.
 
 
 Q. How does the download acceleration even work?
@@ -53,12 +53,12 @@ Optionally, the number of connections to use to download the resource and a tag 
 `setCompletionBlockWithSuccess:failure:` is used to be notified when the operation finishes and to be informed about the completion state (failed with an error or not?).
 The completion block passes a reference to the operation, the failure block passes a reference to the operation and the error. Both blocks are called on the main thread
 
-`setDownloadProgressBlock:` is used to determine, calculate, and observe various details of the current download. This block is called on the (secondary) networking Thread! It is called every time a connection inside the operation receives a chunk of data (which is automatically written to the disk).
-`NSUInteger bytesRead` indicates the size of the bytes read (NOT since the last call of the block, its pretty complicated because this block is called for each connection, passing the number of bytes the specific connection loaded since this spefific connection last loaded a chunk of bytes).
-`unsigned long long totalBytesReadThisSession` the total number of bytes read in this current session. If a download is paused at 50% and then resumed, this parameter will start from 0.
-`unsigned long long totalBytesWritten` the total bytes read in total.
-`unsigned long long totalBytesExpectedToRead` the expected content size of the resource.
-`NSUInteger tag` the tag of the operation, very handy for managing multiple operations in a queue.
+`setDownloadProgressBlock:` is used to determine, calculate, and observe various details of the current download. This block is called on the (secondary) networking Thread! It is called every time a connection inside the operation receives a chunk of data (which is automatically written to the disk).<p>
+`NSUInteger bytesRead` indicates the size of the bytes read (NOT since the last call of the block, its pretty complicated because this block is called for each connection, passing the number of bytes the specific connection loaded since this specific connection last loaded a chunk of bytes).<p>
+`unsigned long long totalBytesReadThisSession` the total number of bytes read in this current session. If a download is paused at 50% and then resumed, this parameter will start from 0.<p>
+`unsigned long long totalBytesWritten` the total bytes read in total.<p>
+`unsigned long long totalBytesExpectedToRead` the expected content size of the resource.<p>
+`NSUInteger tag` the tag of the operation, very handy for managing multiple operations in a queue.<p>
 
 
 ###JGOperationQueue
