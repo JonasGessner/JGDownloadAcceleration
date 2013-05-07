@@ -63,14 +63,19 @@ The completion block passes a reference to the operation, the failure block pass
 `NSUInteger tag` the tag of the operation, very handy for managing multiple operations in a queue.<p>
 
 
+
+
+
 Internally this class uses a bunch of helper classes. These should not be touched by anything but the `JGDownloadOperation`.
+
+
 
 
 
 `JGDownloadOperation` uses a metadata file to store the progress of each connection, to allow the operation to resume when failed or cancelled. The metadata file is stored at the destination path with the file extension `jgd`. The metadata file will automatically be removed when the operation finishes with success. Passing `YES` for "resume" in `initWithURL:destinationPath:resume:` will result in a attempt to read the metadata file and resume from the last known state. If reading the metadata file is not possible (if the file does not exist) the download will start from the beginning, overwriting any existing progress.
 
 
-####Cancellation:
+#####Cancellation:
 `cancel` will stop the download,  synchronize the metadata file to allow resuming the download later and leave the partially downloaded file on the disk. Neither the success completion block or the failure completion block will be called.<p>
 `cancelAndClearFiles` will stop the download and remove the partially downloaded file as well as the metadata file from the disk. Neither the success completion block or the failure completion block will be called.
 
