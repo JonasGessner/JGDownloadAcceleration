@@ -13,18 +13,18 @@
 
 @interface JGDownloadOperation : NSOperation <JGDownloadManager, JGHEADRequestDelegate>
 
-//required to be set
-@property (nonatomic, readonly, strong) NSString *destinationPath;
-@property (nonatomic, assign) NSUInteger maxConnections;
-
-//optional
+//optional settings
 @property (nonatomic, assign) NSUInteger tag;
+@property (nonatomic, assign) NSUInteger maxConnections;
 
 
 //readonly
+@property (nonatomic, strong, readonly) NSURL *url;
+@property (nonatomic, readonly, strong) NSString *destinationPath;
+
 @property (nonatomic, assign, readonly) unsigned long long contentLength;
 @property (nonatomic, strong, readonly) NSError *error;
-@property (nonatomic, strong, readonly) NSURL *url;
+
 
 
 
@@ -36,7 +36,7 @@
 
 //Delegate blocks
 - (void)setCompletionBlockWithSuccess:(void (^)(JGDownloadOperation *operation))success failure:(void (^)(JGDownloadOperation *operation, NSError *error))failure;
-- (void)setDownloadProgressBlock:(void (^)(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesWritten, unsigned long long totalBytesExpectedToRead, NSUInteger tag))block;
+- (void)setDownloadProgressBlock:(void (^)(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesRead, unsigned long long totalBytesExpectedToRead, NSUInteger tag))block;
 - (void)setOperationStartedBlock:(void (^)(NSUInteger tag, unsigned long long totalBytesExpectedToRead))block;
 
 @end
