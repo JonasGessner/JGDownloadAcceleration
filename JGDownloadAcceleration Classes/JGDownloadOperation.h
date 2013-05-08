@@ -7,11 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JGDownloadDefines.h"
-#import "JGHEADRequest.h"
-#import "JGDownloadResumeMetadata.h"
 
-@interface JGDownloadOperation : NSOperation <JGDownloadManager, JGHEADRequestDelegate>
+@interface JGDownloadOperation : NSOperation
 
 //optional settings
 @property (nonatomic, assign) NSUInteger tag;

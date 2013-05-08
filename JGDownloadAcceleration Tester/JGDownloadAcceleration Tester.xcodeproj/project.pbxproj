@@ -59,6 +59,7 @@
 		DDADA5921738594200781080 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "JGDownloadAcceleration Tester/Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		DDADA5931738594200781080 /* JGDownloadAcceleration Tester-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "JGDownloadAcceleration Tester-Info.plist"; path = "JGDownloadAcceleration Tester/JGDownloadAcceleration Tester-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DDADA5941738594200781080 /* JGDownloadAcceleration Tester-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JGDownloadAcceleration Tester-Prefix.pch"; path = "JGDownloadAcceleration Tester/JGDownloadAcceleration Tester-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		DDE81A6B173A8C5300901E88 /* JGDownloadAcceleration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JGDownloadAcceleration.h; path = "../JGDownloadAcceleration Classes/JGDownloadAcceleration.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +78,7 @@
 		DD0238D117385AF700BC466F /* JGDownloadAcceleration */ = {
 			isa = PBXGroup;
 			children = (
+				DDE81A6B173A8C5300901E88 /* JGDownloadAcceleration.h */,
 				DD42E72F17396D44006A3744 /* JGDownload.h */,
 				DD42E73017396D44006A3744 /* JGDownload.m */,
 				DD42E73117396D44006A3744 /* JGDownloadDefines.h */,

@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#if !__has_feature(objc_arc)
-#error "JGDownloadOperation requires ARC!"
-#endif
-
 #if defined(__cplusplus)
 #define JGExtern extern "C"
 #else

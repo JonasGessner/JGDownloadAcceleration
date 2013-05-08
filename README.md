@@ -23,7 +23,8 @@ The server from which downloading a content needs to support the `Range` header 
 1. Download JGDownloadAcceleration
 2. Add the whole "JGDownloadAcceleration Classes" folder to your Project
 3. Have a read through the Overview section
-4. Start using JGDownloadAcceleration!
+4. `#import "JGDownloadAcceleration.h"`
+5. Start using JGDownloadAcceleration!
 
 ##Overview
 

@@ -10,6 +10,8 @@
 #import "JGDownload.h"
 #import "JGDownloadDefines.h"
 #import "JGOperationQueue.h"
+#import "JGHEADRequest.h"
+#import "JGDownloadResumeMetadata.h"
 
 @interface JGDownloadOperation () //Private
 
@@ -21,7 +23,7 @@
 @end
 
 
-@interface JGDownloadOperation () {
+@interface JGDownloadOperation () <JGDownloadManager, JGHEADRequestDelegate> {
     NSUInteger finished;
     BOOL append;
     NSUInteger errorRetryAttempts;

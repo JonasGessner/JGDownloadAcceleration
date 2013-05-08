@@ -10,7 +10,7 @@
 
 #import "ViewController.h"
 
-#import "JGDownloadOperation.h"
+#import "JGDownloadAcceleration.h"
 
 @implementation AppDelegate
 
