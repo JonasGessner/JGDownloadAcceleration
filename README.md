@@ -53,6 +53,16 @@ Optionally, the number of connections to use to download the resource, a tag, an
 
 By default the tag is 0 and the number of connections is 6. The retry count it the number of connections divided by 2.
 
+The readonly properties are:
+
+	NSURL *url;
+	NSString *destinationPath;
+	unsigned long long contentLength;
+	NSError *error;
+
+`url` and `destinationPath` are set in the `initWithURL:destinationPath:resume:` method and should not be changed once the operation has been initialized, therefore they are a `readonly` property.
+`contentLength` is the expected length (bytes) of the resource to download. This value will be 0 before the `requestStartedBlock` is called. `error` returns the failure error (it will be nil if the operation is completed with success or if its running). The error will also be passed in the failure block. (See below for more info on the started and the failure blocks).
+
 
 `JGDownloadOperation` uses blocks to communicate with a delegate.
 

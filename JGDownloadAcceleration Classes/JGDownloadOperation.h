@@ -17,7 +17,7 @@
 
 //readonly
 @property (nonatomic, strong, readonly) NSURL *url;
-@property (nonatomic, readonly, strong) NSString *destinationPath;
+@property (nonatomic, strong, readonly) NSString *destinationPath;
 
 @property (nonatomic, assign, readonly) unsigned long long contentLength;
 @property (nonatomic, strong, readonly) NSError *error;

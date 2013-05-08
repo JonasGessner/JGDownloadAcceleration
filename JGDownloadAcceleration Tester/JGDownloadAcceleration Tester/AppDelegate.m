@@ -49,6 +49,7 @@
         JGDownloadOperation *operation = [[JGDownloadOperation alloc] initWithURL:videoURL destinationPath:file resume:resume];
         
         [operation setMaximumNumberOfConnections:6];
+        [operation setRetryCount:3];
         
         __block CFTimeInterval started;
         
