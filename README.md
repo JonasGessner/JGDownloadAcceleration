@@ -52,7 +52,7 @@ Optionally, the number of connections to use to download the resource and a tag 
     
 
 <h4>`setOperationStartedBlock:`</h4> Used to be notified when the operation starts.
-The block passes a reference to the operation. The blocks is called from the network thread.
+The block passes the tag (default 0) of the operation and the expected content size of the resource. The blocks is called from the network thread.
 
 <h4>`setCompletionBlockWithSuccess:failure:`</h4> Used to be notified when the operation finishes and to be informed about the completion state (failed with an error or not?).
 The completion block passes a reference to the operation, the failure block passes a reference to the operation and the error. Both blocks are called from a background thread (not the network thread).

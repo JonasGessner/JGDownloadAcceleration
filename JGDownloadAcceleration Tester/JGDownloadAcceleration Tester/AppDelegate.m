@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  JGDownloadAccelerator Tester
+//  JGDownloadAcceleration Tester
 //
 //  Created by Jonas Gessner on 20.04.13.
 //  Copyright (c) 2013 Jonas Gessner. All rights reserved.
@@ -39,7 +39,7 @@
 }
 
 - (void)youTubeExtractor:(LBYouTubeExtractor *)extractor didSuccessfullyExtractYouTubeURL:(NSURL *)videoURL {
-    CFRunLoopStop(CFRunLoopGetCurrent()); //stop the background run loop we started in -application:didFinishLaunchingWithOptions:
+    CFRunLoopStop(CFRunLoopGetCurrent()); //stop the run loop on the background queue that we started in -application:didFinishLaunchingWithOptions:
     dispatch_async(dispatch_get_main_queue(), ^{ //go back to the main thread
         NSString *file = [NSTemporaryDirectory() stringByAppendingPathComponent:@"DL.mp4"];
         
@@ -52,8 +52,7 @@
         
         __block CFTimeInterval started;
         
-        [operation setCompletionBlockWithSuccess:
-         ^(JGDownloadOperation *operation) {
+        [operation setCompletionBlockWithSuccess:^(JGDownloadOperation *operation) {
              double kbLength = (double)operation.contentLength/1024.0f;
              CFTimeInterval delta = CFAbsoluteTimeGetCurrent()-started;
              NSLog(@"Success! Downloading %.2f MB took %.1f seconds, average Speed: %.2f kb/s", kbLength/1024.0f, delta, kbLength/delta);
@@ -68,7 +67,7 @@
         
         [operation setOperationStartedBlock:^(NSUInteger tag, unsigned long long totalBytesExpectedToRead) {
             started = CFAbsoluteTimeGetCurrent();
-            NSLog(@"Operation Started");
+            NSLog(@"Operation Started, JGDownloadAcceleration version %@", kJGDownloadAccelerationVersion);
         }];
         
         if (!q) {

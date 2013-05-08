@@ -1,6 +1,6 @@
 //
 //  JGDownloadOperation.m
-//  JGDownloadAccelerator Tester
+//  JGDownloadAcceleration Tester
 //
 //  Created by Jonas Gessner on 21.04.13.
 //  Copyright (c) 2013 Jonas Gessner. All rights reserved.
@@ -279,10 +279,7 @@ static NSThread *_networkRequestThread = nil;
         
         contentLength = (unsigned long long)[response expectedContentLength];
         
-        NSError *__error = nil;
-        NSLog(@"GET SPACE");
-        unsigned long long free = getFreeSpace(self.destinationPath.stringByDeletingLastPathComponent, __error);
-        NSLog(@"GOT SPACE");
+        unsigned long long free = getFreeSpace(self.destinationPath.stringByDeletingLastPathComponent, nil);
         
         if (free <= contentLength) {
             error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : @"There's not enough free space on the disk to download this file"}]; //409 = Conflict ?

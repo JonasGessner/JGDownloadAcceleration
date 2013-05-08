@@ -53,7 +53,8 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">The main thread is not touched at all and UI will stay responsive </string>
+								<string type="base64-UTF8" key="IBUIText">VGhlIG1haW4gdGhyZWFkIGlzIG5vdCB0b3VjaGVkIGF0IGFsbCBhbmQgVUkgd2lsbCBzdGF5IHJlc3Bv
+bnNpdmUKCkpHRG93bmxvYWRBY2NlbGVyYXRpb24KwqkgMjAxMyBKb25hcyBHZXNzbmVyA</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -61,7 +62,7 @@
 								</object>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
-								<int key="IBUINumberOfLines">3</int>
+								<int key="IBUINumberOfLines">5</int>
 								<int key="IBUITextAlignment">1</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">1</int>
