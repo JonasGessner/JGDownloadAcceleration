@@ -84,8 +84,8 @@ A NSOperationQueue subclass which is targeted at enqueuing only `JGDownloadOpera
 queue
 Optionally, `JGOperationQueue` handles the status bar NetworkActivityIndicator, according to the number of enqueued operations and the background task used for networking requests when the app runs in the background.
 
-  BOOL handleNetworkActivityIndicator
-  BOOL handleBackgroundTask
+	BOOL handleNetworkActivityIndicator
+	BOOL handleBackgroundTask
   
 Note that when setting `handleBackgroundTask` to `YES`, the App's Info.plist file needs to have "Application uses Wi-Fi" set to `YES`.
 
