@@ -1,4 +1,4 @@
-<h1>JGDownloadAcceleration</h1>© Jonas Gessner 2013
+<font size="30">JGDownloadAcceleration</font>© Jonas Gessner 2013
 
 ------------------
 
@@ -17,6 +17,10 @@ More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_accel
 
 
 The server from which downloading a content needs to support the `Range` header in order to use multipart download. See <a href="#requirements">Requirements</a> for more Info.
+
+
+Current Version: 0.9.9 (Beta)
+
 
 ##Getting started
 
@@ -102,6 +106,13 @@ __*If your project doesn't use ARC*: you must add the `-fobjc-arc` compiler flag
 JGDownloadAcceleration was created by <a href="http://twitter.com/JonasGessner" target="_blank">Jonas Gessner</a>.
 It was created for the iOS Jailbreak tweak "ProTube Extension for YouTube" and the Jailbreak App "ProTube".
 
+##Contact
+Contact me on Twitter: <a href="http://twitter.com/JonasGessner">@JonasGessner</a> if you have any questions!
+
+Contributing to the Project is much appreciated!
+
 ##License
 
-JGDownloadOperation is available under the <a href="http://opensource.org/licenses/Python-2.0">Python 2.0 license</a>
+JGDownloadOperation is available under the <a href="http://opensource.org/licenses/Python-2.0">Python License 2.0</a>
+
+An easy to understand explanation of the Python License 2.0 can be found <a href="http://www.tldrlegal.com/license/python-license-2.0">here</a>.

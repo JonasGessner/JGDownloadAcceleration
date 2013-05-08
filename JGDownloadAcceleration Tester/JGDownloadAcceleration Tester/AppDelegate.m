@@ -40,7 +40,7 @@
 
 - (void)youTubeExtractor:(LBYouTubeExtractor *)extractor didSuccessfullyExtractYouTubeURL:(NSURL *)videoURL {
     CFRunLoopStop(CFRunLoopGetCurrent()); //stop the run loop on the background queue that we started in -application:didFinishLaunchingWithOptions:
-    dispatch_async(dispatch_get_main_queue(), ^{ //go back to the main thread
+    dispatch_async(dispatch_get_main_queue(), ^{ //go back to the main thread (not necessary)
         NSString *file = [NSTemporaryDirectory() stringByAppendingPathComponent:@"DL.mp4"];
         
         BOOL resume = YES;
