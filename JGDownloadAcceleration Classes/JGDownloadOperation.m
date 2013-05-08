@@ -416,7 +416,7 @@ static NSThread *_networkRequestThread = nil;
 - (void)downloadDidFinish:(JGDownload *)download withError:(NSError *)_error {
     if (_error) {
         if (errorRetryAttempts > retryCount) {
-            NSLog(@"Error: Cannot finish Operation: Too many errors occured, canceling");
+//            NSLog(@"Error: Cannot finish Operation: Too many errors occured, canceling");
             error = _error;
             [self completeOperation];
         }

@@ -20,7 +20,7 @@ More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_accel
 The server from which downloading a content needs to support the `Range` header in order to use multipart download. See <a href="#requirements">Requirements</a> for more Info.
 
 
-Current Version: 0.9.9 (Beta)
+Current Version: 1.0
 
 
 ##Getting started
