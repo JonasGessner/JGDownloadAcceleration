@@ -61,7 +61,7 @@ The readonly properties are:
 	NSError *error;
 
 `url` and `destinationPath` are set in the `initWithURL:destinationPath:resume:` method and should not be changed once the operation has been initialized, therefore they are a `readonly` property.
-`contentLength` is the expected length (bytes) of the resource to download. This value will be 0 before the `requestStartedBlock` is called. `error` returns the failure error (it will be nil if the operation is completed with success or if its running). The error will also be passed in the failure block. (See below for more info on the started and the failure blocks).
+`contentLength` is the expected length (bytes) of the resource to download. This value will be 0 before the `requestStartedBlock` is called. `error` returns the failure error (it will be `nil` if no error occured). The error will also be passed in the failure block. (See below for more info on the started and the failure blocks).
 
 
 `JGDownloadOperation` uses blocks to communicate with a delegate.
