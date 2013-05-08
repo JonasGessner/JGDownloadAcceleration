@@ -60,7 +60,7 @@
 
 @implementation JGDownloadOperation
 
-@synthesize maximumNumberOfConnections, url, destinationPath, contentLength, connections, tag, error, downloadProgress, started, numberOfConnections;
+@synthesize maximumNumberOfConnections, url, destinationPath, contentLength, connections, tag, error, downloadProgress, started, numberOfConnections, retryCount;
 
 
 #pragma mark - Network Thread
@@ -405,10 +405,17 @@ static NSThread *_networkRequestThread = nil;
     [resume write];
 }
 
+- (NSUInteger)retryCount {
+    NSUInteger retry = retryCount;
+    if (!retry) {
+        retry = (NSUInteger)self.numberOfConnections/2;
+    }
+    return retry;
+}
 
 - (void)downloadDidFinish:(JGDownload *)download withError:(NSError *)_error {
     if (_error) {
-        if (errorRetryAttempts >= self.numberOfConnections/2) {
+        if (errorRetryAttempts > retryCount) {
             NSLog(@"Error: Cannot finish Operation: Too many errors occured, canceling");
             error = _error;
             [self completeOperation];

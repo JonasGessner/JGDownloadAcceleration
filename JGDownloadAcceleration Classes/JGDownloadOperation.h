@@ -11,9 +11,9 @@
 @interface JGDownloadOperation : NSOperation
 
 //optional settings
-@property (nonatomic, assign) NSUInteger tag;
-@property (nonatomic, assign) NSUInteger maximumNumberOfConnections;
-
+@property (nonatomic, assign) NSUInteger tag; //default 0
+@property (nonatomic, assign) NSUInteger maximumNumberOfConnections; //default 6
+@property (nonatomic, assign) NSUInteger retryCount; //default maximumNumberOfConnections/2
 
 //readonly
 @property (nonatomic, strong, readonly) NSURL *url;
