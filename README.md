@@ -1,4 +1,4 @@
-<font size=30>JGDownloadAcceleration</font>© Jonas Gessner 2013
+<h1>JGDownloadAcceleration<em>© Jonas Gessner 2013</em></h1>
 
 ------------------
 
