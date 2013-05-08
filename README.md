@@ -1,6 +1,7 @@
 <h1>JGDownloadAcceleration</h1><h6>© Jonas Gessner 2013</h6>
 
 ----------------
+<p>
 
 JGDownloadAcceleration is a Networking library for iOS targeted at downloading large files on to the device's hard disk.
 
