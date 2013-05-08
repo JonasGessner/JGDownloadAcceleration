@@ -12,7 +12,7 @@
 
 //optional settings
 @property (nonatomic, assign) NSUInteger tag;
-@property (nonatomic, assign) NSUInteger maxConnections;
+@property (nonatomic, assign) NSUInteger maximumNumberOfConnections;
 
 
 //readonly

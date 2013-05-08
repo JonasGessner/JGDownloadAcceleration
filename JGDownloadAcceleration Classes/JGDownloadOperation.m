@@ -60,7 +60,7 @@
 
 @implementation JGDownloadOperation
 
-@synthesize maxConnections, url, destinationPath, contentLength, connections, tag, error, downloadProgress, started, numberOfConnections;
+@synthesize maximumNumberOfConnections, url, destinationPath, contentLength, connections, tag, error, downloadProgress, started, numberOfConnections;
 
 
 #pragma mark - Network Thread
@@ -228,7 +228,7 @@ static NSThread *_networkRequestThread = nil;
 #pragma mark - New Connection
 
 - (void)startSplittedConnections {
-    self.numberOfConnections = (splittingUnavailable ? 1 : self.maxConnections); //is the Range header supported? If yes use max number of connections, if not use 1 connection
+    self.numberOfConnections = (splittingUnavailable ? 1 : self.maximumNumberOfConnections); //is the Range header supported? If yes use max number of connections, if not use 1 connection
     
     NSString *metaPath = [self downloadMetadataPathForFilePath:destinationPath];
     resume = [[JGDownloadResumeMetadata alloc] initWithNumberOfConnections:self.numberOfConnections filePath:metaPath];
