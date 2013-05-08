@@ -14,7 +14,7 @@ Q. How does the download acceleration even work?
 
 A. Download accelerators (multipart download) use multiple network connections to download a file from a server in chunks (each connection downloads one part of the entire content). This allows to bypass bandwidth limitations set by the server and download speeds can be drastically increased.
 
-More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_acceleration">Wikipedia</a>
+More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_acceleration" target="_blank">Wikipedia</a>
 
 
 The server from which downloading a content needs to support the `Range` header in order to use multipart download. See <a href="#requirements">Requirements</a> for more Info.
@@ -124,12 +124,12 @@ JGDownloadAcceleration was created by <a href="http://twitter.com/JonasGessner" 
 It was created for the iOS Jailbreak tweak "ProTube Extension for YouTube" and the Jailbreak App "ProTube".
 
 ##Contact
-Contact me on Twitter: <a href="http://twitter.com/JonasGessner">@JonasGessner</a> if you have any questions!
+Contact me on Twitter: <a href="http://twitter.com/JonasGessner" target="_blank">@JonasGessner</a> if you have any questions!
 
 Contributing to the Project is much appreciated!
 
 ##License
 
-JGDownloadOperation is available under the <a href="http://opensource.org/licenses/Python-2.0">Python License 2.0</a>
+JGDownloadOperation is available under the <a href="http://opensource.org/licenses/Python-2.0" target="_blank">Python License 2.0</a>
 
-An easy to understand explanation of the Python License 2.0 can be found <a href="http://www.tldrlegal.com/license/python-license-2.0">here</a>.
+An easy to understand explanation of the Python License 2.0 can be found <a href="http://www.tldrlegal.com/license/python-license-2.0" target="_blank">here</a>.
