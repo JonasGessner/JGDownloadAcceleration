@@ -40,7 +40,7 @@ A `JGDownloadOperation` instance required to have the `url` parameter, and the `
 
 All `JGDownloadOperation` instances should be initialized with the `initWithURL:destinationPath:resume:` method, where the URL, the local destination path and a `BOOL` to indicate whether the operation should resume (if possible) where it left of is passed. Any files located at the destination path will be removed when starting the download.
 
-Optionally, the number of connections to use to download the resource and a tag can be set.
+Optionally, the number of connections to use to download the resource and a tag can be set. By default the tag (of type `NSUInteger`) is 0 and the number of connections (of type `NSUInteger`) is 6.
 
 
 `JGDownloadOperation` uses blocks to communicate with a delegate.
