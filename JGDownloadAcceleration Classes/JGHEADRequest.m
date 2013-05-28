@@ -25,13 +25,12 @@
 
 #pragma mark - Handle Connection
 
-- (id)initWithURL:(NSURL *)url {
+- (id)initWithRequest:(NSURLRequest *)request {
     self = [super init];
     if (self) {
-        NSParameterAssert(url != nil);
+        NSParameterAssert(request != nil);
         
-        NSMutableURLRequest *newRequest = [NSMutableURLRequest requestWithURL:url];
-        [newRequest setValue:USER_AGENT forHTTPHeaderField:@"User-Agent"];
+        NSMutableURLRequest *newRequest = request.mutableCopy;
         
         [newRequest setHTTPMethod:@"HEAD"];
         

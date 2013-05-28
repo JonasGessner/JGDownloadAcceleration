@@ -17,8 +17,6 @@
 #define OBJECT_BREAK @"#"
 #define DOWNLOAD_BREAK @"*"
 
-#define USER_AGENT @"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7"
-
 typedef void (^JGConnectionOperationProgressBlock)(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesRead, unsigned long long totalBytesExpectedToRead, NSUInteger tag);
 typedef void (^JGConnectionOperationStartedBlock)(NSUInteger tag, unsigned long long totalBytesExpectedToRead);
 
@@ -40,10 +38,11 @@ JGExtern NSString *NSStringFromJGRangeWithOffset(JGRange range, unsigned long lo
 JGExtern unsigned long long getFreeSpace(NSString *folder, NSError *error);
 
 
-
 @class JGDownload, JGResumeObject;
 
 @protocol JGDownloadManager <NSObject>
+
+- (void)download:(JGDownload *)download didReceiveResponse:(NSHTTPURLResponse *)response;
 
 - (void)download:(JGDownload *)download didReadData:(NSData *)data;
 - (void)downloadDidFinish:(JGDownload *)download withError:(NSError *)error;

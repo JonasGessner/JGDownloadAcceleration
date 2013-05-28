@@ -13,7 +13,7 @@ NSUInteger defaultMaxConnections() {
     return 6; //Seems to be a good number to maximise speeds while not having too many connections
 }
 
-JGRange JGRangeMake(unsigned long long loc, unsigned long long len, BOOL final) {
+JGRange JGRangeMake(unsigned long long loc, unsigned long long len, BOOL final) { //Used like NSRange
     JGRange r;
     r.location = loc;
     r.length = len;
@@ -21,7 +21,7 @@ JGRange JGRangeMake(unsigned long long loc, unsigned long long len, BOOL final) 
     return r;
 }
 
-NSString *NSStringForFileFromJGRange(JGRange range) { //NSRange style
+NSString *NSStringForFileFromJGRange(JGRange range) {
     return (range.final ? [NSString stringWithFormat:@"%llu",range.location] : [NSString stringWithFormat:@"%llu-%llu",range.location, range.length]);
 }
 

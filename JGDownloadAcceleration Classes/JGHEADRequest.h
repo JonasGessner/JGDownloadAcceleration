@@ -21,7 +21,7 @@
 
 @property (nonatomic, weak) id <JGHEADRequestDelegate> delegate;
 
-- (id)initWithURL:(NSURL *)url;
+- (id)initWithRequest:(NSURLRequest *)request;
 
 
 - (void)start;

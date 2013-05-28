@@ -45,8 +45,14 @@
         
         BOOL resume = YES;
         
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:videoURL];
+        
+        //customize the request if needed... Example:
+        [request setTimeoutInterval:90];
+        
+        
         //start downloading the YouTube video to the temporary directory
-        JGDownloadOperation *operation = [[JGDownloadOperation alloc] initWithURL:videoURL destinationPath:file resume:resume];
+        JGDownloadOperation *operation = [[JGDownloadOperation alloc] initWithRequest:request destinationPath:file allowResume:resume];
         
         [operation setMaximumNumberOfConnections:6];
         [operation setRetryCount:3];

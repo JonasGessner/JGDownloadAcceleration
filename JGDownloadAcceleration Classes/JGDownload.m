@@ -17,7 +17,7 @@
 
 @implementation JGDownload
 
-@synthesize owner, url, connection, object;
+@synthesize owner, connection, object, request;
 
 #pragma mark NSURLConnectionDelegate methods
 //completion states
@@ -38,20 +38,21 @@
 }
 
 - (void)connection:(NSURLConnection *)__unused _connection didReceiveResponse:(NSURLResponse *)response {
+    [self.owner download:self didReceiveResponse:(NSHTTPURLResponse *)response];
     [self.owner downloadStarted:self];
 }
 
 
 #pragma mark - Handle Connection
 
-- (id)initWithURL:(NSURL *)_url object:(JGResumeObject *)_object owner:(id <JGDownloadManager>)_owner {
+- (id)initWithRequest:(NSURLRequest *)_request object:(JGResumeObject *)_object owner:(id <JGDownloadManager>)_owner {
     self = [super init];
     if (self) {
         owner = _owner;
-        url = _url;
+        request = _request;
         object = _object;
         
-        NSParameterAssert(url != nil);
+        NSParameterAssert(request != nil);
         NSParameterAssert(owner != nil);
         NSParameterAssert(object != nil);
     }
@@ -74,15 +75,13 @@
 - (BOOL)startLoading {
     //requires runloop, needs to be called on network Thread
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.url];
-    
-    [request setValue:USER_AGENT forHTTPHeaderField:@"User-Agent"];
+    NSMutableURLRequest *finalRequest = self.request.mutableCopy;
     
     NSString *rangeText = NSStringFromJGRangeWithOffset(self.object.range, self.object.offset);
     
-    [request setValue:rangeText forHTTPHeaderField:@"Range"];
+    [finalRequest setValue:rangeText forHTTPHeaderField:@"Range"]; //overrides the Range header (if present) in the original request
     
-    connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
+    connection = [[NSURLConnection alloc] initWithRequest:finalRequest delegate:self startImmediately:NO];
     
     [connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     

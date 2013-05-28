@@ -89,8 +89,8 @@
 }
 
 - (BOOL)write {
+    NSString *string = [self stringRepresentation];
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *string = [self stringRepresentation];
         [string writeToFile:path atomically:NO encoding:NSUTF8StringEncoding error:nil];
     });
     return YES;

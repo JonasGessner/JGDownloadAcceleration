@@ -17,10 +17,8 @@ A. Download accelerators (multipart download) use multiple network connections t
 More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_acceleration" target="_blank">Wikipedia</a>
 
 
-The server from which downloading a content needs to support the `Range` header in order to use multipart download. See <a href="#requirements">Requirements</a> for more Info.
 
-
-Current Version: 1.0
+Current Version: 1.1
 
 
 ##Getting started
@@ -43,7 +41,7 @@ A NSOperation subclass which does the download acceleration magic.
 Parameters to pass:
 A `JGDownloadOperation` instance required to have the `url` parameter, and the `destinationPath` parameter set. If not the Application will terminate with an Assertion Failure.
 
-All `JGDownloadOperation` instances should be initialized with the `initWithURL:destinationPath:resume:` method, where the URL, the local destination path and a `BOOL` to indicate whether the operation should resume (if possible) where it left of is passed. Any files located at the destination path will be removed when starting the download.
+All `JGDownloadOperation` instances should be initialized with the `initWithURL:destinationPath:allowResume:` or `initWithRequest:destinationPath:allowResume:` methods, where the URL or NSURLRequest, the local destination path and a `BOOL` to indicate whether the operation should resume (if possible) where it left of is passed. Any files located at the destination path will be removed when starting the download.
 
 Optionally, the number of connections to use to download the resource, a tag, and the retry count can be set.
 
@@ -55,13 +53,21 @@ By default the tag is 0 and the number of connections is 6. The retry count it t
 
 The readonly properties are:
 
-	NSURL *url;
+	NSURLRequest *originalRequest;
 	NSString *destinationPath;
 	unsigned long long contentLength;
 	NSError *error;
 
-`url` and `destinationPath` are set in the `initWithURL:destinationPath:resume:` method and should not be changed once the operation has been initialized, therefore they are a `readonly` property.
-`contentLength` is the expected length (bytes) of the resource to download. This value will be 0 before the `requestStartedBlock` is called. `error` returns the failure error (it will be `nil` if no error occured). The error will also be passed in the failure block. (See below for more info on the started and the failure blocks).
+`originalRequest` and `destinationPath` are set in the `initWithURL:destinationPath:allowResume:` or `initWithRequest:destinationPath:allowResume:` methods and should not be changed once the operation has been initialized, therefore they are a `readonly` property.
+`contentLength` is the expected length (bytes) of the resource to download. This value will be 0 before the `requestStartedBlock` is called. `error` returns the failure error (it will be `nil` if no error occurred). The error will also be passed in the failure block. (See below for more info on the started and the failure blocks).
+
+<h4>The custom init methods:</h4>
+`JGDownloadOperation` can only be initialized using either of the two custom init methods.
+
+`initWithURL:destinationPath:allowResume:`: In this init method the request made will be a simple HTTP GET request from the given URL. No more customization is possible.
+
+
+`initWithRequest:destinationPath:allowResume:`: This init method allows you to use a custom NSURLRequest with `JGDownloadOperation`. The HTTP Method can only be GET (default). `JGDownloadOperation` also supports the `Range` header.
 
 
 `JGDownloadOperation` uses blocks to communicate with a delegate.
@@ -90,7 +96,7 @@ Internally this class uses a bunch of helper classes. These should not be touche
 <br>
 <br>
 <br>
-`JGDownloadOperation` uses a metadata file to store the progress of each connection, to allow the operation to resume when failed or cancelled. The metadata file is stored at the destination path with the file extension `jgd`. The metadata file will automatically be removed when the operation finishes with success. Passing `YES` for "resume" in `initWithURL:destinationPath:resume:` will result in a attempt to read the metadata file and resume from the last known state. If reading the metadata file is not possible (if the file does not exist) the download will start from the beginning, overwriting any existing progress.
+`JGDownloadOperation` uses a metadata file to store the progress of each connection, to allow the operation to resume when failed or cancelled. The metadata file is stored at the destination path with the file extension `jgd`. The metadata file will automatically be removed when the operation finishes with success. Passing `YES` for "allowResume" in the custom `init` methods will result in a attempt to read the metadata file and resume from the last known state. If the metadata file or the partial downloaded content is not available then the download will start from the beginning. If `NO` is passed for "allowResume" then no metadata files will be written and the download will always start from the beginning. If reading the metadata file is not possible (if the file does not exist) the download will start from the beginning, overwriting any existing progress.
 <br>
 
 #####Cancellation:
@@ -114,7 +120,9 @@ Note that when setting `handleBackgroundTask` to `YES`, the App's Info.plist fil
 ##Example
 An example usage can be found in the Sample Project.
 
-##Requirements
+##Requirementså
+In order to take advantage of multipart download, the server from which you download a content needs to support the `Range` HTTP header. If it doesn't then `JGDownloadAcceleration` will simply use 1 connection to download the content conventionally.
+
 `JGDownloadAcceleration` is built for use with ARC and weak references. This means that iOS 5 or higher is required for using `JGDownloadAcceleration`
 
 __*If your project doesn't use ARC*: you must add the `-fobjc-arc` compiler flag to all JGDownloadAcceleration files in Target Settings > Build Phases > Compile Sources.__
@@ -124,7 +132,7 @@ JGDownloadAcceleration was created by <a href="http://twitter.com/JonasGessner" 
 It was created for the iOS Jailbreak tweak "ProTube Extension for YouTube" and the Jailbreak App "ProTube".
 
 ##Contact
-Contact me on Twitter: <a href="http://twitter.com/JonasGessner" target="_blank">@JonasGessner</a> if you have any questions!
+Contact me on Twitter: <a href="http://twitter.com/JonasGessner">@JonasGessner</a> or by email (found on my GitHub profile) if you have any questions!
 
 Contributing to the Project is much appreciated!
 

@@ -16,16 +16,19 @@
 @property (nonatomic, assign) NSUInteger retryCount; //default maximumNumberOfConnections/2
 
 //readonly
-@property (nonatomic, strong, readonly) NSURL *url;
+@property (nonatomic, strong, readonly) NSURLRequest *originalRequest;
 @property (nonatomic, strong, readonly) NSString *destinationPath;
 
-@property (nonatomic, assign, readonly) unsigned long long contentLength;
 @property (nonatomic, strong, readonly) NSError *error;
 
 
+- (unsigned long long)contentLength;
 
 
-- (id)initWithURL:(NSURL *)url destinationPath:(NSString *)path resume:(BOOL)resume;
+//custom init methods
+- (instancetype)initWithURL:(NSURL *)url destinationPath:(NSString *)path allowResume:(BOOL)resume;
+- (instancetype)initWithRequest:(NSURLRequest *)request destinationPath:(NSString *)path allowResume:(BOOL)resume;
+
 
 
 - (void)cancelAndClearFiles; //cancel the operation and remove the partial file as well as the metadata file

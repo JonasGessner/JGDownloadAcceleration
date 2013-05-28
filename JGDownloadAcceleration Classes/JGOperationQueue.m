@@ -50,12 +50,7 @@
     }
     running = YES;
     bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        if (self.operationCount > 0) {
-            [self startBackgroundTask];
-        }
-        else {
-            bgTask = UIBackgroundTaskInvalid;
-        }
+        [self cancelAllOperations]; //cancel operations
     }];
 }
 
