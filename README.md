@@ -61,7 +61,7 @@ The readonly properties are:
 `originalRequest` and `destinationPath` are set in the `initWithURL:destinationPath:allowResume:` or `initWithRequest:destinationPath:allowResume:` methods and should not be changed once the operation has been initialized, therefore they are a `readonly` property.
 `contentLength` is the expected length (bytes) of the resource to download. This value will be 0 before the `requestStartedBlock` is called. `error` returns the failure error (it will be `nil` if no error occurred). The error will also be passed in the failure block. (See below for more info on the started and the failure blocks).
 
-<h4>The custom init methods:</h4>
+#####The custom init methods:
 `JGDownloadOperation` can only be initialized using either of the two custom init methods.
 
 `initWithURL:destinationPath:allowResume:`: In this init method the request made will be a simple HTTP GET request from the given URL. No more customization is possible.
@@ -70,6 +70,7 @@ The readonly properties are:
 `initWithRequest:destinationPath:allowResume:`: This init method allows you to use a custom NSURLRequest with `JGDownloadOperation`. The HTTP Method can only be GET (default). `JGDownloadOperation` also supports the `Range` header.
 
 
+#####Delegates:
 `JGDownloadOperation` uses blocks to communicate with a delegate.
 
     - (void)setCompletionBlockWithSuccess:(void (^)(JGDownloadOperation *operation))success failure:(void (^)(JGDownloadOperation *operation, NSError *error))failure;
@@ -120,7 +121,7 @@ Note that when setting `handleBackgroundTask` to `YES`, the App's Info.plist fil
 ##Example
 An example usage can be found in the Sample Project.
 
-##Requirementså
+##Requirements
 In order to take advantage of multipart download, the server from which you download a content needs to support the `Range` HTTP header. If it doesn't then `JGDownloadAcceleration` will simply use 1 connection to download the content conventionally.
 
 `JGDownloadAcceleration` is built for use with ARC and weak references. This means that iOS 5 or higher is required for using `JGDownloadAcceleration`
