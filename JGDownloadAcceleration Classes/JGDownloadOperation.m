@@ -168,7 +168,6 @@ static NSThread *_networkRequestThread = nil;
     executing = YES;
     [self didChangeValueForKey:@"isExecuting"];
     
-    
     BOOL reallyAppend = append;
     if (![[NSFileManager defaultManager] fileExistsAtPath:self.destinationPath]) {
         reallyAppend = NO;
@@ -176,11 +175,8 @@ static NSThread *_networkRequestThread = nil;
     else if (![[NSFileManager defaultManager] fileExistsAtPath:[self downloadMetadataPathForFilePath:self.destinationPath]]) {
         if ([[NSFileManager defaultManager] fileExistsAtPath:self.destinationPath]) {
             [[NSFileManager defaultManager] removeItemAtPath:self.destinationPath error:nil];
-            reallyAppend = NO;
         }
-        else {
-            reallyAppend = NO;
-        }
+        reallyAppend = NO;
     }
     
     JGRange rangeOfOriginalRequest;
