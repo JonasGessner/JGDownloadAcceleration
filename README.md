@@ -23,7 +23,7 @@ Current Version: 1.1
 <center>View it in action!<p>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=HpzOXzAKqWM
 " target="_blank"><img src="http://img.youtube.com/vi/HpzOXzAKqWM/hqdefault.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+alt="View on YouTube" width="640" height="360" border="10" /></a>
 </center>
 
 
@@ -50,20 +50,20 @@ A `JGDownloadOperation` instance required to have the `url` parameter, and the `
 All `JGDownloadOperation` instances should be initialized with the `initWithURL:destinationPath:allowResume:` or `initWithRequest:destinationPath:allowResume:` methods, where the URL or NSURLRequest, the local destination path and a `BOOL` to indicate whether the operation should resume (if possible) where it left of is passed. Any files located at the destination path will be removed when starting the download.
 
 Optionally, the number of connections to use to download the resource, a tag, and the retry count can be set.
-
+```objc
 	NSUInteger tag;
 	NSUInteger maximumNumberOfConnections;
 	NSUInteger retryCount;
-
+```
 By default the tag is 0 and the number of connections is 6. The retry count it the number of connections divided by 2.
 
 The readonly properties are:
-
+```objc
 	NSURLRequest *originalRequest;
 	NSString *destinationPath;
 	unsigned long long contentLength;
 	NSError *error;
-
+```
 `originalRequest` and `destinationPath` are set in the `initWithURL:destinationPath:allowResume:` or `initWithRequest:destinationPath:allowResume:` methods and should not be changed once the operation has been initialized, therefore they are a `readonly` property.
 `contentLength` is the expected length (bytes) of the resource to download. This value will be 0 before the `requestStartedBlock` is called. `error` returns the failure error (it will be `nil` if no error occurred). The error will also be passed in the failure block. (See below for more info on the started and the failure blocks).
 
