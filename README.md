@@ -20,10 +20,10 @@ More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_accel
 
 Current Version: 1.1
 
-<div id="container">View it in action!<p>
+<p align="center">
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=HpzOXzAKqWM
 " target="_blank"><img src="http://img.youtube.com/vi/HpzOXzAKqWM/hqdefault.jpg" 
-alt="View on YouTube" border="10" /></a></div>
+alt="View on YouTube" border="10" /></a></p>
 
 
 ##Getting started
