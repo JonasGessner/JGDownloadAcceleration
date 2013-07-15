@@ -20,11 +20,10 @@ More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_accel
 
 Current Version: 1.1
 
-<center>View it in action!<p>
+->View it in action!<p>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=HpzOXzAKqWM
 " target="_blank"><img src="http://img.youtube.com/vi/HpzOXzAKqWM/hqdefault.jpg" 
-alt="View on YouTube" width="640" height="360" border="10" /></a>
-</center>
+alt="View on YouTube" border="10" /></a><-
 
 
 ##Getting started
@@ -93,7 +92,7 @@ The completion block passes a reference to the operation, the failure block pass
 
 <h4>`setDownloadProgressBlock:`</h4> Used to determine, calculate, and observe various details of the current download. This block is called on the (secondary) networking thread! It is called every time a connection inside the operation receives a chunk of data (which is automatically written to the disk). The current progress, current download speed, average download speed (and using that an estimation for the remaining time) can be calculated. For average and current speed a variable in needed to store the time intervals from the last call of the block (for the current speed) and from when the operation started. See the Example project for an implementation of this<p>
 `NSUInteger bytesRead` indicates the size of the bytes read (NOT since the last call of the block, its pretty complicated because this block is called for each connection, passing the number of bytes the specific connection loaded since this specific connection last loaded a chunk of bytes).<p>
-`unsigned long long totalBytesReadThisSession` the total number of bytes read in this current session. If a download is paused at 50% and then resumed, this parameter will start from 0.<p>
+`unsigned long long totalBytesReadThisSession` the total number of bytes read in this current session. (e.g If a download is paused at 50% and then resumed, this parameter will start from 0)<p>
 `unsigned long long totalBytesWritten` the total bytes read in total.<p>
 `unsigned long long totalBytesExpectedToRead` the expected content size of the resource.<p>
 `NSUInteger tag` the tag of the operation, very handy for managing multiple operations in a queue.
