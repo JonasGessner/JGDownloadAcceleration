@@ -21,7 +21,9 @@ More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_accel
 Current Version: 1.1
 
 <center>View it in action!<p>
-<iframe width="640" height="360" src="//www.youtube.com/embed/HpzOXzAKqWM" frameborder="0" allowfullscreen></iframe>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=HpzOXzAKqWM
+" target="_blank"><img src="http://img.youtube.com/vi/HpzOXzAKqWM/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 </center>
 
 
@@ -30,7 +32,7 @@ Current Version: 1.1
 1. Download JGDownloadAcceleration
 2. Add the whole "JGDownloadAcceleration Classes" folder to your Project
 3. Have a read through the Overview section
-4. ```obc#import "JGDownloadAcceleration.h"```
+4. ```objc#import "JGDownloadAcceleration.h"```
 5. Start using JGDownloadAcceleration!
 
 ##Overview
