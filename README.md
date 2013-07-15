@@ -147,15 +147,3 @@ Contributing to the Project is much appreciated!
 JGDownloadOperation is available under the <a href="http://opensource.org/licenses/Python-2.0" target="_blank">Python License 2.0</a>
 
 An easy to understand explanation of the Python License 2.0 can be found <a href="http://www.tldrlegal.com/license/python-license-2.0" target="_blank">here</a>.
-
-
-
-#container {
-    height:100px;
-    line-height:100px;
-}
-
-#container img {
-    vertical-align:middle;
-    max-height:100%;
-}
