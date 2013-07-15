@@ -10,9 +10,9 @@ JGDownloadAcceleration's main part is a concurrent NSOperation subclass (JGDownl
 For managing and queuing multiple operations, JGDownloadAcceleration provides a NSOperationQueue subclass (JGOperationQueue) which handles the networking thread, activity indicator and application background task.
 
 
-Q. How does the download acceleration even work?
+<b>Q.</b> How does the download acceleration even work?
 
-A. Download accelerators (multipart download) use multiple network connections to download a file from a server in chunks (each connection downloads one part of the entire content). This allows to bypass bandwidth limitations set by the server and download speeds can be drastically increased.
+<b>A.</b> Download accelerators (multipart download) use multiple network connections to download a file from a server in chunks (each connection downloads one part of the entire content). This allows to bypass bandwidth limitations set by the server and download speeds can be drastically increased.
 
 More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_acceleration" target="_blank">Wikipedia</a>
 
@@ -20,13 +20,17 @@ More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_accel
 
 Current Version: 1.1
 
+<center>View it in action!<p>
+<iframe width="640" height="360" src="//www.youtube.com/embed/HpzOXzAKqWM" frameborder="0" allowfullscreen></iframe>
+</center>
+
 
 ##Getting started
 
 1. Download JGDownloadAcceleration
 2. Add the whole "JGDownloadAcceleration Classes" folder to your Project
 3. Have a read through the Overview section
-4. `#import "JGDownloadAcceleration.h"`
+4. ```obc#import "JGDownloadAcceleration.h"```
 5. Start using JGDownloadAcceleration!
 
 ##Overview
