@@ -20,7 +20,7 @@ More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_accel
 
 Current Version: 1.1
 
-<div style="alignment:center">View it in action!<p>
+<div style="align:middle">View it in action!<p>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=HpzOXzAKqWM
 " target="_blank"><img src="http://img.youtube.com/vi/HpzOXzAKqWM/hqdefault.jpg" 
 alt="View on YouTube" border="10" /></a></div>
