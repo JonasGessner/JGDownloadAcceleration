@@ -66,7 +66,7 @@
 
 @implementation JGDownloadOperation
 
-@synthesize maximumNumberOfConnections, destinationPath, connections, tag, error, downloadProgress, started, numberOfConnections, retryCount, originalRequest;
+@synthesize maximumNumberOfConnections, destinationPath, connections, tag, error, downloadProgress, started, numberOfConnections, retryCount, originalRequest, actualNumberOfConnections;
 
 
 #pragma mark - Network Thread
@@ -356,15 +356,31 @@ static NSThread *_networkRequestThread = nil;
         [self completeOperation];
     }
     else {
+        NSInteger statusCode = response.statusCode;
+        
+        if (statusCode >= 400) {
+            error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Invalid status code: %i %@", statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode]]}]; //409 = Conflict
+            [self completeOperation];
+            return;
+        }
         NSDictionary *headers = [response allHeaderFields];
         
         if (!splittingUnavailable) {
             splittingUnavailable = ![[headers objectForKey:@"Accept-Ranges"] hasPrefix:@"bytes"];
         }
         
-        contentRange = JGRangeMake(0, (unsigned long long)[response expectedContentLength], NO);
+        unsigned long long size = (unsigned long long)[response expectedContentLength];
+        
+        contentRange = JGRangeMake(0, size, NO);
         
         unsigned long long free = getFreeSpace(self.destinationPath.stringByDeletingLastPathComponent, nil);
+        unsigned long long umax = ULLONG_MAX;
+        
+        if (free == umax) {
+            error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : @"Invalid content size (content size unavailable)"}]; //409 = Conflict
+            [self completeOperation];
+            return;
+        }
         
         if (free <= self.contentLength) {
             error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : @"There's not enough free space on the disk to download this file"}]; //409 = Conflict
@@ -488,7 +504,7 @@ static NSThread *_networkRequestThread = nil;
 - (void)downloadDidFinish:(JGDownload *)download withError:(NSError *)_error {
     if (_error) {
         if (errorRetryAttempts > retryCount) {
-//            NSLog(@"Error: Cannot finish Operation: Too many errors occured, canceling");
+            //            NSLog(@"Error: Cannot finish Operation: Too many errors occured, canceling");
             error = _error;
             [self completeOperation];
         }
@@ -604,6 +620,10 @@ static NSThread *_networkRequestThread = nil;
 
 - (unsigned long long)contentLength {
     return contentRange.length;
+}
+
+- (NSUInteger)actualNumberOfConnections {
+    return self.numberOfConnections;
 }
 
 - (NSUInteger)numberOfConnections {
