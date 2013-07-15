@@ -20,7 +20,7 @@ More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_accel
 
 Current Version: 1.1
 
-<div style="horizontal-align:middle">View it in action!<p>
+<div id="container">View it in action!<p>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=HpzOXzAKqWM
 " target="_blank"><img src="http://img.youtube.com/vi/HpzOXzAKqWM/hqdefault.jpg" 
 alt="View on YouTube" border="10" /></a></div>
@@ -147,3 +147,15 @@ Contributing to the Project is much appreciated!
 JGDownloadOperation is available under the <a href="http://opensource.org/licenses/Python-2.0" target="_blank">Python License 2.0</a>
 
 An easy to understand explanation of the Python License 2.0 can be found <a href="http://www.tldrlegal.com/license/python-license-2.0" target="_blank">here</a>.
+
+
+
+#container {
+    height:100px;
+    line-height:100px;
+}
+
+#container img {
+    vertical-align:middle;
+    max-height:100%;
+}
