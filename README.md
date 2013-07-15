@@ -22,7 +22,7 @@ Current Version: 1.1
 
 <center>View it in action!<p>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=HpzOXzAKqWM
-" target="_blank"><img src="http://img.youtube.com/vi/HpzOXzAKqWM/0.jpg" 
+" target="_blank"><img src="http://img.youtube.com/vi/HpzOXzAKqWM/hqdefault.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 </center>
 
@@ -32,7 +32,7 @@ alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 1. Download JGDownloadAcceleration
 2. Add the whole "JGDownloadAcceleration Classes" folder to your Project
 3. Have a read through the Overview section
-4. ```objc#import "JGDownloadAcceleration.h"```
+4. `#import "JGDownloadAcceleration.h"`
 5. Start using JGDownloadAcceleration!
 
 ##Overview
@@ -78,12 +78,12 @@ The readonly properties are:
 
 #####Delegates:
 `JGDownloadOperation` uses blocks to communicate with a delegate.
-
+```objc
     - (void)setCompletionBlockWithSuccess:(void (^)(JGDownloadOperation *operation))success failure:(void (^)(JGDownloadOperation *operation, NSError *error))failure;
     - (void)setOperationStartedBlock:(void (^)(NSUInteger tag, unsigned long long totalBytesExpectedToRead))block;
     
     - (void)setDownloadProgressBlock:(void (^)(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesRead, unsigned long long totalBytesExpectedToRead, NSUInteger tag))block;
-    
+```
 
 <h4>`setOperationStartedBlock:`</h4> Used to be notified when the operation starts.
 The block passes the tag (default 0) of the operation and the expected content size of the resource. The blocks is called from the network thread.
@@ -118,10 +118,10 @@ A NSOperationQueue subclass which is targeted at enqueuing only `JGDownloadOpera
 `JGOperationQueue` handles the shared network thread used by all `JGDownloadOperation` instances. Once all operations are finished the queue exits the networking thread.
 queue
 Optionally, `JGOperationQueue` handles the status bar NetworkActivityIndicator, according to the number of enqueued operations and the background task used for networking requests when the app runs in the background.
-
+```objc
 	BOOL handleNetworkActivityIndicator
 	BOOL handleBackgroundTask
-  
+```
 Note that when setting `handleBackgroundTask` to `YES`, the App's Info.plist file needs to have "Application uses Wi-Fi" set to `YES`.
 
 ##Example
