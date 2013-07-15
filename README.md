@@ -20,9 +20,9 @@ More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_accel
 
 Current Version: 1.1
 
-<p align="center">
+<p align="center">View it in action!
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=HpzOXzAKqWM
-" target="_blank"><img src="http://img.youtube.com/vi/HpzOXzAKqWM/hqdefault.jpg" 
+" target="_blank"><img src="http://j-gessner.de/img/JGDownloadAcceleration.png" 
 alt="View on YouTube" border="10" /></a></p>
 
 
