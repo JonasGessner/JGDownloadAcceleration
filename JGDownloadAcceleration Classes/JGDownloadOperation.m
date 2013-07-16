@@ -300,7 +300,7 @@ static NSThread *_networkRequestThread = nil;
     NSString *metaPath = [self downloadMetadataPathForFilePath:self.destinationPath];
     resume = [[JGDownloadResumeMetadata alloc] initWithNumberOfConnections:self.numberOfConnections filePath:metaPath];
     [resume setTotalSize:self.contentLength];
-    
+	
     unsigned long splittedRest = (self.contentLength % self.numberOfConnections);
     unsigned long long evenSplitter = self.contentLength-splittedRest;
     unsigned long long singleLength = evenSplitter/self.numberOfConnections;
@@ -310,7 +310,7 @@ static NSThread *_networkRequestThread = nil;
     NSMutableArray *preConnections = [NSMutableArray array];
     
     for (unsigned int i = 0; i < self.numberOfConnections; i++) {
-        unsigned long rangeLength = (i == 0 ? singleLength+splittedRest : singleLength)-1;
+        unsigned long rangeLength = (i == 0 ? singleLength+splittedRest : singleLength);
         
         JGRange range = JGRangeMake(currentOffset, rangeLength, NO);
         currentOffset += rangeLength;
