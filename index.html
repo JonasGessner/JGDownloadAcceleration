@@ -38,37 +38,172 @@
           <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <p></p><h1>
+<a name="jgdownloadacceleration" class="anchor" href="#jgdownloadacceleration"><span class="octicon octicon-link"></span></a>JGDownloadAcceleration</h1><h6>
+<a name="-2013-jonas-gessner" class="anchor" href="#-2013-jonas-gessner"><span class="octicon octicon-link"></span></a>© 2013 Jonas Gessner</h6>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<hr><p><br></p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<p>JGDownloadAcceleration is a Networking library for iOS targeted at downloading large files on to the device's hard disk.</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>JGDownloadAcceleration's main part is a concurrent NSOperation subclass (JGDownloadOperation) which handles the multipart download.</p>
+
+<p>For managing and queuing multiple operations, JGDownloadAcceleration provides a NSOperationQueue subclass (JGOperationQueue) which handles the networking thread, activity indicator and application background task.</p>
+
+<p><b>Q.</b> How does the download acceleration even work?</p>
+
+<p><b>A.</b> Download accelerators (multipart download) use multiple network connections to download a file from a server in chunks (each connection downloads one part of the entire content). This allows to bypass bandwidth limitations set by the server and download speeds can be drastically increased.</p>
+
+<p>More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_acceleration" target="_blank">Wikipedia</a></p>
+
+<p>Current Version: 1.1</p>
+
+<p align="center">View it in action!
+<a href="http://www.youtube.com/watch?feature=player_embedded&amp;v=HpzOXzAKqWM%0A" target="_blank"><img src="http://j-gessner.de/img/JGDownloadAcceleration.png" alt="View on YouTube" border="10"></a></p>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h2>
+
+<ol>
+<li>Download JGDownloadAcceleration</li>
+<li>Add the whole "JGDownloadAcceleration Classes" folder to your Project</li>
+<li>Have a read through the Overview section</li>
+<li><code>#import "JGDownloadAcceleration.h"</code></li>
+<li>Start using JGDownloadAcceleration!</li>
+</ol><h2>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+<p>JGDownloadAcceleration consists of 2 different classes that are available to use for networking.</p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="jgdownloadoperation" class="anchor" href="#jgdownloadoperation"><span class="octicon octicon-link"></span></a>JGDownloadOperation</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>A NSOperation subclass which does the download acceleration magic.</p>
+
+<p><code>JGDownloadOperation</code> is restricted to HTTP GET Requests and to writing downloaded content directly to the hard disk.</p>
+
+<p>Parameters to pass:
+A <code>JGDownloadOperation</code> instance required to have the <code>url</code> parameter, and the <code>destinationPath</code> parameter set. If not the Application will terminate with an Assertion Failure.</p>
+
+<p>All <code>JGDownloadOperation</code> instances should be initialized with the <code>initWithURL:destinationPath:allowResume:</code> or <code>initWithRequest:destinationPath:allowResume:</code> methods, where the URL or NSURLRequest, the local destination path and a <code>BOOL</code> to indicate whether the operation should resume (if possible) where it left of is passed. Any files located at the destination path will be removed when starting the download.</p>
+
+<p>Optionally, the number of connections to use to download the resource, a tag, and the retry count can be set.</p>
+
+<div class="highlight"><pre>    <span class="n">NSUInteger</span> <span class="n">tag</span><span class="p">;</span>
+    <span class="n">NSUInteger</span> <span class="n">maximumNumberOfConnections</span><span class="p">;</span>
+    <span class="n">NSUInteger</span> <span class="n">retryCount</span><span class="p">;</span>
+</pre></div>
+
+<p>By default the tag is 0 and the number of connections is 6. The retry count it the number of connections divided by 2.</p>
+
+<p>The readonly properties are:</p>
+
+<div class="highlight"><pre>    <span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">originalRequest</span><span class="p">;</span>
+    <span class="n">NSString</span> <span class="o">*</span><span class="n">destinationPath</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">contentLength</span><span class="p">;</span>
+    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">;</span>
+</pre></div>
+
+<p><code>originalRequest</code> and <code>destinationPath</code> are set in the <code>initWithURL:destinationPath:allowResume:</code> or <code>initWithRequest:destinationPath:allowResume:</code> methods and should not be changed once the operation has been initialized, therefore they are a <code>readonly</code> property.
+<code>contentLength</code> is the expected length (bytes) of the resource to download. This value will be 0 before the <code>requestStartedBlock</code> is called. <code>error</code> returns the failure error (it will be <code>nil</code> if no error occurred). The error will also be passed in the failure block. (See below for more info on the started and the failure blocks).</p>
+
+<h5>
+<a name="the-custom-init-methods" class="anchor" href="#the-custom-init-methods"><span class="octicon octicon-link"></span></a>The custom init methods:</h5>
+
+<p><code>JGDownloadOperation</code> can only be initialized using either of the two custom init methods.</p>
+
+<p><code>initWithURL:destinationPath:allowResume:</code>: In this init method the request made will be a simple HTTP GET request from the given URL. No more customization is possible.</p>
+
+<p><code>initWithRequest:destinationPath:allowResume:</code>: This init method allows you to use a custom NSURLRequest with <code>JGDownloadOperation</code>. The HTTP Method can only be GET (default). <code>JGDownloadOperation</code> also supports the <code>Range</code> header.</p>
+
+<h5>
+<a name="delegates" class="anchor" href="#delegates"><span class="octicon octicon-link"></span></a>Delegates:</h5>
+
+<p><code>JGDownloadOperation</code> uses blocks to communicate with a delegate.</p>
+
+<div class="highlight"><pre>    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setCompletionBlockWithSuccess</span><span class="o">:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">JGDownloadOperation</span> <span class="o">*</span><span class="n">operation</span><span class="p">))</span><span class="n">success</span> <span class="n">failure</span><span class="o">:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">JGDownloadOperation</span> <span class="o">*</span><span class="n">operation</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">))</span><span class="n">failure</span><span class="p">;</span>
+    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setOperationStartedBlock</span><span class="o">:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSUInteger</span> <span class="n">tag</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">totalBytesExpectedToRead</span><span class="p">))</span><span class="n">block</span><span class="p">;</span>
+
+    <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">setDownloadProgressBlock</span><span class="o">:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">NSUInteger</span> <span class="n">bytesRead</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">totalBytesReadThisSession</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">totalBytesRead</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">totalBytesExpectedToRead</span><span class="p">,</span> <span class="n">NSUInteger</span> <span class="n">tag</span><span class="p">))</span><span class="n">block</span><span class="p">;</span>
+</pre></div>
+
+<p></p><h4>
+<a name="setoperationstartedblock" class="anchor" href="#setoperationstartedblock"><span class="octicon octicon-link"></span></a><code>setOperationStartedBlock:</code>
+</h4> Used to be notified when the operation starts.
+The block passes the tag (default 0) of the operation and the expected content size of the resource. The blocks is called from the network thread.
+
+<p></p><h4>
+<a name="setcompletionblockwithsuccessfailure" class="anchor" href="#setcompletionblockwithsuccessfailure"><span class="octicon octicon-link"></span></a><code>setCompletionBlockWithSuccess:failure:</code>
+</h4> Used to be notified when the operation finishes and to be informed about the completion state (failed with an error or not?).
+The completion block passes a reference to the operation, the failure block passes a reference to the operation and the error. Both blocks are called from a background thread (not the network thread).
+
+<p></p><h4>
+<a name="setdownloadprogressblock" class="anchor" href="#setdownloadprogressblock"><span class="octicon octicon-link"></span></a><code>setDownloadProgressBlock:</code>
+</h4> Used to determine, calculate, and observe various details of the current download. This block is called on the (secondary) networking thread! It is called every time a connection inside the operation receives a chunk of data (which is automatically written to the disk). The current progress, current download speed, average download speed (and using that an estimation for the remaining time) can be calculated. For average and current speed a variable in needed to store the time intervals from the last call of the block (for the current speed) and from when the operation started. See the Example project for an implementation of this<p>
+<code>NSUInteger bytesRead</code> indicates the size of the bytes read (NOT since the last call of the block, its pretty complicated because this block is called for each connection, passing the number of bytes the specific connection loaded since this specific connection last loaded a chunk of bytes).</p><p>
+<code>unsigned long long totalBytesReadThisSession</code> the total number of bytes read in this current session. (e.g If a download is paused at 50% and then resumed, this parameter will start from 0)</p><p>
+<code>unsigned long long totalBytesWritten</code> the total bytes read in total.</p><p>
+<code>unsigned long long totalBytesExpectedToRead</code> the expected content size of the resource.</p><p>
+<code>NSUInteger tag</code> the tag of the operation, very handy for managing multiple operations in a queue.
+<br><br>
+Internally this class uses a bunch of helper classes. These should not be touched by anything but the <code>JGDownloadOperation</code>.
+<br><br><br><code>JGDownloadOperation</code> uses a metadata file to store the progress of each connection, to allow the operation to resume when failed or cancelled. The metadata file is stored at the destination path with the file extension <code>jgd</code>. The metadata file will automatically be removed when the operation finishes with success. Passing <code>YES</code> for "allowResume" in the custom <code>init</code> methods will result in a attempt to read the metadata file and resume from the last known state. If the metadata file or the partial downloaded content is not available then the download will start from the beginning. If <code>NO</code> is passed for "allowResume" then no metadata files will be written and the download will always start from the beginning. If reading the metadata file is not possible (if the file does not exist) the download will start from the beginning, overwriting any existing progress.
+<br></p>
+
+<h5>
+<a name="cancellation" class="anchor" href="#cancellation"><span class="octicon octicon-link"></span></a>Cancellation:</h5>
+
+<p><code>cancel</code> will stop the download,  synchronize the metadata file to allow resuming the download later and leave the partially downloaded file on the disk. The failure completion block will be called with an <code>NSURLErrorCancelled</code> error.</p><p>
+<code>cancelAndClearFiles</code> will stop the download and remove the partially downloaded file as well as the metadata file from the disk. Neither the success completion block or the failure completion block will be called.</p>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="jgoperationqueue" class="anchor" href="#jgoperationqueue"><span class="octicon octicon-link"></span></a>JGOperationQueue</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>A NSOperationQueue subclass which is targeted at enqueuing only <code>JGDownloadOperation</code> objects.</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<p><code>JGOperationQueue</code> handles the shared network thread used by all <code>JGDownloadOperation</code> instances. Once all operations are finished the queue exits the networking thread.
+queue
+Optionally, <code>JGOperationQueue</code> handles the status bar NetworkActivityIndicator, according to the number of enqueued operations and the background task used for networking requests when the app runs in the background.</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<div class="highlight"><pre>    <span class="kt">BOOL</span> <span class="n">handleNetworkActivityIndicator</span>
+    <span class="kt">BOOL</span> <span class="n">handleBackgroundTask</span>
+</pre></div>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<p>Note that when setting <code>handleBackgroundTask</code> to <code>YES</code>, the App's Info.plist file needs to have "Application uses Wi-Fi" set to <code>YES</code>.</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<h2>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>An example usage can be found in the Sample Project.</p>
+
+<h2>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<p>In order to take advantage of multipart download, the server from which you download a content needs to support the <code>Range</code> HTTP header. If it doesn't then <code>JGDownloadAcceleration</code> will simply use 1 connection to download the content conventionally.</p>
+
+<p><code>JGDownloadAcceleration</code> is built for use with ARC and weak references. This means that iOS 5 or higher is required for using <code>JGDownloadAcceleration</code></p>
+
+<p><strong><em>If your project doesn't use ARC</em>: you must add the <code>-fobjc-arc</code> compiler flag to all JGDownloadAcceleration files in Target Settings &gt; Build Phases &gt; Compile Sources.</strong></p>
+
+<h2>
+<a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h2>
+
+<p>JGDownloadAcceleration was created by <a href="http://twitter.com/JonasGessner" target="_blank">Jonas Gessner</a>.
+It was created for the iOS Jailbreak tweak "ProTube Extension for YouTube" and the Jailbreak App "ProTube".</p>
+
+<h2>
+<a name="contact" class="anchor" href="#contact"><span class="octicon octicon-link"></span></a>Contact</h2>
+
+<p>Contact me on Twitter: <a href="http://twitter.com/JonasGessner">@JonasGessner</a> or by email (found on my GitHub profile) if you have any questions!</p>
+
+<p>Contributing to the Project is much appreciated!</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>JGDownloadOperation is available under the <a href="http://opensource.org/licenses/Python-2.0" target="_blank">Python License 2.0</a></p>
+
+<p>An easy to understand explanation of the Python License 2.0 can be found <a href="http://www.tldrlegal.com/license/python-license-2.0" target="_blank">here</a>.</p>
       </section>
 
     </div>
