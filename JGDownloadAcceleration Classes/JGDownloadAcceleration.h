@@ -9,7 +9,7 @@
 #import "JGDownloadOperation.h"
 #import "JGOperationQueue.h"
 
-#define kJGDownloadAccelerationVersion @"1.1" //Version of JGDownloadAcceleration
+#define kJGDownloadAccelerationVersion @"1.2.1" //Version of JGDownloadAcceleration
 
 #if !__has_feature(objc_arc)
 #error "JGDownloadAcceleration requires ARC!"

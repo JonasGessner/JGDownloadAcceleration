@@ -18,7 +18,7 @@ More info: <a href="http://en.wikipedia.org/wiki/Download_manager#Download_accel
 
 
 
-Current Version: 1.1
+Current Version: 1.2.1
 
 <p align="center">View it in action!
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=HpzOXzAKqWM

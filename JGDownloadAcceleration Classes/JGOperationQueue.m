@@ -29,13 +29,11 @@
 
 @implementation JGOperationQueue
 
-@synthesize handleBackgroundTask, handleNetworkActivityIndicator;
-
 + (NSThread *)operationThreadIfAvailable {
     return ([JGDownloadOperation networkRequestThreadIsAvailable] ? [JGDownloadOperation networkRequestThread] : nil);
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         [self addObserver:self forKeyPath:@"operations" options:0 context:NULL];
@@ -79,7 +77,7 @@
 
 - (void)addOperation:(JGDownloadOperation *)op {
     if (![op isKindOfClass:[JGDownloadOperation class]]) {
-        NSLog(@"Error: JGOperationQueue should only be used for enqueing JGDownloadOperation objects. Continuing");
+        NSLog(@"Error: JGOperationQueue should only be used for enqueing JGDownloadOperation objects. Ignoring");
     }
     [super addOperation:op];
 }

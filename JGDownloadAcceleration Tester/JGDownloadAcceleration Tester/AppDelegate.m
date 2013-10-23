@@ -27,28 +27,40 @@
     [self.window makeKeyAndVisible];
     
     //get a valid URL for a video file from YouTube
-    LBYouTubeExtractor *ex = [[LBYouTubeExtractor alloc] initWithID:@"1aqwk5Ip6cM" quality:LBYouTubeVideoQualitySmall];
-    ex.delegate = self;
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        [ex startExtracting]; //Don't put LBYouTubeExtractor on the main thread..
-        CFRunLoopRun(); //give the LBYouTubeExtractor a run loop (or better, the NSURLConnection used inside LBYouTubeExtractor
-    });
+    [self load];
     
     return YES;
 }
 
-- (void)youTubeExtractor:(LBYouTubeExtractor *)extractor didSuccessfullyExtractYouTubeURL:(NSURL *)videoURL {
+- (void)load {
+    LBYouTubeExtractor *ex = [[LBYouTubeExtractor alloc] initWithID:@"1aqwk5Ip6cM" quality:LBYouTubeVideoQualityLarge];
+    ex.delegate = self;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [ex startExtracting]; //Don't put LBYouTubeExtractor on the main thread..
+        CFRunLoopRun(); //give the LBYouTubeExtractor a run loop (or better, the NSURLConnection used inside LBYouTubeExtractor
+    });
+}
+
+- (void)youTubeExtractor:(LBYouTubeExtractor *)extractor didSuccessfullyExtractYouTubeURL:(NSURL *)_videoURL {
     CFRunLoopStop(CFRunLoopGetCurrent()); //stop the run loop on the background queue that we started in -application:didFinishLaunchingWithOptions:
+    NSURL *videoURL = [NSURL URLWithString:[[[_videoURL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    if (!videoURL.absoluteString) {
+        return [self load];
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{ //go back to the main thread (not necessary)
         NSString *file = [NSTemporaryDirectory() stringByAppendingPathComponent:@"DL.mp4"];
+        
+        NSLog(@"URL %@", videoURL);
         
         BOOL resume = YES;
         
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:videoURL];
         
         //customize the request if needed... Example:
-        [request setTimeoutInterval:90];
+        [request setTimeoutInterval:90.0];
         
         
         //start downloading the YouTube video to the temporary directory

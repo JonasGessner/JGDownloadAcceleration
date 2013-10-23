@@ -12,62 +12,9 @@
 #import "JGOperationQueue.h"
 #import "JGHEADRequest.h"
 #import "JGDownloadResumeMetadata.h"
-
-@interface JGDownloadOperation () //Private
-
-//Network Thread Handling
-+ (NSThread *)networkRequestThread;
-+ (BOOL)networkRequestThreadIsAvailable;
-+ (void)endNetworkThread;
-
-@end
-
-
-@interface JGDownloadOperation () <JGDownloadManager, JGHEADRequestDelegate> {
-    BOOL waitForContentLength;
-    
-    JGRange contentRange;
-    
-    NSUInteger finished;
-    BOOL append;
-    NSUInteger errorRetryAttempts;
-    
-    BOOL completed;
-    BOOL executing;
-    BOOL cancelled;
-    
-    BOOL splittingUnavailable;
-    
-    unsigned long long resumedAtSize;
-    
-    BOOL clear;
-    
-    JGHEADRequest *headerProvider;
-    
-    NSFileHandle *output;
-    JGDownloadResumeMetadata *resume;
-}
-
-@property (nonatomic, copy) JGConnectionOperationProgressBlock downloadProgress;
-@property (nonatomic, copy) JGConnectionOperationStartedBlock started;
-
-@property (nonatomic, assign) NSUInteger numberOfConnections; //actual number of connections, not maximum number
-
-@property (nonatomic, strong, readonly) NSArray *connections;
-
-- (void)getHTTPHeadersAndProceed;
-- (void)startLoadingAllConnectionsAndOpenOutput;
-
-- (void)startSingleRequest;
-
-- (void)didReceiveHTTPHeaders:(NSHTTPURLResponse *)response error:(NSError *)_error;
-
-@end
+#import "JGDownloadOperationPrivate.h"
 
 @implementation JGDownloadOperation
-
-@synthesize maximumNumberOfConnections, destinationPath, connections, tag, error, downloadProgress, started, numberOfConnections, retryCount, originalRequest, actualNumberOfConnections;
-
 
 #pragma mark - Network Thread
 
@@ -113,32 +60,37 @@ static NSThread *_networkRequestThread = nil;
 
 #pragma mark - General
 
-- (id)initWithURL:(NSURL *)_url destinationPath:(NSString *)_path allowResume:(BOOL)_resume {
+
++ (Class)chunkDownloaderClass {
+    return [JGDownload class];
+}
+
+- (instancetype)initWithURL:(NSURL *)url destinationPath:(NSString *)path allowResume:(BOOL)resume {
     self = [super init];
     if (self) {
-        destinationPath = _path;
-        originalRequest = [NSURLRequest requestWithURL:_url];
-        append = _resume;
+        _destinationPath = path;
+        _originalRequest = [NSURLRequest requestWithURL:url];
+        _append = resume;
         
-        NSParameterAssert(originalRequest != nil);
-        NSParameterAssert(destinationPath != nil);
+        NSParameterAssert(_originalRequest != nil);
+        NSParameterAssert(_destinationPath != nil);
     }
     return self;
 }
 
-- (instancetype)initWithRequest:(NSURLRequest *)request destinationPath:(NSString *)_path allowResume:(BOOL)_resume {
+- (instancetype)initWithRequest:(NSURLRequest *)request destinationPath:(NSString *)path allowResume:(BOOL)resume {
     self = [super init];
     if (self) {
         if ([request HTTPMethod] != nil && ![request.HTTPMethod isEqualToString:@"GET"]) {
             @throw [NSException exceptionWithName:@"Invalid Request" reason:@"JGDownloadAcceleration only supports HTTP GET requests" userInfo:nil];
             return nil;
         }
-        destinationPath = _path;
-        originalRequest = request;
-        append = _resume;
+        _destinationPath = path;
+        _originalRequest = request;
+        _append = resume;
         
-        NSParameterAssert(originalRequest != nil);
-        NSParameterAssert(destinationPath != nil);
+        NSParameterAssert(_originalRequest != nil);
+        NSParameterAssert(_destinationPath != nil);
     }
     return self;
 }
@@ -157,18 +109,18 @@ static NSThread *_networkRequestThread = nil;
 }
 
 - (void)main {
-    error = nil;
-    completed = NO;
-    cancelled = NO;
-    splittingUnavailable = NO;
-    resumedAtSize = 0;
-    waitForContentLength = NO;
+    _error = nil;
+    _completed = NO;
+    _cancelled = NO;
+    _splittingUnavailable = NO;
+    _resumedAtSize = 0;
+    _waitForContentLength = NO;
     
     [self willChangeValueForKey:@"isExecuting"];
-    executing = YES;
+    _executing = YES;
     [self didChangeValueForKey:@"isExecuting"];
     
-    BOOL reallyAppend = append;
+    BOOL reallyAppend = _append;
     if (![[NSFileManager defaultManager] fileExistsAtPath:self.destinationPath]) {
         reallyAppend = NO;
     }
@@ -202,16 +154,16 @@ static NSThread *_networkRequestThread = nil;
     
     if (self.maximumNumberOfConnections == 1) {
         if (reallyAppend) {
-            NSString *metaPath = [self downloadMetadataPathForFilePath:destinationPath];
-            resume = [[JGDownloadResumeMetadata alloc] initWithContentsAtPath:metaPath];
+            NSString *metaPath = [self downloadMetadataPathForFilePath:_destinationPath];
+            _resume = [[JGDownloadResumeMetadata alloc] initWithContentsAtPath:metaPath];
             [self resumeConnectionsFromResumeMetadata];
         }
         else {
             if (originalRequestHasRange) {
-                contentRange = rangeOfOriginalRequest;
+                _contentRange = rangeOfOriginalRequest;
             }
             else {
-                waitForContentLength = YES; //content length is unknown. Wait for download:didReceiveResponse: to eventually set the contentRange and be aware of the content length
+                _waitForContentLength = YES; //content length is unknown. Wait for download:didReceiveResponse: to eventually set the contentRange and be aware of the content length
             }
             
             if ([[NSFileManager defaultManager] fileExistsAtPath:self.destinationPath]) {
@@ -224,8 +176,8 @@ static NSThread *_networkRequestThread = nil;
     }
     else {
         if (reallyAppend) {
-            NSString *metaPath = [self downloadMetadataPathForFilePath:destinationPath];
-            resume = [[JGDownloadResumeMetadata alloc] initWithContentsAtPath:metaPath];
+            NSString *metaPath = [self downloadMetadataPathForFilePath:_destinationPath];
+            _resume = [[JGDownloadResumeMetadata alloc] initWithContentsAtPath:metaPath];
             [self resumeConnectionsFromResumeMetadata];
         }
         else {
@@ -235,7 +187,7 @@ static NSThread *_networkRequestThread = nil;
             [[NSFileManager defaultManager] createFileAtPath:self.destinationPath contents:nil attributes:nil];
             
             if (originalRequestHasRange) { //don't request the HTTP headers if the range has already been set in the original request
-                contentRange = rangeOfOriginalRequest;
+                _contentRange = rangeOfOriginalRequest;
                 [self startSplittedConnections];
             }
             else {
@@ -249,32 +201,32 @@ static NSThread *_networkRequestThread = nil;
 #pragma mark - Starting Operations
 
 - (void)startLoadingAllConnectionsAndOpenOutput {
-    output = [NSFileHandle fileHandleForWritingAtPath:self.destinationPath];
+    _output = [NSFileHandle fileHandleForWritingAtPath:self.destinationPath];
     
-    for (JGDownload *download in connections) {
+    for (JGDownload *download in _connections) {
         [download startLoading];
     }
 }
 
 - (void)downloadStarted:(JGDownload *)download {
-    if (started) {
-        started(self.tag, self.contentLength);
-        started = nil;
+    if (_started) {
+        _started(self.tag, self.contentLength);
+        _started = nil;
     }
 }
 
 #pragma mark - Resume Connection
 
 - (void)resumeConnectionsFromResumeMetadata {
-    contentRange = JGRangeMake(0, resume.totalSize, NO); //The original location is not stored in the resume metadata because it is irelevant when resuming a request
+    _contentRange = JGRangeMake(0, _resume.totalSize, NO); //The original location is not stored in the resume metadata because it is irelevant when resuming a request
     
-    resumedAtSize = resume.currentSize;
+    _resumedAtSize = _resume.currentSize;
     
     NSMutableArray *preConnections = [NSMutableArray array];
     
-    for (JGResumeObject *object in resume) {
+    for (JGResumeObject *object in _resume) {
         if (object.range.final ? object.range.location+object.offset < self.contentLength : object.offset <= object.range.length) {
-            JGDownload *download = [[JGDownload alloc] initWithRequest:self.originalRequest object:object owner:self];
+            JGDownload *download = [[self.class.chunkDownloaderClass alloc] initWithRequest:self.originalRequest object:object manager:self];
             [preConnections addObject:download];
         }
     }
@@ -287,7 +239,7 @@ static NSThread *_networkRequestThread = nil;
         return;
     }
     
-    connections = preConnections.copy;
+    _connections = preConnections.copy;
     
     [self startLoadingAllConnectionsAndOpenOutput];
 }
@@ -295,34 +247,34 @@ static NSThread *_networkRequestThread = nil;
 #pragma mark - New Connection
 
 - (void)startSplittedConnections {
-    self.numberOfConnections = (splittingUnavailable ? 1 : self.maximumNumberOfConnections); //is the Range header supported? If yes use max number of connections, if not use 1 connection
+    self.numberOfConnections = (_splittingUnavailable ? 1 : self.maximumNumberOfConnections); //is the Range header supported? If yes use max number of connections, if not use 1 connection
     
     NSString *metaPath = [self downloadMetadataPathForFilePath:self.destinationPath];
-    resume = [[JGDownloadResumeMetadata alloc] initWithNumberOfConnections:self.numberOfConnections filePath:metaPath];
-    [resume setTotalSize:self.contentLength];
+    _resume = [[JGDownloadResumeMetadata alloc] initWithNumberOfConnections:self.numberOfConnections filePath:metaPath];
+    [_resume setTotalSize:self.contentLength];
 	
     unsigned long splittedRest = (self.contentLength % self.numberOfConnections);
     unsigned long long evenSplitter = self.contentLength-splittedRest;
     unsigned long long singleLength = evenSplitter/self.numberOfConnections;
     
-    unsigned long long currentOffset = contentRange.location;
+    unsigned long long currentOffset = _contentRange.location;
     
     NSMutableArray *preConnections = [NSMutableArray array];
     
     for (unsigned int i = 0; i < self.numberOfConnections; i++) {
-        unsigned long rangeLength = (i == 0 ? singleLength+splittedRest : singleLength);
+        unsigned long long rangeLength = (i == 0 ? singleLength+splittedRest : singleLength);
         
         JGRange range = JGRangeMake(currentOffset, rangeLength, NO);
         currentOffset += rangeLength;
         
         JGResumeObject *object = [[JGResumeObject alloc] initWithRange:range offset:0];
-        [resume addObject:object];
+        [_resume addObject:object];
         
-        JGDownload *download = [[JGDownload alloc] initWithRequest:self.originalRequest object:object owner:self];
+        JGDownload *download = [[self.class.chunkDownloaderClass alloc] initWithRequest:self.originalRequest object:object manager:self];
         [preConnections addObject:download];
     }
     
-    connections = preConnections;
+    _connections = preConnections;
     
     [self startLoadingAllConnectionsAndOpenOutput];
 }
@@ -331,60 +283,60 @@ static NSThread *_networkRequestThread = nil;
     self.numberOfConnections = 1;
     
     NSString *metaPath = [self downloadMetadataPathForFilePath:self.destinationPath];
-    resume = [[JGDownloadResumeMetadata alloc] initWithNumberOfConnections:self.numberOfConnections filePath:metaPath];
+    _resume = [[JGDownloadResumeMetadata alloc] initWithNumberOfConnections:self.numberOfConnections filePath:metaPath];
     
-    JGRange range = JGRangeMake(contentRange.location, self.contentLength, YES);
+    JGRange range = JGRangeMake(_contentRange.location, self.contentLength, YES);
     
     JGResumeObject *object = [[JGResumeObject alloc] initWithRange:range offset:0];
     
-    JGDownload *download = [[JGDownload alloc] initWithRequest:self.originalRequest object:object owner:self];
+    JGDownload *download = [[self.class.chunkDownloaderClass alloc] initWithRequest:self.originalRequest object:object manager:self];
     
-    connections = @[download];
+    _connections = @[download];
     
     [self startLoadingAllConnectionsAndOpenOutput];
 }
 
 #pragma mark - HTTP Headers
 
-- (void)didReceiveHTTPHeaders:(NSHTTPURLResponse *)response error:(NSError *)_error {
+- (void)didReceiveHTTPHeaders:(NSHTTPURLResponse *)response error:(NSError *)error {
     if (_error) {
-        error = _error;
+        _error = error;
         [self completeOperation];
     }
     else {
         NSInteger statusCode = response.statusCode;
         
         if (statusCode >= 400) {
-            error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Invalid status code: %i %@", statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode]]}]; //409 = Conflict
+            _error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Invalid status code: %i %@", statusCode, [NSHTTPURLResponse localizedStringForStatusCode:statusCode]]}]; //409 = Conflict
             [self completeOperation];
             return;
         }
         NSDictionary *headers = [response allHeaderFields];
         
-        if (!splittingUnavailable) {
-            splittingUnavailable = ![[headers objectForKey:@"Accept-Ranges"] hasPrefix:@"bytes"];
+        if (!_splittingUnavailable) {
+            _splittingUnavailable = ![[headers objectForKey:@"Accept-Ranges"] hasPrefix:@"bytes"];
         }
         
         unsigned long long size = (unsigned long long)[response expectedContentLength];
         
-        contentRange = JGRangeMake(0, size, NO);
+        _contentRange = JGRangeMake(0, size, NO);
         
         unsigned long long free = getFreeSpace(self.destinationPath.stringByDeletingLastPathComponent, nil);
         unsigned long long umax = ULLONG_MAX;
         
         if (free == umax) {
-            error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : @"Invalid content size (content size unavailable)"}]; //409 = Conflict
+            _error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : @"Invalid content size (content size unavailable)"}]; //409 = Conflict
             [self completeOperation];
             return;
         }
         
         if (free <= self.contentLength) {
-            error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : @"There's not enough free space on the disk to download this file"}]; //409 = Conflict
+            _error = [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:409 userInfo:@{NSLocalizedDescriptionKey : @"There's not enough free space on the disk to download this file"}]; //409 = Conflict
             [self completeOperation];
             return;
         }
         
-        if (resume && splittingUnavailable) {
+        if (_resume && _splittingUnavailable) {
             [self startSingleRequest];
         }
         else {
@@ -393,15 +345,15 @@ static NSThread *_networkRequestThread = nil;
     }
 }
 
-- (void)didRecieveResponse:(NSHTTPURLResponse *)response error:(NSError *)_error {
-    headerProvider = nil;
-    [self didReceiveHTTPHeaders:response error:_error];
+- (void)didRecieveResponse:(NSHTTPURLResponse *)response error:(NSError *)error {
+    _headerProvider = nil;
+    [self didReceiveHTTPHeaders:response error:error];
 }
 
 - (void)getHTTPHeadersAndProceed {
-    headerProvider = [[JGHEADRequest alloc] initWithRequest:self.originalRequest];
-    headerProvider.delegate = self;
-    [headerProvider start];
+    _headerProvider = [[JGHEADRequest alloc] initWithRequest:self.originalRequest];
+    _headerProvider.delegate = self;
+    [_headerProvider start];
 }
 
 #pragma mark - Delegate Blocks
@@ -419,7 +371,7 @@ static NSThread *_networkRequestThread = nil;
     if (!block) {
         [super setCompletionBlock:NULL];
     } else {
-        __weak __typeof(&*self) weakSelf = self;
+        __weak __typeof(self) weakSelf = self;
         [super setCompletionBlock:^ {
             __strong __typeof(&*weakSelf) strongSelf = weakSelf;
             
@@ -434,7 +386,7 @@ static NSThread *_networkRequestThread = nil;
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
     self.completionBlock = ^{
         if (self.isCancelled) {
-            if (!clear) {
+            if (!_clear) {
                 failure(self, [NSError errorWithDomain:@"de.j-gessner.JGDownloadAcceleration" code:NSURLErrorCancelled userInfo:@{NSLocalizedDescriptionKey : @"The Download was Cancelled"}]);
             }
         }
@@ -454,10 +406,10 @@ static NSThread *_networkRequestThread = nil;
 #pragma mark - JGDownloadDelegate
 
 - (void)download:(JGDownload *)download didReceiveResponse:(NSHTTPURLResponse *)response {
-    if (waitForContentLength) {
-        contentRange = JGRangeMake(0, (unsigned long long)[response expectedContentLength], NO);
-        [resume setTotalSize:self.contentLength];
-        waitForContentLength = NO;
+    if (_waitForContentLength) {
+        _contentRange = JGRangeMake(0, (unsigned long long)[response expectedContentLength], NO);
+        [_resume setTotalSize:self.contentLength];
+        _waitForContentLength = NO;
     }
 }
 
@@ -468,53 +420,57 @@ static NSThread *_networkRequestThread = nil;
     
     unsigned long long length = (unsigned long long)realLength;
     
-    resume.currentSize += length;
+    _resume.currentSize += length;
     
     unsigned long long offset = object.offset;
+    
     unsigned long long finalLocation = object.range.location+offset;
     
-    [output seekToFileOffset:finalLocation];
-    [output writeData:data];
+    [_output seekToFileOffset:finalLocation];
+    [_output writeData:data];
     
-    if (self.downloadProgress && !completed) {
-        self.downloadProgress(realLength, resume.currentSize-resumedAtSize, resume.currentSize, self.contentLength, self.tag);
+    if (self.downloadProgress && !_completed) {
+        self.downloadProgress(realLength, _resume.currentSize-_resumedAtSize, _resume.currentSize, self.contentLength, self.tag);
     }
-    [output synchronizeFile];
+    
+    [_output synchronizeFile];
     
     offset += length;
     
     [object setOffset:offset];
-    if (append) {
-        [resume write];
+    if (_append) {
+        [_resume write];
     }
+    
+    //NSLog(@"DOWNLOAD %i OFFSET %llu PREVIOUS %llu", [_connections indexOfObject:download], offset, offset-data.length);
 }
 
 - (NSUInteger)retryCount {
-    NSUInteger retry = retryCount;
+    NSUInteger retry = _retryCount;
     if (!retry) {
         retry = (NSUInteger)self.numberOfConnections/2;
     }
     return retry;
 }
 
-- (void)downloadDidFinish:(JGDownload *)download withError:(NSError *)_error {
-    if (_error) {
-        if (errorRetryAttempts > retryCount) {
+- (void)downloadDidFinish:(JGDownload *)download withError:(NSError *)error {
+    if (error) {
+        if (_errorRetryAttempts > _retryCount) {
             //            NSLog(@"Error: Cannot finish Operation: Too many errors occured, canceling");
-            error = _error;
+            _error = error;
             [self completeOperation];
         }
         else {
             [download retry];
-            errorRetryAttempts++;
+            _errorRetryAttempts++;
         }
     }
     else {
-        NSMutableArray *cons = [connections mutableCopy];
+        NSMutableArray *cons = [_connections mutableCopy];
         [cons removeObjectIdenticalTo:download];
-        connections = cons.copy;
-        if (!connections.count) {
-            connections = nil;
+        _connections = cons.copy;
+        if (!_connections.count) {
+            _connections = nil;
             [self completeOperation];
         }
     }
@@ -523,31 +479,31 @@ static NSThread *_networkRequestThread = nil;
 #pragma mark - Completion
 
 - (void)operationFinishedCleanup {
-    [headerProvider cancel];
-    headerProvider = nil;
+    [_headerProvider cancel];
+    _headerProvider = nil;
     
     for (JGDownload *download in self.connections) {
         [download cancel];
     }
     
-    connections = nil;
+    _connections = nil;
     
-    [output closeFile];
+    [_output closeFile];
     
-    output = nil;
+    _output = nil;
     
-    if ((self.error || !clear || (self.isCancelled && !clear)) && append) { //write when error, cancelled, or not told to remove file
-        [resume write];
+    if ((self.error || !_clear || (self.isCancelled && !_clear)) && _append) { //write when error, cancelled, or not told to remove file
+        [_resume write];
     }
     else {
-        [resume removeFile];
+        [_resume removeFile];
     }
     
-    resume = nil;
+    _resume = nil;
 }
 
 - (void)cancelAndClearFiles { //probably called from main thread
-    clear = YES; //will clear
+    _clear = YES; //will clear
     
     [self cancel];
     [[NSFileManager defaultManager] removeItemAtPath:self.destinationPath error:nil];
@@ -572,9 +528,9 @@ static NSThread *_networkRequestThread = nil;
     
     [self willChangeValueForKey:@"isExecuting"];
     [self willChangeValueForKey:@"isFinished"];
-    executing = NO;
-    completed = YES;
-    cancelled = YES;
+    _executing = NO;
+    _completed = YES;
+    _cancelled = YES;
     [super cancel];
     [self didChangeValueForKey:@"isFinished"];
     [self didChangeValueForKey:@"isExecuting"];
@@ -586,14 +542,14 @@ static NSThread *_networkRequestThread = nil;
         return;
     }
     
-    clear = YES;
+    _clear = YES;
     
     [self operationFinishedCleanup];
     
     [self willChangeValueForKey:@"isExecuting"];
     [self willChangeValueForKey:@"isFinished"];
-    completed = YES;
-    executing = NO;
+    _completed = YES;
+    _executing = NO;
     [self didChangeValueForKey:@"isFinished"];
     [self didChangeValueForKey:@"isExecuting"];
 }
@@ -605,17 +561,17 @@ static NSThread *_networkRequestThread = nil;
 }
 
 - (BOOL)isExecuting {
-    return executing;
+    return _executing;
 }
 
 - (BOOL)isFinished {
-    return completed;
+    return _completed;
 }
 
 #pragma mark - Custom Property Getters & Setters
 
 - (unsigned long long)contentLength {
-    return contentRange.length;
+    return _contentRange.length;
 }
 
 - (NSUInteger)actualNumberOfConnections {
@@ -623,11 +579,11 @@ static NSThread *_networkRequestThread = nil;
 }
 
 - (NSUInteger)numberOfConnections {
-    if (!numberOfConnections) {
+    if (!_numberOfConnections) {
         return defaultMaxConnections();
     }
     else {
-        return numberOfConnections;
+        return _numberOfConnections;
     }
 }
 

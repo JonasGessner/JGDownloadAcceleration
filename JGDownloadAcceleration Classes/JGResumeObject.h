@@ -16,10 +16,10 @@
 
 
 //New object
-- (id)initWithRange:(JGRange)ran offset:(unsigned long long)of;
+- (instancetype)initWithRange:(JGRange)ran offset:(unsigned long long)of;
 
 //Read from file
-- (id)initWithString:(NSString *)string;
+- (instancetype)initWithString:(NSString *)string;
 
 //Writing
 - (NSString *)stringRepresentation;

@@ -10,9 +10,7 @@
 
 @implementation JGResumeObject
 
-@synthesize range, offset;
-
-- (id)initWithRange:(JGRange)ran offset:(unsigned long long)of {
+- (instancetype)initWithRange:(JGRange)ran offset:(unsigned long long)of {
     self = [super init];
     if (self) {
         self.range = ran;
@@ -21,28 +19,28 @@
     return self;
 }
 
-- (id)initWithString:(NSString *)string {
+- (instancetype)initWithString:(NSString *)string {
     self = [super init];
     if (self) {
         NSArray *components = [string componentsSeparatedByString:OBJECT_BREAK];
         if (components.count) {
-            NSString *_range = [components objectAtIndex:0];
-            NSArray *comps = [_range componentsSeparatedByString:@"-"];
+            NSString *range = [components objectAtIndex:0];
+            NSArray *comps = [range componentsSeparatedByString:@"-"];
             if (comps.count == 2) {
                 unsigned long long location = (unsigned long long)[[comps objectAtIndex:0] longLongValue];
                 unsigned long long length = (unsigned long long)[[comps objectAtIndex:1] longLongValue];
-                self.range = JGRangeMake(location , length, NO);
+                self.range = JGRangeMake(location, length, NO);
             }
             else if (comps.count == 1) {
                 unsigned long long location = (unsigned long long)[[comps objectAtIndex:0] longLongValue];
-                self.range = JGRangeMake(location , 0, YES);
+                self.range = JGRangeMake(location, 0, YES);
             }
             
-            NSString *_offset;
+            NSString *offset = nil;
             if (components.count > 1) {
-                _offset = [components objectAtIndex:1];
+                offset = [components objectAtIndex:1];
             }
-            self.offset = (unsigned long long)_offset.longLongValue;
+            self.offset = (unsigned long long)offset.longLongValue;
             
         }
     }
@@ -50,10 +48,7 @@
 }
 
 - (NSString *)stringRepresentation {
-    NSString *rangeText = NSStringForFileFromJGRange(range);
-    NSString *current = [NSString stringWithFormat:@"%llu", offset];
-    NSString *final = [NSString stringWithFormat:@"%@%@%@", rangeText, OBJECT_BREAK, current];
-    return final;
+    return [NSString stringWithFormat:@"%@%@%llu", NSStringForFileFromJGRange(self.range), OBJECT_BREAK, self.offset];
 }
 
 

@@ -17,8 +17,6 @@
 
 @implementation JGDownloadResumeMetadata
 
-@synthesize totalSize, currentSize;
-
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len {
     return [infos countByEnumeratingWithState:state objects:buffer count:len];
 }
@@ -30,7 +28,8 @@
     if (!serialized.length) {
         return;
     }
-    NSArray *downloads = [serialized componentsSeparatedByString:DOWNLOAD_BREAK];
+    NSArray *downloads = ([serialized hasSuffix:@"v2.0"] ? [serialized componentsSeparatedByString:DOWNLOAD_BREAK] : [serialized componentsSeparatedByString:DOWNLOAD_BREAK_OLD]);
+    
     infos = [NSMutableArray array];
     
     self.totalSize = (unsigned long long)[[downloads lastObject] longLongValue];
@@ -49,7 +48,7 @@
     }
 }
 
-- (id)initWithContentsAtPath:(NSString *)daPath {
+- (instancetype)initWithContentsAtPath:(NSString *)daPath {
     self = [super init];
     if (self) {
         path = daPath;
@@ -61,7 +60,7 @@
 
 //Writing
 
-- (id)initWithNumberOfConnections:(NSUInteger)number filePath:(NSString *)daPath {
+- (instancetype)initWithNumberOfConnections:(NSUInteger)number filePath:(NSString *)daPath {
     self = [super init];
     if (self) {
         infos = [NSMutableArray arrayWithCapacity:number];
@@ -83,8 +82,7 @@
         NSString *final = [object stringRepresentation];
         [string appendString:final];
     }
-    [string appendFormat:@"%@%llu", DOWNLOAD_BREAK, self.currentSize];
-    [string appendFormat:@"%@%llu", DOWNLOAD_BREAK, self.totalSize];
+    [string appendFormat:@"%@%llu%@%lluv2.0", DOWNLOAD_BREAK, self.currentSize, DOWNLOAD_BREAK, self.totalSize];
     return string.copy;
 }
 

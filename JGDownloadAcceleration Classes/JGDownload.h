@@ -12,7 +12,7 @@
 
 @interface JGDownload : NSObject
 
-@property (nonatomic, readonly, weak) id<JGDownloadManager> owner; //"Owner" does its own thing, therefore weak reference
+@property (nonatomic, readonly, weak) id <JGDownloadManager> downloadManager; //"Owner" does its own thing, therefore weak reference
 @property (nonatomic, readonly, weak) JGResumeObject *object; //owned by the operation's JGDownloadResumeMetadata, therefore weak reference
 @property (nonatomic, readonly, weak) NSURLRequest *request; //owned by the operation, therefore weak reference
 
@@ -20,6 +20,6 @@
 - (void)retry;
 - (void)cancel;
 
-- (id)initWithRequest:(NSURLRequest *)_request object:(JGResumeObject *)_object owner:(id <JGDownloadManager>)_owner;
+- (instancetype)initWithRequest:(NSURLRequest *)request object:(JGResumeObject *)object manager:(id <JGDownloadManager>)manager;
 
 @end

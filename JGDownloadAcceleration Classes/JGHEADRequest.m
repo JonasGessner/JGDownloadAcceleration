@@ -10,22 +10,20 @@
 
 @implementation JGHEADRequest
 
-@synthesize delegate;
-
 #pragma mark NSURLConnectionDelegate methods
 
 - (void)connection:(NSURLConnection *)__unused connection didFailWithError:(NSError *)error {
-    [delegate didRecieveResponse:nil error:error];
+    [self.delegate didRecieveResponse:nil error:error];
 }
 
 - (void)connection:(NSURLConnection *)__unused connection didReceiveResponse:(NSURLResponse *)response {
     [self cancel];
-    [delegate didRecieveResponse:(NSHTTPURLResponse *)response error:nil];
+    [self.delegate didRecieveResponse:(NSHTTPURLResponse *)response error:nil];
 }
 
 #pragma mark - Handle Connection
 
-- (id)initWithRequest:(NSURLRequest *)request {
+- (instancetype)initWithRequest:(NSURLRequest *)request {
     self = [super init];
     if (self) {
         NSParameterAssert(request != nil);

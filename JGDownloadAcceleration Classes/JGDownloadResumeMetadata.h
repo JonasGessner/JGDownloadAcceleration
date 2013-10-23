@@ -15,8 +15,8 @@
 @property (nonatomic, assign) unsigned long long totalSize;
 @property (nonatomic, assign) unsigned long long currentSize;
 
-- (id)initWithNumberOfConnections:(NSUInteger)number filePath:(NSString *)path;
-- (id)initWithContentsAtPath:(NSString *)path;
+- (instancetype)initWithNumberOfConnections:(NSUInteger)number filePath:(NSString *)path;
+- (instancetype)initWithContentsAtPath:(NSString *)path;
 
 - (void)addObject:(JGResumeObject *)object;
 

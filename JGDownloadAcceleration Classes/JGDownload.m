@@ -17,58 +17,56 @@
 
 @implementation JGDownload
 
-@synthesize owner, connection, object, request;
-
 #pragma mark NSURLConnectionDelegate methods
 //completion states
-- (void)connection:(NSURLConnection *)__unused _connection didFailWithError:(NSError *)error {
-    [self.owner downloadDidFinish:self withError:error];
-    connection = nil;
+- (void)connection:(NSURLConnection *)__unused connection didFailWithError:(NSError *)error {
+    [self.downloadManager downloadDidFinish:self withError:error];
+    _connection = nil;
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)__unused _connection {
-    [self.owner downloadDidFinish:self withError:nil];
-    connection = nil;
+- (void)connectionDidFinishLoading:(NSURLConnection *)__unused connection {
+    [self.downloadManager downloadDidFinish:self withError:nil];
+    _connection = nil;
 }
 
 
 //data handling
-- (void)connection:(NSURLConnection *)__unused _connection didReceiveData:(NSData *)data {
-    [self.owner download:self didReadData:data];
+- (void)connection:(NSURLConnection *)__unused connection didReceiveData:(NSData *)data {
+    [self.downloadManager download:self didReadData:data];
 }
 
-- (void)connection:(NSURLConnection *)__unused _connection didReceiveResponse:(NSURLResponse *)response {
-    [self.owner download:self didReceiveResponse:(NSHTTPURLResponse *)response];
-    [self.owner downloadStarted:self];
+- (void)connection:(NSURLConnection *)__unused connection didReceiveResponse:(NSURLResponse *)response {
+    [self.downloadManager download:self didReceiveResponse:(NSHTTPURLResponse *)response];
+    [self.downloadManager downloadStarted:self];
 }
 
 
 #pragma mark - Handle Connection
 
-- (id)initWithRequest:(NSURLRequest *)_request object:(JGResumeObject *)_object owner:(id <JGDownloadManager>)_owner {
+- (instancetype)initWithRequest:(NSURLRequest *)request object:(JGResumeObject *)object manager:(id <JGDownloadManager>)manager {
     self = [super init];
     if (self) {
-        owner = _owner;
-        request = _request;
-        object = _object;
+        _downloadManager = manager;
+        _request = request;
+        _object = object;
         
-        NSParameterAssert(request != nil);
-        NSParameterAssert(owner != nil);
-        NSParameterAssert(object != nil);
+        NSParameterAssert(_request != nil);
+        NSParameterAssert(_downloadManager != nil);
+        NSParameterAssert(_object != nil);
     }
     return self;
 }
 
 - (void)cancel {
     //needs to be called on network thread!!
-    owner = nil;
-    [connection cancel];
-    connection = nil;
+    _downloadManager = nil;
+    [_connection cancel];
+    _connection = nil;
 }
 
 - (void)retry {
 //    NSLog(@"Error: Request failed, restarting");
-    connection = nil;
+    _connection = nil;
     [self startLoading];
 }
 
@@ -81,11 +79,11 @@
     
     [finalRequest setValue:rangeText forHTTPHeaderField:@"Range"]; //overrides the Range header (if present) in the original request
     
-    connection = [[NSURLConnection alloc] initWithRequest:finalRequest delegate:self startImmediately:NO];
+    _connection = [[NSURLConnection alloc] initWithRequest:finalRequest delegate:self startImmediately:NO];
     
-    [connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    [_connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     
-    [connection start];
+    [_connection start];
 
     return YES;
 }

@@ -8,14 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#if defined(__cplusplus)
-#define JGExtern extern "C"
-#else
-#define JGExtern extern
-#endif
-
 #define OBJECT_BREAK @"#"
-#define DOWNLOAD_BREAK @"*"
+#define DOWNLOAD_BREAK @"\n"
+#define DOWNLOAD_BREAK_OLD @"*"
 
 typedef void (^JGConnectionOperationProgressBlock)(NSUInteger bytesRead, unsigned long long totalBytesReadThisSession, unsigned long long totalBytesRead, unsigned long long totalBytesExpectedToRead, NSUInteger tag);
 typedef void (^JGConnectionOperationStartedBlock)(NSUInteger tag, unsigned long long totalBytesExpectedToRead);
@@ -27,15 +22,39 @@ typedef struct {
 } JGRange;
 
 
-JGExtern NSUInteger defaultMaxConnections();
+NS_INLINE NSUInteger defaultMaxConnections() {
+    return 6; //Seems to be a good number to maximise speeds while not having too many connections
+}
 
-JGExtern JGRange JGRangeMake(unsigned long long loc, unsigned long long len, BOOL final);
+NS_INLINE JGRange JGRangeMake(unsigned long long loc, unsigned long long len, BOOL final) { //Used like NSRange
+    JGRange r;
+    r.location = loc;
+    r.length = len;
+    r.final = final;
+    return r;
+}
 
-JGExtern NSString *NSStringForFileFromJGRange(JGRange range);
+NS_INLINE NSString *NSStringForFileFromJGRange(JGRange range) {
+    return (range.final ? [NSString stringWithFormat:@"%llu",range.location] : [NSString stringWithFormat:@"%llu-%llu",range.location, range.length]);
+}
 
-JGExtern NSString *NSStringFromJGRangeWithOffset(JGRange range, unsigned long long offset);
+NS_INLINE NSString *NSStringFromJGRangeWithOffset(JGRange range, unsigned long long offset) { //HTTP Request ready string
+    return (range.final ? [NSString stringWithFormat:@"bytes=%llu-", range.location+offset] : [NSString stringWithFormat:@"bytes=%llu-%llu", range.location+offset, range.location+range.length]);
+}
 
-JGExtern unsigned long long getFreeSpace(NSString *folder, NSError *error);
+NS_INLINE unsigned long long getFreeSpace(NSString *folder, NSError *error) {
+    unsigned long long freeSpace = 0;
+    //Error is not used
+    NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:folder error:nil];
+    
+    if (dictionary) {
+        NSNumber *fileSystemFreeSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
+        freeSpace = [fileSystemFreeSizeInBytes unsignedLongLongValue];
+    }
+    
+    return freeSpace;
+}
+
 
 
 @class JGDownload, JGResumeObject;
